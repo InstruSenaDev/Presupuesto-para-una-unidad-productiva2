@@ -2,52 +2,45 @@
 // src/components/Sidebar.astro
 ---
 <style>
-    .sidebar {
-      width: 250px;
-      background-color: #f5f5f5;
-      padding: 20px;
-      height: 100vh;
-      position: fixed;
-    }
-    .sidebar-logo {
-      display: flex;
-      align-items: center;
-      margin-bottom: 2rem;
-    }
-    .sidebar-logo img {
-      width: 40px;
-      margin-right: 10px;
-    }
-    .sidebar-logo h1 {
-      font-size: 1.5rem;
-    }
-    .nav {
-      list-style: none;
-      padding: 0;
-    }
-    .nav li {
-      margin-bottom: 1rem;
-    }
-    .nav a {
-      text-decoration: none;
-      color: #333;
-      font-size: 1.2rem;
-    }
-    .nav a:hover {
-      text-decoration: underline;
-    }
-  </style>
-  
-  <div class="sidebar">
-    <div class="sidebar-logo">
-      <img src="../../public/img/Logo.png" alt="Logo" />
-      <h1>PUP</h1>
+  .sidebar {
+    @apply w-[250px] bg-[#322FA0] p-[18px] h-[100vh] fixed;
+  }
+  .sidebar-logo {
+    @apply flex items-center mb-[2rem];
+  }
+  .sidebar-logo img {
+    @apply w-[100px] mr-[10px];
+  }
+  .sidebar-logo h1 {
+    @apply text-[1.5rem];
+  }
+  .nav {
+    @apply list-none p-1;
+  }
+  .nav li {
+    @apply mb-[1.1rem];
+  }
+  .nav a {
+    @apply no-underline text-[#fff] text-[1.1rem];
+  }
+  .nav a:hover {
+    @apply underline;
+  }
+</style>
+
+<div class="sidebar">
+  <div class="sidebar-logo">
+    <img src="../../public/img/LOGO PUP(1).png" alt="">
+    <div class="w-full relative flex justify-end">
+      <button id="toggleBtn" class="absolute right-[-25px] pl-2 bg-none border-none text-white text-2xl cursor-pointer">☰</button>
     </div>
-    <ul class="nav">
-      <li><a href="#">Empresas</a></li>
-      <li><a href="#">Familias</a></li>
-      <li><a href="#">Personal</a></li>
-      <li><a href="#">Ajustes</a></li>
-      <li><a href="../pages/index.astro">Salir</a></li>
-    </ul>
+    <h1></h1>
   </div>
+  <ul class="nav">
+    <li><a href="#">Empresas</a></li>
+    <li><a href="#">Familias</a></li>
+    <li><a href="#">Personal</a></li>
+    <li><a href="#">Ajustes</a></li>
+    <li><a href="../pages/index.astro">Salir</a></li>
+  </ul>
+</div>
