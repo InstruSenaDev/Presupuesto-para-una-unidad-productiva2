@@ -1,0 +1,106 @@
+---
+import type { string } from "astro/zod";
+
+import Layout from "../../layouts/Layout.astro";
+import Boton from "../../icoReutilizables/boton.astro";
+import Input from "../../icoReutilizables/input.astro";
+
+
+
+// src/pages/PagPrincipal.astro
+//responsividad: flex  flex-col md:flex-row
+
+---
+
+<Layout title="PUP">
+  <head>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  </head>
+  <div class="contM justify-center flex flex-col md:flex-row ">
+    <div class="contM justify-center pt-3 flex flex-col md:flex-row h-screen w-full items-center ">
+      <div class="cont1 px-8 grid justify-items-center bg-color4 h-5/6 rounded-s-lg text-color1 flex-col items-center">
+        <h1 class="text-2xl">PUP</h1>
+        <img class="h-26 w-28" src="../../public/img/logoPUP.png" alt="" />
+        <p>Presupuesto para unidades productivas</p>
+      </div>
+
+      <div class="cont2 px-8 grid justify-items-center  w-auto text-color1 flex-col items-center  rounded-e-xl h-auto">
+        <form id="formuInicio" class="contform">
+          <div class="conthf m-4 grid grid-flow-row sm:grid-flow-row-col gap-3 text-center bg-color3">
+            <h1 class="text-2xl text-color2">Inicio sesion</h1>
+
+            <div class="w-full">
+              <Input placeholder="Correo" id="inicioCorreo" type="text" />
+              <span id="correoError" class="text-color7 text-xs"></span>
+            </div>
+            <div class="relative">
+              <Input placeholder="Contraseña" id="contraseñaInicio" type="password" />
+              <i class='bx bx-show cursor-pointer absolute right-3 top-2/4 transform -translate-y-2/4' id="togglePassword"></i>
+              <span id="contrasenaError" class="text-color7 text-xs"></span>
+            </div>
+
+            <div class="flex-col">
+              <button type="submit">
+                <Boton Text="Iniciar sesion" />
+              </button>
+            </div>
+            <p class="text-color6 text-sm text-center">Copyright 2024 - 2025 Sena</p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const formuInicio = document.getElementById('formuInicio') as HTMLFormElement;
+      const inicioCorreo = document.getElementById('inicioCorreo') as HTMLInputElement;
+      const contraseñaInicio = document.getElementById('contraseñaInicio') as HTMLInputElement;
+      const correoError = document.getElementById('correoError') as HTMLElement;
+      const contrasenaError = document.getElementById('contrasenaError') as HTMLElement;
+      const togglePassword = document.getElementById('togglePassword') as HTMLElement;
+
+      // Resetear el formulario
+      formuInicio.reset();
+
+      // Toggle password visibility
+      togglePassword.addEventListener('click', function() {
+        const type = contraseñaInicio.getAttribute('type') === 'password' ? 'text' : 'password';
+        contraseñaInicio.setAttribute('type', type);
+        this.classList.toggle('bx-show');
+        this.classList.toggle('bx-hide');
+      });
+
+      formuInicio.addEventListener('submit', function(event) {
+        let valid = true;
+        correoError.textContent = '';
+        contrasenaError.textContent = '';
+
+        // Validación del correo electrónico
+        const correoValue = inicioCorreo.value;
+        if (!correoValue || !/\S+@\S+\.\S+/.test(correoValue)) {
+          valid = false;
+          correoError.textContent = 'Ingrese un correo electrónico válido.';
+        }
+
+        // Validación de la contraseña
+        const contrasenaValue = contraseñaInicio.value;
+        if (!contrasenaValue || contrasenaValue.length < 8) {
+          valid = false;
+          contrasenaError.textContent = 'La contraseña debe tener al menos 8 caracteres.';
+        }
+
+        if (!valid) {
+          event.preventDefault();
+        }
+      });
+    });
+
+    window.addEventListener('pageshow', function(event) {
+      const formuInicio = document.getElementById('formuInicio') as HTMLFormElement;
+      if (event.persisted) {
+        formuInicio.reset();
+      }
+    });
+  </script>
+</Layout>

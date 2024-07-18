@@ -1,0 +1,158 @@
+---
+
+import Boton from "../../icoReutilizables/boton.astro";
+import Input from "../../icoReutilizables/input.astro";
+import Layout from "../../layouts/Layout.astro";
+
+
+//responsividad: flex  flex-col md:flex-row
+---
+
+<Layout title="Registro">
+  <head>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  </head>
+  <div class="contM justify-center flex flex-col md:flex-row ">
+    <div class="contM justify-center pt-3 flex flex-col md:flex-row h-screen w-full items-center ">
+      <div class="cont1 px-8 grid justify-items-center bg-color4 h-5/6 rounded-s-lg text-color1 flex-col items-center">
+        <h1 class="text-2xl">PUP</h1>
+        <img class="h-26 w-28" src="../../public/img/logoPUP.png" alt="" />
+        <p>Presupuesto para unidades productivas</p>
+      </div>
+
+      <div class="cont2 px-8 grid justify-items-center  w-auto text-color1 flex-col items-center  rounded-e-xl h-auto">
+        <form id="formu" class="contform">
+          <div class="conthf m-4 grid grid-flow-row sm:grid-flow-row-col gap-3 text-center bg-color3">
+            <h1 class="text-2xl text-color2">Registro</h1>
+
+            <div class="w-full">
+              <div class="">
+                <Input placeholder="Nombre" id="registroNombre" type="text" />
+                <span id="nombreError" class="text-color7 text-xs"></span>
+              </div>
+              <div >
+                <Input placeholder="Correo" id="CorreoRegistro" type="text" />
+                <span id="correoError" class="text-color7 text-xs"></span>
+              </div>
+              <div class="relative">
+                <Input placeholder="Contraseña" id="ContraseñaRegistro" type="password" />
+                <i class='bx bx-show cursor-pointer absolute right-3 top-2/4 transform -translate-y-2/4' id="togglePassword"></i>
+                <span id="contrasenaError" class="text-color7 text-xs"></span>
+              </div>
+              <div class="relative">
+                <select name="identificacion" id="identificacion" class="text-color2" required>
+                  <option value="">Tipo de identificación</option>
+                  <option value="cc">Cédula de ciudadanía</option>
+                  <option value="ti">Tarjeta de identidad</option>
+                  <option value="otro">Otro</option>
+                </select>
+              </div>
+              <div class="relative">
+                <Input placeholder="Número" id="numeroDc" type="text" />
+                <span id="numeroDcError" class="text-color7 text-xs"></span>
+              </div>
+              <div class="flex-col">
+               
+                 
+                  <Boton Text="Registrarse"/>
+                
+                <p class="text-color6 text-sm text-center">Copyright 2024 - 2025 Sena</p>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script type="module">
+    import { supabase } from '/clienteSupaBase.js';
+    const formu = document.getElementById('formu');
+    formu.addEventListener('submit', async (event)=>{
+      event.preventDefault()
+      const correo = event.target.correo.value
+      const contraseña = event.target.correo.value
+
+      const { user, error} = await supabase.auth.signUp({correo ,contraseña})
+        if (error){
+          alert (error.message)
+        }else {
+          alert('registro exitoso')
+        }
+      
+
+    });
+    
+    </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const formu = document.getElementById('formu') as HTMLFormElement;
+      const nombre = document.getElementById('registroNombre') as HTMLInputElement;
+      const correoRegistro = document.getElementById('CorreoRegistro') as HTMLInputElement;
+      const contrasenaRegistro = document.getElementById('ContraseñaRegistro') as HTMLInputElement;
+      const numeroDc = document.getElementById('numeroDc') as HTMLInputElement;
+      const nombreError = document.getElementById('nombreError') as HTMLElement;
+      const correoError = document.getElementById('correoError') as HTMLElement;
+      const contrasenaError = document.getElementById('contrasenaError') as HTMLElement;
+      const numeroDcError = document.getElementById('numeroDcError') as HTMLElement;
+      const togglePassword = document.getElementById('togglePassword') as HTMLElement;
+
+      // Resetear el formulario
+      formu.reset();
+
+      // Toggle password visibility
+      togglePassword.addEventListener('click', function() {
+        const type = contrasenaRegistro.getAttribute('type') === 'password' ? 'text' : 'password';
+        contrasenaRegistro.setAttribute('type', type);
+        this.classList.toggle('bx-show');
+        this.classList.toggle('bx-hide');
+      });
+
+      formu.addEventListener('submit', function(event) {
+        let valid = true;
+        nombreError.textContent = '';
+        correoError.textContent = '';
+        contrasenaError.textContent = '';
+        numeroDcError.textContent = '';
+
+        // Validación del nombre
+        const nombreValue = nombre.value;
+        if (!nombreValue || !/^[A-Za-z\s]+$/.test(nombreValue)) {
+          valid = false;
+          nombreError.textContent = 'Ingrese un nombre válido.';
+        }
+
+        // Validación del correo electrónico
+        const correoValue = correoRegistro.value;
+        if (!correoValue || !/\S+@\S+\.\S+/.test(correoValue)) {
+          valid = false;
+          correoError.textContent = 'Ingrese un correo electrónico válido.';
+        }
+
+        // Validación de la contraseña
+        const contrasenaValue = contrasenaRegistro.value;
+        if (!contrasenaValue || contrasenaValue.length < 8) {
+          valid = false;
+          contrasenaError.textContent = 'La contraseña debe tener al menos 8 caracteres.';
+        }
+
+        // Validación del número de documento
+        const numeroDcValue = numeroDc.value;
+        if (!numeroDcValue || isNaN(parseInt(numeroDcValue))) {
+          valid = false;
+          numeroDcError.textContent = 'Ingrese un número de documento válido.';
+        }
+
+        if (!valid) {
+          event.preventDefault();
+        }
+      });
+    });
+
+    window.addEventListener('pageshow', function(event) {
+      const formu = document.getElementById('formu') as HTMLFormElement;
+      if (event.persisted) {
+        formu.reset();
+      }
+    });
+  </script>
+</Layout>
