@@ -1,0 +1,29 @@
+---
+import Boton from "../icoReutilizables/boton.astro";
+import Input from "../icoReutilizables/input.astro";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="">
+    <div
+        class="cont flex flex-col justify-center items-center h-screen w-full gap-6"
+        id="modalFecha"
+    >
+        <div class="bg-blueUwu w-80 rounded">
+            <h2 class="text-center">Fecha</h2>
+        </div>
+
+        <div>
+            <p>Mes:</p>
+            <Input type="text" placeholder=" " id="" />
+            <div>
+                <p>Año:</p>
+                <Input type="text" placeholder=" "  id=""/>
+
+                <div class="mt-20">
+                    <Boton Text="Siguiente" />
+                </div>
+            </div>
+        </div>
+    </div>
+    </Layout>
