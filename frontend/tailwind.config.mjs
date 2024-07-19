@@ -15,14 +15,14 @@ export default {
 			'colorFondoInicio':"#F8F8F8",
 			'color6':"#9E9E9E",
 			'color7': "#FF0000"
-
-
-
+			
 		},
-		// spacing:{
-
-		// },
+		fontFamily: {
+			'zen-kaku-gothic-antique': ['Zen Kaku Gothic Antique', 'sans-serif'],
+		  },
 		extend: {},
 	},
-	plugins: [],
+	plugins: [
+		
+	],
 }

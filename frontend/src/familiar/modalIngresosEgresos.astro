@@ -7,17 +7,20 @@ import Layout from "../layouts/Layout.astro";
     <div
         class="cont flex flex-col justify-center items-center h-screen w-full gap-6" id="modlaIngresosEgresos"
     >
-        <div class="bg-blueUwu w-80 rounded">
-            <h2 class="text-center">Nuevo</h2>
+        <div class="bg-blueUwu w-80 rounded flex justify-between">
+            <h2 class="text-center text-color1 ">Nuevo</h2>
+            <a href=""><box-icon name='x-circle' color='#ffffff' ></box-icon></a>
         </div>
 
-        <select class="" name="" id="">
-            <option value="">Presupuesto</option>
-            <option value=""></option>
-            <option value=""></option>
+        <select class="border-2 silver rounded" name="" id="" >
+            <option value="" id="">Presupuesto</option>
+            <option value="" id=""></option>
+            <option value="" id=""></option>
         </select>
 
         <div class="mt-20">
             <Boton Text="Siguiente" />
         </div>
-    </div></Layout>
+    </div>
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+</Layout>

@@ -9,11 +9,12 @@ import Layout from "../layouts/Layout.astro";
         class="cont flex flex-col justify-center items-center h-screen w-full gap-6"
         id="modalFecha"
     >
-        <div class="bg-blueUwu w-80 rounded">
-            <h2 class="text-center">Fecha</h2>
+        <div class="bg-blueUwu w-80 rounded flex justify-between">
+            <h2 class="text-center text-color1 ">Fecha</h2>
+            <a href=""><box-icon name='x-circle' color='#ffffff' ></box-icon></a>
         </div>
 
-        <div>
+        <div id="">
             <p>Mes:</p>
             <Input type="text" placeholder=" " id="" />
             <div>
@@ -26,4 +27,5 @@ import Layout from "../layouts/Layout.astro";
             </div>
         </div>
     </div>
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     </Layout>
