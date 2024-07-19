@@ -1,12 +1,37 @@
 ---
 import General from "../layouts/General.astro";
+import Generales from "../components/Presupuesto/Generales.astro"
 
 
 
 ---
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Presupuestos</title>
+</head>
+<body class="bg-white flex h-screen">
+  <!-- Sidebar -->
+  <div class="w-1/6 bg-purple-800 text-white p-4">
+    <!-- Aquí va tu sidebar existente -->
+  </div>
+  <!-- Main Content -->
+  <div class="w-5/6 bg-white flex flex-col items-center">
+    <!-- Navbar -->
+    <div class="bg-blue-800 text-white p-4 w-full">
+      <!-- Aquí va tu navbar existente -->
+    </div>
+    <!-- Presupuestos Component -->
+    <div class="w-full max-w-3xl">
+    <Generales>
 
+    </Generales>
+</div>
+</div>
+</body>
+</html>
 
-<General nombrepagina="penes grandes que rico">
-
-
-</General>
+<General headername="Presupuesto" nombrepagina="Presupuesto">
+    </General>  
