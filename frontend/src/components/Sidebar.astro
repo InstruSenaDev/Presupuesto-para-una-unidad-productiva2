@@ -2,45 +2,105 @@
 // src/components/Sidebar.astro
 ---
 <style>
-  .sidebar {
-    @apply w-[250px] bg-[#322FA0] p-[18px] h-[100vh] fixed;
+  /* Custom Tailwind CSS classes */
+  .sidebar-minimized {
+    width: 4rem; /* equivalent to w-16 in Tailwind CSS */
   }
-  .sidebar-logo {
-    @apply flex items-center mb-[2rem];
+  .sidebar-minimized .sidebar-menu li a {
+    display: none;
   }
-  .sidebar-logo img {
-    @apply w-[100px] mr-[10px];
+  .sidebar-minimized .sidebar-menu li::before {
+    content: attr(data-tooltip);
+    color: white;
+    display: block;
+    text-align: center;
   }
-  .sidebar-logo h1 {
-    @apply text-[1.5rem];
+  #sidebar {
+    position: fixed;
+    z-index: 1000;
   }
-  .nav {
-    @apply list-none p-1;
+  #main-content {
+    margin-left: 16rem; /* equivalent to w-64 in Tailwind CSS */
+    transition: margin-left 0.3s;
   }
-  .nav li {
-    @apply mb-[1.1rem];
-  }
-  .nav a {
-    @apply no-underline text-[#fff] text-[1.1rem];
-  }
-  .nav a:hover {
-    @apply underline;
+  .sidebar-minimized + #main-content {
+    margin-left: 4rem; /* equivalent to w-16 in Tailwind CSS */
   }
 </style>
+</head>
 
-<div class="sidebar">
-  <div class="sidebar-logo">
-    <img src="../../public/img/LOGO PUP(1).png" alt="">
-    <div class="w-full relative flex justify-end">
-      <button id="toggleBtn" class="absolute right-[-25px] pl-2 bg-none border-none text-white text-2xl cursor-pointer">☰</button>
-    </div>
-    <h1></h1>
-  </div>
-  <ul class="nav">
-    <li><a href="#">Empresas</a></li>
-    <li><a href="#">Familias</a></li>
-    <li><a href="#">Personal</a></li>
-    <li><a href="#">Ajustes</a></li>
-    <li><a href="../pages/index.astro">Salir</a></li>
-  </ul>
+<div
+id="sidebar"
+class="w-64 h-screen bg-blueUwu text-white transition-all duration-300 f"
+>
+<div class="flex justify-end p-2.5 bg-gray-700">
+  <img src="../../public/img/LOGO PUP(1).png" alt="">
+  <button
+    id="toggleBtn"
+    class="bg-none border-none text-white text-2xl cursor-pointer">☰</button
+  >
 </div>
+<!-- El sidebar -->
+<ul class="sidebar-menu list-none p-0">
+<!-- En data-tooltip se puede cambiar la palabra que se va colocar en el sidebar minimizado -->
+  <li class="p-3.5 " data-tooltip="">
+    <div class="hover:bg-rosadito w-full flex items-center">
+      <a
+        href="#"
+        class="hover:bg-rosadito w-full text-blanquito no-underline"
+        >Inicio</a>
+    </div>
+  </li>
+    <li class="p-3.5" data-tooltip="">
+      <div class="hover:bg-rosadito w-full flex items-center">
+        <a
+          href="#"
+          class="hover:bg-rosadito w-full text-blanquito no-underline"
+          >Personal</a>
+      </div>
+    </li>
+      <li class="p-3.5" data-tooltip="">
+        <div class="hover:bg-rosadito w-full flex items-center">
+          <a
+            href="#"
+            class="hover:bg-rosadito w-full text-blanquito no-underline"
+            >Familiar</a>
+        </div>
+      </li>
+        <li class="p-3.5" data-tooltip="">
+          <div class="hover:bg-rosadito w-full flex items-center">
+            <a
+              href="#"
+              class="hover:bg-rosadito w-full text-blanquito no-underline"
+              >Empresarial</a>
+          </div>
+        </li>
+          <li class="p-3.5" data-tooltip="">
+            <div class="hover:bg-rosadito w-full flex items-center">
+              <a
+                href="#"
+                class="hover:bg-rosadito w-full text-blanquito no-underline"
+                >Salir</a>
+            </div>
+          </li>
+        <!-- <div id="main-content" class="p-4"> -->
+        <!-- Aquí va el contenido principal -->
+        <!-- <h1>Contenido Principal</h1>
+    <p>Este es el contenido principal que se verá a la derecha del sidebar.</p>
+</div> -->
+
+        <script>
+          const toggleBtn = document.getElementById("toggleBtn");
+          const sidebar = document.getElementById("sidebar");
+          const mainContent = document.getElementById("main-content");
+          toggleBtn.addEventListener("click", () => {
+            sidebar.classList.toggle("sidebar-minimized");
+            mainContent.classList.toggle("sidebar-minimized");
+          });
+        </script>
+      </li>
+    </li>
+  </li>
+</ul>
+</div>
+</html>
