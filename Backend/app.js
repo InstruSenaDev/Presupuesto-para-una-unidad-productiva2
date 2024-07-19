@@ -13,7 +13,11 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Configuración de Rutas
 // Agrega CORS a tu aplicación
-app.use(cors());
+app.use(cors({
+    origin: "*",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+}));
+
 app.use('/', dataRoutes);
 
 // Puerto en el que el servidor escuchará las peticiones
