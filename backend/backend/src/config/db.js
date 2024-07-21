@@ -2,7 +2,7 @@ const CONFIG_BD = {
   user: "postgres.fpzrttavkfpjrzgjoivb",
   host: "aws-0-us-west-1.pooler.supabase.com",
   database: "postgres",
-  password: "?3#Kf2h+$Qf6C8W",
+  password: "CalivsAmerica123",
   port: "6543",
 };
 

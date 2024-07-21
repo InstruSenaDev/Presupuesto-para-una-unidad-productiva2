@@ -15,6 +15,23 @@ const getRoles = async (req, res) => {
   }
 };
 
+async function nuevoUsuario (nombre, correo, contraseña, tipoDocumento,documento, id_rol) {
+  try {
+      console.log('Insertando nuevo cliente...');
+      const client = await pool.connect();
+      const queryText = 'INSERT INTO usuarios (nombre, correo, contraseña, tipoDocumento,documento, id_rol) VALUES  ($1, $2, $3, $4, ,$5 ,$6) RETURNING *';
+      const values = [nombre, correo, contraseña, tipoDocumento,documento, id_rol];
+      const result = await client.query(queryText, values);
+      client.release();
+      console.log('Usuario insertado con éxito:', result.rows[0]);
+      return result.rows[0]; // Devuelve el usuario insertado
+  } catch (error) {
+      console.error('Error al insertar cliente:', error);
+      throw error;
+  }
+}
+
+
 module.exports = {
-  getRoles,
+  getRoles,nuevoUsuario
 };
