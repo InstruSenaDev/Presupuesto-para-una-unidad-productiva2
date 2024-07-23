@@ -8,6 +8,7 @@ export default {
 			'rosadito': '#9747FF',
 			'gris': '#C9C9C9',
 			'negro': '#000000',
+			'griscard': '#2B2B2B'
 		},
 		// spacing:{
 

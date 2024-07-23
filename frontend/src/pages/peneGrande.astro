@@ -1,37 +1,42 @@
 ---
-import General from "../layouts/General.astro";
-import Generales from "../components/Presupuesto/Generales.astro"
-
-
-
+import Layout from '../layouts/Layout.astro';
+import BudgetCard from '../components/Presupuesto/BudgetCard.astro';
+import General from '../layouts/General.astro';
 ---
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Presupuestos</title>
-</head>
-<body class="bg-white flex h-screen">
-  <!-- Sidebar -->
-  <div class="w-1/6 bg-purple-800 text-white p-4">
-    <!-- Aquí va tu sidebar existente -->
-  </div>
-  <!-- Main Content -->
-  <div class="w-5/6 bg-white flex flex-col items-center">
-    <!-- Navbar -->
-    <div class="bg-blue-800 text-white p-4 w-full">
-      <!-- Aquí va tu navbar existente -->
+
+<General></General>
+<Layout title="Presupuestos">
+  <div class="p-6 max-w-3xl mx-auto">
+    <header class="flex justify-between items-center mb-6 ">
+      <div class="flex items-center bg-indigo-800 rounded-full px-3 py-1">
+       
+      </div>
+    </header>
+    
+    
+    <div class="space-y-4 bg-griscard rounded-lg">
+      <BudgetCard 
+        title="Personal" 
+        icon="/path-to-personal-icon.png"
+        date="Fecha: Febrero 2024"
+        balance="Saldo: $900000"
+      />
     </div>
-    <!-- Presupuestos Component -->
-    <div class="w-full max-w-3xl">
-    <Generales>
-
-    </Generales>
-</div>
-</div>
-</body>
-</html>
-
-<General headername="Presupuesto" nombrepagina="Presupuesto">
-    </General>  
+    <div class="space-y-4 bg-griscard rounded-lg">
+      <BudgetCard 
+        title="Familiar" 
+        icon="/path-to-personal-icon.png"
+        date="Fecha: Febrero 2024"
+        balance="Saldo: $900000"
+      />
+    </div>
+    <div class="space-y-4 bg-griscard rounded-lg">
+      <BudgetCard 
+        title="Empresa" 
+        icon="/path-to-personal-icon.png"
+        date="Fecha: Febrero 2024"
+        balance="Saldo: $900000"
+      />
+    </div>
+  </div>
+</Layout>
