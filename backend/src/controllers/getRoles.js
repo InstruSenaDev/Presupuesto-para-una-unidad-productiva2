@@ -18,5 +18,5 @@ const getRoles = async (req, res) => {
 
 
 module.exports = {
-  getRoles,nuevoUsuario
+  getRoles
 };

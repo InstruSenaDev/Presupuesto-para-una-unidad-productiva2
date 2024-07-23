@@ -51,56 +51,5 @@ import Input from "../../icoReutilizables/input.astro";
     </div>
   </div>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const formuInicio = document.getElementById('formuInicio') as HTMLFormElement;
-      const inicioCorreo = document.getElementById('inicioCorreo') as HTMLInputElement;
-      const contraseñaInicio = document.getElementById('contraseñaInicio') as HTMLInputElement;
-      const correoError = document.getElementById('correoError') as HTMLElement;
-      const contrasenaError = document.getElementById('contrasenaError') as HTMLElement;
-      const togglePassword = document.getElementById('togglePassword') as HTMLElement;
-
-      // Resetear el formulario
-      formuInicio.reset();
-
-      // Toggle password visibility
-      togglePassword.addEventListener('click', function() {
-        const type = contraseñaInicio.getAttribute('type') === 'password' ? 'text' : 'password';
-        contraseñaInicio.setAttribute('type', type);
-        this.classList.toggle('bx-show');
-        this.classList.toggle('bx-hide');
-      });
-
-      formuInicio.addEventListener('submit', function(event) {
-        let valid = true;
-        correoError.textContent = '';
-        contrasenaError.textContent = '';
-
-        // Validación del correo electrónico
-        const correoValue = inicioCorreo.value;
-        if (!correoValue || !/\S+@\S+\.\S+/.test(correoValue)) {
-          valid = false;
-          correoError.textContent = 'Ingrese un correo electrónico válido.';
-        }
-
-        // Validación de la contraseña
-        const contrasenaValue = contraseñaInicio.value;
-        if (!contrasenaValue || contrasenaValue.length < 8) {
-          valid = false;
-          contrasenaError.textContent = 'La contraseña debe tener al menos 8 caracteres.';
-        }
-
-        if (!valid) {
-          event.preventDefault();
-        }
-      });
-    });
-
-    window.addEventListener('pageshow', function(event) {
-      const formuInicio = document.getElementById('formuInicio') as HTMLFormElement;
-      if (event.persisted) {
-        formuInicio.reset();
-      }
-    });
-  </script>
+  <script src="/src/js/validacionesRegistroInicio.js"></script>
 </Layout>

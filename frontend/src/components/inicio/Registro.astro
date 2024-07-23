@@ -21,7 +21,7 @@ import Layout from "../../layouts/Layout.astro";
       </div>
 
       <div class="cont2 px-8 grid justify-items-center  w-auto text-color1 flex-col items-center  rounded-e-xl h-auto">
-        <form id="formu" class="contform">
+        <form id="formu" class="contform" method="post">
           <div class="conthf m-4 grid grid-flow-row sm:grid-flow-row-col gap-3 text-center bg-color3">
             <h1 class="text-2xl text-color2">Registro</h1>
 
@@ -64,77 +64,6 @@ import Layout from "../../layouts/Layout.astro";
       </div>
     </div>
   </div>
- 
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const formu = document.getElementById('formu') as HTMLFormElement;
-      const nombre = document.getElementById('registroNombre') as HTMLInputElement;
-      const correoRegistro = document.getElementById('CorreoRegistro') as HTMLInputElement;
-      const contrasenaRegistro = document.getElementById('ContraseñaRegistro') as HTMLInputElement;
-      const numeroDc = document.getElementById('numeroDc') as HTMLInputElement;
-      const nombreError = document.getElementById('nombreError') as HTMLElement;
-      const correoError = document.getElementById('correoError') as HTMLElement;
-      const contrasenaError = document.getElementById('contrasenaError') as HTMLElement;
-      const numeroDcError = document.getElementById('numeroDcError') as HTMLElement;
-      const togglePassword = document.getElementById('togglePassword') as HTMLElement;
-
-      // Resetear el formulario
-      formu.reset();
-
-      // Toggle password visibility
-      togglePassword.addEventListener('click', function() {
-        const type = contrasenaRegistro.getAttribute('type') === 'password' ? 'text' : 'password';
-        contrasenaRegistro.setAttribute('type', type);
-        this.classList.toggle('bx-show');
-        this.classList.toggle('bx-hide');
-      });
-
-      formu.addEventListener('submit', function(event) {
-        let valid = true;
-        nombreError.textContent = '';
-        correoError.textContent = '';
-        contrasenaError.textContent = '';
-        numeroDcError.textContent = '';
-
-        // Validación del nombre
-        const nombreValue = nombre.value;
-        if (!nombreValue || !/^[A-Za-z\s]+$/.test(nombreValue)) {
-          valid = false;
-          nombreError.textContent = 'Ingrese un nombre válido.';
-        }
-
-        // Validación del correo electrónico
-        const correoValue = correoRegistro.value;
-        if (!correoValue || !/\S+@\S+\.\S+/.test(correoValue)) {
-          valid = false;
-          correoError.textContent = 'Ingrese un correo electrónico válido.';
-        }
-
-        // Validación de la contraseña
-        const contrasenaValue = contrasenaRegistro.value;
-        if (!contrasenaValue || contrasenaValue.length < 8) {
-          valid = false;
-          contrasenaError.textContent = 'La contraseña debe tener al menos 8 caracteres.';
-        }
-
-        // Validación del número de documento
-        const numeroDcValue = numeroDc.value;
-        if (!numeroDcValue || isNaN(parseInt(numeroDcValue))) {
-          valid = false;
-          numeroDcError.textContent = 'Ingrese un número de documento válido.';
-        }
-
-        if (!valid) {
-          event.preventDefault();
-        }
-      });
-    });
-
-    window.addEventListener('pageshow', function(event) {
-      const formu = document.getElementById('formu') as HTMLFormElement;
-      if (event.persisted) {
-        formu.reset();
-      }
-    });
-  </script>
+  <script src="/src/js/validacionesRegistroInicio.js"></script>
+  
 </Layout>
