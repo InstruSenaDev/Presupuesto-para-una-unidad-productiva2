@@ -1,9 +1,12 @@
 ---
 
-import EmpresarialFecha from "../components/Empresarial/Fecha/EmpresarialFecha.astro";
-import NavbarEmpresarial from "../components/Empresarial/Navbar/NavbarEmpresarial.astro";
+
 import Layout from "./Layout.astro";
-import Sidebar from "./Sidebar.astro";
+import Navbar from "./Navbar.astro";
+import Sidebar from "../layouts/Sidebar.astro";
+import Navbar1 from "../components/Sidebar.astro";
+import Header from "../components/Header.astro";
+
 
 interface Props{
     nombrepagina:string;
@@ -18,10 +21,10 @@ const {nombrepagina,headername}= Astro.props
 <Layout title={nombrepagina}>
 <Sidebar/>
     <div class="w-full">
-    <NavbarEmpresarial titulo={headername}/>
-    <div class="|w-full p-10">
-        <slot/>
-    </div>
+        <Header titulo={headername}/>
+        <div class="w-full p-10">
+            <slot/>
+        </div>
     </div>
 
 </Layout>
