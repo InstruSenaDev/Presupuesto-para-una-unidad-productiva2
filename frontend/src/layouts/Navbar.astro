@@ -1,29 +1,26 @@
 ---
-interface Props {
-    Inicio: string;
-    Personal: string;
-    Familiar: string;
-    Empresarial: string;
-    }
-
-    const {
-    Inicio = "Inicio",
-    Personal = "Personal",
-    Familiar = "Familiar",
-    Empresarial = "Empresarial",
-    } = Astro.props;
+// src/components/Navbar.astro
 ---
-
-    <!-- <header
-    class="text-3xl font-bold pl-4 bg-blueUwu flex justify-between items-center"
-    >
-    <h1 class="text-blanquito p-7">{Empresarial}</h1>
-    <div class="p-9 flex justify-end text-blanquito">
-        Luis
-        <span class="pl-5">
-        <div class="bi bi-caret-down-square-fill cursor-pointer"></div>
-        </span>
+<style>
+    .header {
+      @apply bg-[#322FA0] p-[20px] flex justify-between items-center ml-[250px] h-[60px];
+    }
+    .user-info {
+      @apply flex items-center;
+    }
+    .user-info img {
+      @apply rounded-full  w-[40px] mr-[10px];
+    }
+  </style>
+  
+  <div class="header  ">
+    
+    <div class="user-info w-full flex justify-end">
+      <h2>Carlos - Admin </h2>
+      <src class="bi bi-person-circle" alt=""/>
+      <div>
+        <p></p>
+      </div>
     </div>
-    <slot name="Empresarial"/>
-    </header> -->
-
+  </div>
+  
