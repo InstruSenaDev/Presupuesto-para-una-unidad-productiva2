@@ -4,22 +4,25 @@ const { title, icon, date, balance } = Astro.props;
 
 <div class="bg-gray-800 rounded-lg p-4 flex justify-between items-center w-full max-w-3xl mx-auto mb-4">
   <div class="flex items-center space-x-3">
-    <h2 class="text-lg font-semibold">{title}</h2>
-    <img src={icon} alt={title} class="w-10 h-10 object-cover"/>
+    <h2 class="text-lg font-semibold text-blanquito">{title}</h2>
+    <img src="../../../public/img/Personal-icons.png" alt="">
+    
+    
   </div>
   <div class="flex items-center space-x-2">
     <button class="w-6 h-6 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors text-xs">
-      +
+      <box-icon name='plus' color='#ffffff' ></box-icon>
     </button>
     <button class="w-6 h-6 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors text-xs">
-      👁️
+      <box-icon name='show' type='solid' color='#ffffff' ></box-icon>
     </button>
     <button class="w-6 h-6 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors text-xs">
-      ⬇️
+      <box-icon name='download' color='#ffffff' ></box-icon>
     </button>
   </div>
   <div class="text-right">
-    <p class="text-xs text-gray-400">{date}</p>
-    <p class="font-bold text-sm">{balance}</p>
+    <p class="text-xs text-blanquito">{date}</p>
+    <p class="font-bold text-sm text-blanquito">{balance}</p>
   </div>
 </div>
+<script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
