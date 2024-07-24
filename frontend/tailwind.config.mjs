@@ -14,7 +14,8 @@ export default {
 			'color4':'#3835A3',
 			'colorFondoInicio':"#F8F8F8",
 			'color6':"#9E9E9E",
-			'color7': "#FF0000"
+			'color7': "#FF0000",
+			'griscard':"#2B2B2B"
 			
 		},
 		fontFamily: {
