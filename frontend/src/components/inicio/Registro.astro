@@ -20,22 +20,22 @@ import Layout from "../../layouts/Layout.astro";
         <p>Presupuesto para unidades productivas</p>
       </div>
 
-      <div class="cont2 px-8 grid justify-items-center  w-auto text-color1 flex-col items-center  rounded-e-xl h-auto">
-        <form id="formu" class="contform" method="post">
+      <div class="cont2 px-8 grid justify-items-center w-auto text-color1 flex-col items-center rounded-e-xl h-auto">
+        <form id="formu" class="contform" method="post" action="/register">
           <div class="conthf m-4 grid grid-flow-row sm:grid-flow-row-col gap-3 text-center bg-color3">
             <h1 class="text-2xl text-color2">Registro</h1>
 
             <div class="w-full">
-              <div class="">
-                <Input placeholder="Nombre" id="registroNombre" type="text" />
+              <div>
+                <Input placeholder="Nombre" id="registroNombre" name="nombre" type="text" />
                 <span id="nombreError" class="text-color7 text-xs"></span>
               </div>
-              <div >
-                <Input placeholder="Correo" id="CorreoRegistro" type="text" />
+              <div>
+                <Input placeholder="Correo" id="CorreoRegistro" name="correo" type="text" />
                 <span id="correoError" class="text-color7 text-xs"></span>
               </div>
               <div class="relative">
-                <Input placeholder="Contraseña" id="ContraseñaRegistro" type="password" />
+                <Input placeholder="Contraseña" id="ContraseñaRegistro" name="contrasena" type="password" />
                 <i class='bx bx-show cursor-pointer absolute right-3 top-2/4 transform -translate-y-2/4' id="togglePassword"></i>
                 <span id="contrasenaError" class="text-color7 text-xs"></span>
               </div>
@@ -48,14 +48,11 @@ import Layout from "../../layouts/Layout.astro";
                 </select>
               </div>
               <div class="relative">
-                <Input placeholder="Número" id="numeroDc" type="text" />
+                <Input placeholder="Número" id="numeroDc" name="numeroDc" type="text" />
                 <span id="numeroDcError" class="text-color7 text-xs"></span>
               </div>
               <div class="flex-col">
-               
-                 
-                  <Boton Text="Registrarse"/>
-                
+                <Boton Text="Registrarse"/>
                 <p class="text-color6 text-sm text-center">Copyright 2024 - 2025 Sena</p>
               </div>
             </div>
@@ -65,5 +62,6 @@ import Layout from "../../layouts/Layout.astro";
     </div>
   </div>
   <script src="/src/js/validacionesRegistroInicio.js"></script>
+ 
   
 </Layout>

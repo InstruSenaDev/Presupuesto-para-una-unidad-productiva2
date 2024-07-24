@@ -1,11 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
-const getRoles = require("../../src/controllers/getRoles");
+const registerUser = require("../../src/controllers/registerUser");
 
-router.get("/roles", getRoles.getRoles);
+router.post("/register", registerUser);
 
-
-
-
-;module.exports = router;
+module.exports = router;
