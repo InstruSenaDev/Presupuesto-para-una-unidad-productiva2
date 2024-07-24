@@ -20,9 +20,20 @@
       numeroDc,
     };
 
+    console.log(userData);
+    
+    /*
+      nombre,
+      correo,
+      contrasena,
+      estado,
+      tipoDocumento,
+      documento,
+      idrol
+    */
     // Enviar la solicitud a la API para crear un nuevo usuario
     try {
-      const response = await fetch('/api/register', {
+      const response = await fetch('/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
