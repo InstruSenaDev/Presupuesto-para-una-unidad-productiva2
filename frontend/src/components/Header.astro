@@ -1,25 +1,10 @@
 ---
 // src/components/Header.astro
 ---
-<style>
-  .header {
-    @apply bg-[#322FA0] p-[20px] flex justify-between items-center ml-[250px] h-[60px];
-  }
-  .user-info {
-    @apply flex items-center;
-  }
-  .user-info img {
-    @apply rounded-full  w-[40px] mr-[10px];
-  }
-</style>
-
-<div class="header  ">
-  
-  <div class="user-info w-full flex justify-end">
-    <h2>Carlos - Admin </h2>
-    <src class="bi bi-person-circle" alt=""/>
-    <div>
-      <p></p>
-    </div>
+<header class="fixed w-full bg-gradient-to-r bg-blueUwu p-4 flex justify-between items-center">
+  <div class="text-white text-2xl font-bold"></div>
+  <div class="flex items-center">
+    <span class="text-white mr-4 text-blanco">Andalucio</span>
+    <src class="bi bi-person-circle" alt="" class="w-10 h-10 rounded-full"/>
   </div>
-</div>
+</header>
