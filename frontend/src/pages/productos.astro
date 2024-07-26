@@ -1,0 +1,17 @@
+---
+import Layout from "../layouts/Layout.astro";
+import General from "../layouts/General.astro";
+import TablaProductos from "../components/Productos/TablaProductos.astro";
+import Seleccionados from "../components/Productos/Seleccionados.astro"
+---
+
+<General headername="Productos" nombrepagina="Productos"></General>
+<Layout title="Productos">
+    <div class="flex s flex-row justify-between ml-72">
+        <TablaProductos/>
+        <Seleccionados/>
+      </div>
+    
+
+
+</Layout>

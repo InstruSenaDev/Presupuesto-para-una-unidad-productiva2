@@ -24,80 +24,69 @@
     margin-left: 4rem; /* equivalent to w-16 in Tailwind CSS */
   }
 </style>
-</head>
 
 <div
-id="sidebar"
-class="w-64 h-screen bg-blueUwu text-white transition-all duration-300 f"
+  id="sidebar"
+  class="w-64 h-screen bg-blueUwu text-white transition-all duration-300 fixed "
 >
-<div class="flex justify-end">
-  <button
-    id="toggleBtn"
-    class="bg-none border-none text-2xl cursor-pointer">☰</button
-  >
-</div>
-<img src="../../public/img/LOGO PUP(1).png" alt="">
-<!-- El sidebar -->
-<ul class="sidebar-menu list-none p-0">
-<!-- En data-tooltip se puede cambiar la palabra que se va colocar en el sidebar minimizado -->
-  <li class="p-3.5 " data-tooltip=""> 
-    <div class="hover:bg-rosadito w-full flex items-center">
-      <a
-        href="#"
-        class="hover:bg-rosadito w-full text-blanquito no-underline"
-        >Inicio</a>
-    </div>
-  </li>
+  <div class="flex justify-end">
+    <button id="toggleBtn" class="bg-none border-none text-2xl cursor-pointer"
+      >☰</button
+    >
+  </div>
+  <img src="../../public/img/LOGO PUP(1).png" alt="" />
+  <!-- El sidebar -->
+  <ul class="sidebar-menu list-none p-0">
+    <!-- En data-tooltip se puede cambiar la palabra que se va colocar en el sidebar minimizado -->
     <li class="p-3.5" data-tooltip="">
       <div class="hover:bg-rosadito w-full flex items-center">
-        <a
-          href="#"
-          class="hover:bg-rosadito w-full text-blanquito no-underline"
-          >Personal</a>
+        <a href="#" class="hover:bg-rosadito w-full text-blanquito no-underline"
+          >Inicio</a
+        >
       </div>
     </li>
-      <li class="p-3.5" data-tooltip="">
-        <div class="hover:bg-rosadito w-full flex items-center">
-          <a
-            href="#"
-            class="hover:bg-rosadito w-full text-blanquito no-underline"
-            >Familiar</a>
-        </div>
-      </li>
-        <li class="p-3.5" data-tooltip="">
-          <div class="hover:bg-rosadito w-full flex items-center">
-            <a
-              href="#"
-              class="hover:bg-rosadito w-full text-blanquito no-underline"
-              >Empresarial</a>
-          </div>
-        </li>
-          <li class="p-3.5" data-tooltip="">
-            <div class="hover:bg-rosadito w-full flex items-center">
-              <a
-                href="#"
-                class="hover:bg-rosadito w-full text-blanquito no-underline"
-                >Salir</a>
-            </div>
-          </li>
-        <!-- <div id="main-content" class="p-4"> -->
-        <!-- Aquí va el contenido principal -->
-        <!-- <h1>Contenido Principal</h1>
+    <li class="p-3.5" data-tooltip="">
+      <div class="hover:bg-rosadito w-full flex items-center">
+        <a href="#" class="hover:bg-rosadito w-full text-blanquito no-underline"
+          >Personal</a
+        >
+      </div>
+    </li>
+    <li class="p-3.5" data-tooltip="">
+      <div class="hover:bg-rosadito w-full flex items-center">
+        <a href="#" class="hover:bg-rosadito w-full text-blanquito no-underline"
+          >Familiar</a
+        >
+      </div>
+    </li>
+    <li class="p-3.5" data-tooltip="">
+      <div class="hover:bg-rosadito w-full flex items-center">
+        <a href="#" class="hover:bg-rosadito w-full text-blanquito no-underline"
+          >Empresarial</a
+        >
+      </div>
+    </li>
+    <li class="p-3.5" data-tooltip="">
+      <div class="hover:bg-rosadito w-full flex items-center">
+        <a href="#" class="hover:bg-rosadito w-full text-blanquito no-underline"
+          >Salir</a
+        >
+      </div>
+    </li>
+    <!-- <div id="main-content" class="p-4"> -->
+    <!-- Aquí va el contenido principal -->
+    <!-- <h1>Contenido Principal</h1>
     <p>Este es el contenido principal que se verá a la derecha del sidebar.</p>
 </div> -->
 
-        <script>
-          const toggleBtn = document.getElementById("toggleBtn");
-          const sidebar = document.getElementById("sidebar");
-          const mainContent = document.getElementById("main-content");
-          toggleBtn.addEventListener("click", () => {
-            sidebar.classList.toggle("sidebar-minimized");
-            mainContent.classList.toggle("sidebar-minimized");
-          });
-        </script>
-      </li>
-    </li>
-  </li>
-</ul>
+    <script>
+      const toggleBtn = document.getElementById("toggleBtn");
+      const sidebar = document.getElementById("sidebar");
+      const mainContent = document.getElementById("main-content");
+      toggleBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("sidebar-minimized");
+        mainContent.classList.toggle("sidebar-minimized");
+      });
+    </script>
+  </ul>
 </div>
-</html>
