@@ -1,17 +1,20 @@
 const { Pool } = require("pg");
-const { CONFIG_BD } = require("../config/db");
+const bcrypt = require('bcrypt')
+const { CONFIG_BD } = require("../../config/db");
 
 const pool = new Pool(CONFIG_BD);
 
 const nuevosUser = async (req, res) => {
   // const idEmpleado = req.params.idEmpleado;
-  const { nombre, correo, contrasena, estado, tipoDocumento, documento, idrol } = req.body;
+  const { nombre, correo, contrasena, tipodocumento, documento} = req.body;
   console.log(nombre);
 
+
   try {
+    const hashedPassword = await bcrypt.hash(contrasena, 10);
     const resultMovimiento = await pool.query(
-      "INSERT INTO usuarios (nombre, correo, contrasena, estado, tipoDocumento,documento, idRol) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING * ",
-      [ nombre, correo, contrasena, estado, tipoDocumento, documento, idrol ]
+      "INSERT INTO usuarios (nombre, correo, contrasena, estado, tipodocumento,documento, idrol) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING * ",
+      [ nombre, correo, hashedPassword, true, tipodocumento, documento, "1" ]
     );
 
     res.status(201).json(resultMovimiento.rows[0]);

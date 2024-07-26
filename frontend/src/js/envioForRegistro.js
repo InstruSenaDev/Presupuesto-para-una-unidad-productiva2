@@ -1,28 +1,32 @@
+const form = document.getElementById("formu");
 
-  const form = document.getElementById('formu');
+form.addEventListener("submit", async (e) => {
+  e.preventDefault(); // Evita que el formulario se envíe por defecto
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault(); // Evita que el formulario se envíe por defecto
+  // Obtener los valores del formulario
+  const nombre = document.getElementById("registroNombre").value;
+  const correo = document.getElementById("CorreoRegistro").value;
+  const contrasena = document.getElementById("ContraseñaRegistro").value;
+  // const estado = document.getElementById("estado").value;
+  const tipodocumento = document.getElementById("tipodocumento").value;
+  // const idrol = document.getElementById("idrol").value;
+  const documento = document.getElementById("documento").value;
 
-    // Obtener los valores del formulario
-    const nombre = document.getElementById('registroNombre').value;
-    const correo = document.getElementById('CorreoRegistro').value;
-    const contrasena = document.getElementById('ContraseñaRegistro').value;
-    const identificacion = document.getElementById('identificacion').value;
-    const numeroDc = document.getElementById('numeroDc').value;
+  // Crear un objeto con los datos del formulario
+  const userData = {
+    nombre,
+    correo,
+    contrasena,
+    // estado,
+    tipodocumento,
+    documento,
+    // idrol,
+  };
 
-    // Crear un objeto con los datos del formulario
-    const userData = {
-      nombre,
-      correo,
-      contrasena,
-      identificacion,
-      numeroDc,
-    };
+  console.log(userData);
+  console.log(tipodocumento);
 
-    console.log(userData);
-    
-    /*
+  /*
       nombre,
       correo,
       contrasena,
@@ -31,26 +35,26 @@
       documento,
       idrol
     */
-    // Enviar la solicitud a la API para crear un nuevo usuario
-    try {
-      const response = await fetch('/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userData),
-      });
+  // Enviar la solicitud a la API para crear un nuevo usuario
 
-      const data = await response.json();
+  try {
+    const response = await fetch("http://localhost:3000/registro", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    });
 
-      if (data.error) {
-        console.error(data.error);
-      } else {
-        console.log('Usuario creado con éxito!');
-        // Redirigir al usuario a la página de inicio de sesión
-        window.location.href = '/login';
-      }
-    } catch (error) {
-      console.error(error);
+    if (response.ok) {
+      console.log("Registro exitoso");
+      console.log("MAAAAAAAAAAAAAAAAAAAAAMAGUEEEEEEEEEEEEEEEEEEEEEEEEEEEVO 45453")
+    } else {
+      console.error("Error en el registro");
+      console.log("MAAAAAAAAAAAAAAAAAAAAAMAGUEEEEEEEEEEEEEEEEEEEEEEEEEEEVO 1")
     }
-  });
+  } catch (error) {
+    console.error("Error al enviar la solicitud:", error);
+    console.log("MAAAAAAAAAAAAAAAAAAAAAMAGUEEEEEEEEEEEEEEEEEEEEEEEEEEEVO 2")
+  }
+});
