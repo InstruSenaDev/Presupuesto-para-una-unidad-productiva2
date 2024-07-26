@@ -1,6 +1,3 @@
----
-// src/components/Sidebar.astro
----
 <style>
   /* Custom Tailwind CSS classes */
   .sidebar-minimized {
@@ -33,17 +30,17 @@
 id="sidebar"
 class="w-64 h-screen bg-blueUwu text-white transition-all duration-300 f"
 >
-<div class="flex justify-end p-2.5 bg-gray-700">
-  <img src="../../public/img/LOGO PUP(1).png" alt="">
+<div class="flex justify-end">
   <button
     id="toggleBtn"
-    class="bg-none border-none text-white text-2xl cursor-pointer">☰</button
+    class="bg-none border-none text-2xl cursor-pointer">☰</button
   >
 </div>
+<img src="../../public/img/LOGO PUP(1).png" alt="">
 <!-- El sidebar -->
 <ul class="sidebar-menu list-none p-0">
 <!-- En data-tooltip se puede cambiar la palabra que se va colocar en el sidebar minimizado -->
-  <li class="p-3.5 " data-tooltip="">
+  <li class="p-3.5 " data-tooltip=""> 
     <div class="hover:bg-rosadito w-full flex items-center">
       <a
         href="#"

@@ -2,10 +2,10 @@
 
 
 import Layout from "./Layout.astro";
-import Navbar from "./Navbar.astro";
+import Navbar from "../layouts/Navbar.astro";
 import Sidebar from "../layouts/Sidebar.astro";
-import Navbar1 from "../components/Sidebar.astro";
-import Header from "../components/Header.astro";
+
+
 
 
 interface Props{
@@ -17,11 +17,12 @@ interface Props{
 const {nombrepagina,headername}= Astro.props
 
 ---
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 <Layout title={nombrepagina}>
 <Sidebar/>
     <div class="w-full">
-        <Header titulo={headername}/>
+        <Navbar titulo={headername}/>
         <div class="w-full p-10">
             <slot/>
         </div>
