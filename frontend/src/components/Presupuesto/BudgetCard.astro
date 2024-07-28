@@ -1,7 +1,11 @@
 ---
-const { title, icon, date, balance } = Astro.props;
----
+import Boton from "../../icoReutilizables/boton.astro";
 
+const { title, icon, date, balance } = Astro.props;
+
+---
+<body>
+  
 <div class="bg-gray-800 rounded-lg p-4 flex justify-between items-center w-full max-w-3xl mx-auto mb-4">
   <div class="flex items-center space-x-3">
     <h2 class="text-lg font-semibold text-blanquito">{title}</h2>
@@ -10,13 +14,22 @@ const { title, icon, date, balance } = Astro.props;
     
   </div>
   <div class="flex items-center space-x-2">
-<a href="/fAgregar">
- <button class="w-6 h-6 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors text-xs">
-      <box-icon name='plus' color='#ffffff' ></box-icon>
-      <a href="/fAgregar.astro"></a>
-    </button>
 
-</a>
+<!-- Botón para abrir el modal -->
+<button id="open-modal" class="w-6 h-6 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors text-xs">
+  <box-icon name='plus' color='#ffffff' id="" ></box-icon>
+</button>
+
+<!-- Modal -->
+<div id="modal" class="fixed inset-0 bg-gray-900 bg-opacity-50  justify-center items-center hidden">
+  <div class="bg-white rounded-lg shadow-lg p-4 w-1/2">
+    <!-- Contenido del modal -->
+    <h2 class="text-lg font-bold mb-2">Título del modal</h2>
+    <p class="text-gray-600">Este es el contenido del modal.</p>
+    <button id="close-modal" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">Cerrar</button>
+  </div>
+</div>
+
    
     <button class="w-6 h-6 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors text-xs">
       <box-icon name='show' type='solid' color='#ffffff' ></box-icon>
@@ -30,4 +43,26 @@ const { title, icon, date, balance } = Astro.props;
     <p class="font-bold text-sm text-blanquito">{balance}</p>
   </div>
 </div>
+
+
 <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+</body>
+
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Abrir el modal al hacer clic en el botón
+  document.getElementById('open-modal').addEventListener('click', function() {
+    document.getElementById('modal').classList.remove('hidden');
+  });
+
+  // Cerrar el modal al hacer clic en el botón de cerrar
+  document.getElementById('close-modal').addEventListener('click', function() {
+    document.getElementById('modal').classList.add('hidden');
+  });
+});
+</script>
+
+
