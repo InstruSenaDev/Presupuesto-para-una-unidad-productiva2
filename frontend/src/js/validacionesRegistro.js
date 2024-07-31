@@ -4,7 +4,7 @@
     const nombre = document.getElementById("registroNombre");
     const correoRegistro = document.getElementById("CorreoRegistro");
     const contrasenaRegistro = document.getElementById("ContraseñaRegistro");
-    const numeroDc = document.getElementById("numeroDc");
+    const numeroDc = document.getElementById("tipodocumento");
     const nombreError = document.getElementById("nombreError");
     const correoError = document.getElementById("correoError");
     const contrasenaError = document.getElementById("contrasenaError");

@@ -14,6 +14,8 @@ const iniciarSesion = async (req, res) => {
       [correo]
     );
 
+    console.log(result.rows[0]);
+
     // Verificar si se encontró un usuario con el correo proporcionado
     if (result.rows.length > 0) {
       const user = result.rows[0];
@@ -33,6 +35,7 @@ const iniciarSesion = async (req, res) => {
   } catch (error) {
     console.log("Error al iniciar sesión: ", error);
     res
+    
       .status(500)
       .json({ message: "Error interno al procesar la solicitud: ", error });
   }

@@ -1,15 +1,7 @@
 ---
-
-
 import Layout from "../../layouts/Layout.astro";
 import Boton from "../../icoReutilizables/boton.astro";
 import Input from "../../icoReutilizables/input.astro";
-
-
-
-// src/pages/PagPrincipal.astro
-//responsividad: flex  flex-col md:flex-row
-
 ---
 
 <Layout title="">
@@ -25,7 +17,7 @@ import Input from "../../icoReutilizables/input.astro";
       </div>
 
       <div class="cont2 px-8 grid justify-items-center  w-auto text-color1 flex-col items-center  rounded-e-xl h-auto">
-        <form id="formuInicio" class="contform">
+        <form id="formuInicio" class="contform" action="/inicioSesion">
           <div class="conthf m-4 grid grid-flow-row sm:grid-flow-row-col gap-3 text-center bg-color3">
             <h1 class="text-2xl text-color2">Inicio sesion</h1>
 
@@ -41,8 +33,9 @@ import Input from "../../icoReutilizables/input.astro";
 
             <div class="flex-col">
               <button type="submit">
-                <Boton Text="Iniciar sesion" /> <a href="/registro.astro"></a>
+                <Boton Text="Iniciar sesión" />
               </button>
+              <a href="/registro.astro">Registrarse</a>
             </div>
             <p class="text-color6 text-sm text-center">Copyright 2024 - 2025 Sena</p>
           </div>
@@ -51,5 +44,6 @@ import Input from "../../icoReutilizables/input.astro";
     </div>
   </div>
 
-  <script src="/src/js/validacionesRegistroInicio.js"></script>
+  <script src="../../js/validacionesInicio.js"></script>
+  <script src="../../js/envioForInicio.js"></script>
 </Layout>
