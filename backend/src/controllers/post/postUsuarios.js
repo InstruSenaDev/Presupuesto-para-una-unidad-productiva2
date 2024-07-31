@@ -1,26 +1,23 @@
 const { Pool } = require("pg");
-const { CONFIG_BD } = require("../config/db");
+const bcrypt = require('bcrypt')
+const { CONFIG_BD } = require("../../config/db");
 
 const pool = new Pool(CONFIG_BD);
 
 const nuevosUser = async (req, res) => {
- // const idEmpleado = req.params.idEmpleado;
-  const nombre= req.body.nombreUser
-  const correo= req.body.correoUser
-  const contrasena = req.body.contrasenaUser
-  const estado = req.body.estadoUser
-  const tipoDc = req.body.tdcUser
-  const documentoNumero = req.body.nDocumento
-  const idRol = req.body.rolUser;
+  // const idEmpleado = req.params.idEmpleado;
+  const { nombre, correo, contrasena, tipodocumento, documento} = req.body;
+  console.log(nombre);
+
 
   try {
+    const hashedPassword = await bcrypt.hash(contrasena, 10);
     const resultMovimiento = await pool.query(
-      "INSERT INTO usuarios (nombre, correo, contraseña, estado, tipoDocumento,documento, idRol) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING * ",
-      []
+      "INSERT INTO usuarios (nombre, correo, contrasena, estado, tipodocumento,documento, idrol) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING * ",
+      [ nombre, correo, hashedPassword, true, tipodocumento, documento, "1" ]
     );
 
-
-res.status(201).json(resultMovimiento.rows[0]);
+    res.status(201).json(resultMovimiento.rows[0]);
   } catch (error) {
     console.log("Error al registrar usuario: ", error);
     res
@@ -29,6 +26,7 @@ res.status(201).json(resultMovimiento.rows[0]);
   }
 };
 
+/*
 router.post('/registro', async (req, res) => {
   try {
       const { nombre, correo, contraseña, estado, tipodocumento, numeroDc,  idrol } = req.body;
@@ -39,6 +37,7 @@ router.post('/registro', async (req, res) => {
       res.status(500).json({ error: 'Internal server error', details: error.message });
   }
 })
+*/
 
 module.exports = {
   nuevosUser,

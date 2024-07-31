@@ -30,17 +30,20 @@
       .sidebar-minimized + #main-content {
         margin-left: 4rem; /* equivalent to w-16 in Tailwind CSS */
       }
-    </style>
+      </style>
   </head>
+  
+  <div class="w-64 flex flex-shrink-0 flex-wrap">
 
-  <div
+
+    <div
     id="sidebar"
-    class="w-64 h-screen bg-blueUwu text-white transition-all duration-300 f"
-  >
+    class="w-64 h-screen bg-blueUwu text-white transition-all duration-300 flex flex-col flex-shrink"
+    >
     <div class="flex justify-end p-2.5 bg-gray-700">
       <button
-        id="toggleBtn"
-        class="bg-none border-none text-white text-2xl cursor-pointer">☰</button
+      id="toggleBtn"
+      class="bg-none border-none text-white text-2xl cursor-pointer">☰</button
       >
     </div>
     <!-- El sidebar -->
@@ -49,48 +52,56 @@
       <li class="p-3.5: " data-tooltip="">
         <div class="hover:bg-rosadito w-full flex items-center">
           <a
-            href="#"
-            class="hover:bg-rosadito w-full text-blanquito no-underline"
+            href="Inicio"
+            class="hover:bg-rosadito w-full font-bold text-2xl text-blanquito no-underline"
             >Inicio</a>
-        </div>
-        <li class="p-3.5" data-tooltip="Personal">
-          <li class="p-3.5"></li>
+          </div>
+        </li>
+        <li class="p-3.5" data-tooltip="">
           <div class="hover:bg-rosadito w-full flex items-center">
             <a
-              href="#"
-              class="hover:bg-rosadito w-full text-blanquito no-underline"
+            href="#"
+            class="hover:bg-rosadito w-full font-bold text-2xl text-blanquito no-underline"
               >Personal</a>
-          </div>
-          <li class="p-3.5" data-tooltip="Familiar">
+            </div>
+          </li>
+          <li class="p-3.5" data-tooltip="">
             <div class="hover:bg-rosadito w-full flex items-center">
               <a
                 href="#"
-                class="hover:bg-rosadito w-full text-blanquito no-underline"
+                class="hover:bg-rosadito w-full font-bold text-2xl text-blanquito no-underline"
                 >Familiar</a>
-            </div>
-            <li class="p-3.5" data-tooltip="Empresarial">
+              </div>
+          </li>
+          <li class="p-3.5" data-tooltip="">
+            <div class="hover:bg-rosadito w-full flex items-center">
+              <a
+                  href="#"
+                  class="hover:bg-rosadito w-full font-bold text-2xl text-blanquito no-underline"
+                  >Empresarial</a>
+                </div>
+            </li>
+            <li class="p-3.5 flex " data-tooltip="">
               <div class="hover:bg-rosadito w-full flex items-center">
                 <a
-                  href="#"
-                  class="hover:bg-rosadito w-full text-blanquito no-underline"
-                  >Empresarial</a>
-              </div>
-              <li class="p-3.5" data-tooltip="Salir">
-                <div class="hover:bg-rosadito w-full flex items-center">
-                  <a
-                    href="#"
-                    class="hover:bg-rosadito w-full text-blanquito no-underline"
+                href="#"
+                    class="hover:bg-rosadito w-full font-bold text-2xl text-blanquito no-underline"
                     >Salir</a>
                 </div>
               </li>
-            </li>
-            <!-- <div id="main-content" class="p-4"> -->
-            <!-- Aquí va el contenido principal -->
-            <!-- <h1>Contenido Principal</h1>
-        <p>Este es el contenido principal que se verá a la derecha del sidebar.</p>
-    </div> -->
-
-            <script>
+              <!-- <div id="main-content" class="p-4"> -->
+                <!-- Aquí va el contenido principal -->
+                <!-- <h1>Contenido Principal</h1>
+                <p>Este es el contenido principal que se verá a la derecha del sidebar.</p>
+                </div> -->
+                
+          </li>
+        </li>
+      </li>
+    </ul>
+  </div>
+</div>
+                <script>
               const toggleBtn = document.getElementById("toggleBtn");
               const sidebar = document.getElementById("sidebar");
               const mainContent = document.getElementById("main-content");
@@ -99,9 +110,5 @@
                 mainContent.classList.toggle("sidebar-minimized");
               });
             </script>
-          </li>
-        </li>
-      </li>
-    </ul>
-  </div>
-</html>
+  </html>
+  
