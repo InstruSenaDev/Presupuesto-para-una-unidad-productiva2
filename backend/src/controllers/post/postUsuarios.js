@@ -11,6 +11,18 @@ const nuevosUser = async (req, res) => {
 
 
   try {
+    const buscarUsuario = await pool.query("SELECT * FROM usuarios WHERE correo = $1 OR documento = $2"
+      ,[correo, documento]
+
+    )
+
+    console.log(buscarUsuario.rowCount);
+
+    if (buscarUsuario.rowCount >= 1) {
+      return res.status(400).json({"message" : "El correo o documento ya existe"})
+     
+    }
+
     const hashedPassword = await bcrypt.hash(contrasena, 10);
     const resultMovimiento = await pool.query(
       "INSERT INTO usuarios (nombre, correo, contrasena, estado, tipodocumento,documento, idrol) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING * ",
@@ -18,6 +30,7 @@ const nuevosUser = async (req, res) => {
     );
 
     res.status(201).json(resultMovimiento.rows[0]);
+    //res.status(201).json("porno");
   } catch (error) {
     console.log("Error al registrar usuario: ", error);
     res
