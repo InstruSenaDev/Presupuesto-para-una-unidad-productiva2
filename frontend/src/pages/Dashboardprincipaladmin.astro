@@ -4,52 +4,34 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <General headername="Principaladmin" nombrepagina="Principaladmin">
-    <div class="flex ">
-        <aside class="bg-purple-700 text-white w-16 flex flex-col items-center p-4 space-y-4">
-            <a href="#" class="w-full flex items-center justify-center">
-                <span class="material-icons">home</span>
-            </a>
-            <a href="#" class="w-full flex items-center justify-center">
-                <span class="material-icons">person</span>
-            </a>
-            <a href="#" class="w-full flex items-center justify-center">
-                <span class="material-icons">folder</span>
-            </a>
-            <a href="#" class="w-full flex items-center justify-center">
-                <span class="material-icons">settings</span>
-            </a>
-        </aside>
-
-        <main class="flex flex-col p-8">
-            <div class="flex-col  grid-cols-1 md:grid-cols-3 gap-4 flex-col">
-               <div> 
-                <div class="bg-white p-4 shadow-md border-2 border-black rounded-lg flex flex-col items-center">
-                    <h2 class="text-lg font-semibold">FAMILIAR</h2>
-                    <p class="text-center">Administra y controla los gastos familiares mensuales en diversas categorías. Mantén todo organizado y actualizado para una mejor gestión financiera.</p>
-                    <img src="family-icon.png" alt="Familiar" class="w-24 h-24">
-                </div></div>
-                <div class="flex">
-
-                <div class="bg-white p-4 shadow-md border-2 border-black rounded-lg flex flex-col items-center">
-                    <h2 class="text-lg font-semibold">PERSONAL</h2>
-                    <p class="text-center">Administra tus ingresos, egresos, movimientos financieros y mucho más con nuestra ventana de presupuesto personal. Lleva un registro detallado de tus finanzas mensuales.</p>
-                    <img src="personal-icon.png" alt="Personal" class="w-24 h-24">
+   
+    <body class="bg-gray-100 flex items-center justify-center min-h-screen">
+        <div class="space-y-4 p-20">
+            <!-- Bloque Superior -->
+            <div class="bg-white p-6 shadow-lg rounded-lg max-w-sm mx-auto">
+                <h2 class="text-2xl font-bold mb-4">FAMILIAR</h2>
+                <p class="text-gray-700 mb-4">Este es el bloque superior con su contenido.</p>
+                <img src="../../public/img/pup-familiar.png" alt="">
+            </div>
+            <!-- Contenedor de Bloques Inferiores -->
+            <div class="flex space-x-4">
+                <!-- Bloque Izquierdo Inferior -->
+                <div class="bg-white p-6 shadow-lg rounded-lg w-1/2">
+                    <h2 class="text-2xl font-bold mb-4">PERSONAL</h2>
+                    <p class="text-gray-700 mb-4">Este es el bloque inferior izquierdo con su contenido.</p>
+                    <img src="" alt="Imagen de Ejemplo" class="w-full h-auto rounded-lg">
                 </div>
-
-                <div class="bg-white p-4 shadow-md border-2 border-black rounded-lg flex flex-col items-center">
-                    <h2 class="text-lg font-semibold">EMPRESARIAL</h2>
-                    <p class="text-center">Administra y controla las finanzas empresariales mensuales en todas sus categorías. Mantén todo actualizado para una gestión eficiente y organizada de la empresa.</p>
-                    <img src="business-icon.png" alt="Empresarial" class="w-24 h-24">
+                <!-- Bloque Derecho Inferior -->
+                <div class="bg-white p-6 shadow-lg rounded-lg w-1/2">
+                    <h2 class="text-2xl font-bold mb-4">EMPRESARIAL</h2>
+                    <p class="text-gray-700 mb-4">Este es el bloque inferior derecho con su contenido.</p>
+                    <img src="" alt="Imagen de Ejemplo" class="w-full h-auto rounded-lg">
                 </div>
             </div>
-            </div>
-        </main>
-    </div>
-</div>
-
-</body>
-</html>
-
+        </div>
+    </body>
+    </html>
+    
 </General>
 
 
