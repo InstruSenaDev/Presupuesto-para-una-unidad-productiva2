@@ -1,0 +1,5 @@
+  <box-icon name='x-circle' color='#ffffff' ></box-icon>
+  <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+  $ npm install boxicons --save
+////
+
