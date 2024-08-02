@@ -26,7 +26,7 @@ document.getElementById("formuInicio").addEventListener("submit", async (e) => {
     if (response.ok) {
       console.log("Inicio de sesión exitoso");
       // Redirigir al usuario a la página de inicio o dashboard
-      window.location.href = "/inicioSesion";
+      window.location.href = "/registro";
     } else {
       console.error("Error en el inicio de sesión");
       // Mostrar mensaje de error al usuario
