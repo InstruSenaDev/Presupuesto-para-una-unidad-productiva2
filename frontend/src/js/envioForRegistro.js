@@ -48,13 +48,10 @@ form.addEventListener("submit", async (e) => {
 
     if (response.ok) {
       console.log("Registro exitoso");
-      console.log("MAAAAAAAAAAAAAAAAAAAAAMAGUEEEEEEEEEEEEEEEEEEEEEEEEEEEVO 45453")
     } else {
       console.error("Error en el registro");
-      console.log("MAAAAAAAAAAAAAAAAAAAAAMAGUEEEEEEEEEEEEEEEEEEEEEEEEEEEVO 1")
     }
   } catch (error) {
     console.error("Error al enviar la solicitud:", error);
-    console.log("MAAAAAAAAAAAAAAAAAAAAAMAGUEEEEEEEEEEEEEEEEEEEEEEEEEEEVO 2")
   }
 });
