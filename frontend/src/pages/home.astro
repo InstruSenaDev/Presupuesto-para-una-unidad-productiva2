@@ -1,5 +1,6 @@
 ---
 import General from "../layouts/General.astro";
+
 ---
 
 <General headername="Inicio" nombrepagina="INICIO">
@@ -46,4 +47,22 @@ import General from "../layouts/General.astro";
       </div>
     </div>
   </div>
+<style>
+
+  /* Estilos para pantalla grande */
+.flex {
+  display: flex;
+  flex-direction: row;
+}
+
+/* Estilos para pantalla pequeña */
+@media (max-width: 768px) {
+  .flex {
+    flex-direction: column;
+  }
+  .flex > div {
+    width: 100%;
+  }
+}
+</style>
 </General>
