@@ -1,8 +1,5 @@
 ---
 
-
-
-import NavbarEmpresarial from "../components/Empresarial/Navbar/NavbarEmpresarial.astro";
 import Layout from "./Layout.astro";
 import Navbar from "./Navbar.astro";
 import Sidebar from "./Sidebar.astro";
@@ -20,7 +17,7 @@ const {nombrepagina,headername}= Astro.props
 <Layout title={nombrepagina}>
 <Sidebar/>
     <div class="w-full">
-    <NavbarEmpresarial titulo={headername}/>
+
     <div class="|w-full ">
     <Navbar titulo={headername}/>
     <div class="p-10 flex">
