@@ -2,6 +2,7 @@
 import ModalAgregar from "../../familiar/modalAgregar.astro";
 import Boton from "../../icoReutilizables/boton.astro";
 import Input from "../../icoReutilizables/input.astro";
+import Boton from "../../icoReutilizables/boton.astro";
 
 
 const productos = [
@@ -15,9 +16,11 @@ const productos = [
 
 <div class="bg-white rounded-lg shadow-md p-20 w-full">
   <div class="flex justify-between mb-4">
-    <div>
-    <button class="text-blanquito text-white px-4 py-2 rounded-md bg-negro"><box-icon name='arrow-back' color='#ffffff' ></box-icon>   Volver</button>
-    <button class= "items-center text-blanquito text-white px-4 py-2 rounded-md bg-negro">Nuevo  <box-icon id="OPEN" class="items-center" name='plus-circle' color='#ffffff' ></box-icon></button>
+    <div class="flex">
+      <Boton Text="volver  "/>
+      <Boton Text="Agregar"/>
+    <box-icon name='arrow-back' color='#ffffff' >Volver</box-icon>   
+ <box-icon id="OPEN" class="items-center" name='plus-circle' color='#ffffff' >Nuevo </box-icon>
   </div>
     <input type="text" placeholder="Buscar productos" class="border rounded-md px-4 py-2 w-1/3">
   </div>
@@ -59,11 +62,13 @@ const productos = [
       <Input placeholder="Descripcion" id="textC" name="des" type="text" />
       <h2>Luis</h2>
       <p>Modal content</p>
-      <div></div>
-      <button class="flex-row" type="submit">
-        <Boton Text="siguiente" />
-        <box-icon type='solid' name='right-arrow-alt'></box-icon>
+      <div>
+         <button class="flex-row w-48 bg-negro"  type="submit">
+        
+        <box-icon type='solid' color="#ffffff" name='right-arrow-alt'></box-icon>
       </button>
+      </div>
+     
      
       <button id="CLOSE" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Cerrar</button>
     </div>
