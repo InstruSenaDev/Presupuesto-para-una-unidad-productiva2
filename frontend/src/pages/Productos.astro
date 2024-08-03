@@ -1,11 +1,18 @@
 ---
+import Layout from "../layouts/Layout.astro";
 import General from "../layouts/General.astro";
-import ComponenteProductos from "../components/Empresarial/ComponenteProductos.astro"
-
+import Productotabla from "../components/Empresarial/Productotabla.astro";
+import Seleccionados from "../components/Empresarial/Seleccionados.astro";
 ---
 
-<General nombrepagina="Productos" headername="Productos">
-
-    <ComponenteProductos/>
-
-</General>
+<General headername="Productos" nombrepagina="Productos" />
+<Layout title="Productos">
+  <div class="flex justify-around justify-center flex-row   items-center">
+    <div>
+    <Productotabla />
+</div>
+<div>
+    <Seleccionados />
+</div>
+  </div>
+</Layout>

@@ -8,7 +8,7 @@ const {iniciarSesion} = require("../controllers/post/postInicio")
 
 router.get("/rol", getRoles);// http://localhost:3000/rol
 router.post("/registro", nuevosUser );// http://localhost:3000/registro
-router.get("/productos", productos);// http://localhost:3000/productos
+router.post("/productos", productos);// http://localhost:3000/productos
 router.post("/inicio", iniciarSesion);// http://localhost:3000/inicio
 
 module.exports = router;
