@@ -1,0 +1,31 @@
+---
+import Boton from "../icoReutilizables/boton.astro";
+import Input from "../icoReutilizables/input.astro";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="">
+    <div
+        class="cont flex flex-col justify-center items-center h-screen w-full gap-6"
+        id="modalFecha"
+    >
+        <div class="bg-blueUwu w-80 rounded flex justify-between">
+            <h2 class="text-center text-color1 ">Fecha</h2>
+            <a href=""><box-icon name='x-circle' color='#ffffff' ></box-icon></a>
+        </div>
+
+        <div id="">
+            <p>Mes:</p>
+            <Input type="text" placeholder=" " id="" />
+            <div>
+                <p>Año:</p>
+                <Input type="text" placeholder=" "  id=""/>
+
+                <div class="mt-20">
+                    <Boton Text="Siguiente" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    </Layout>

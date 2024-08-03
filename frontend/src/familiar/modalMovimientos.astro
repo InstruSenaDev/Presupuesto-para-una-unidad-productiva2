@@ -1,0 +1,36 @@
+---
+import Boton from "../icoReutilizables/boton.astro";
+import Input from "../icoReutilizables/input.astro";
+import Layout from "../layouts/Layout.astro";
+
+
+---
+
+<Layout title="">
+    
+    <div
+        class="cont flex flex-col justify-center items-center h-screen w-full gap-6" id="modalMovimientos"
+    >
+        <div class="bg-blueUwu w-80 rounded flex justify-between">
+            <h2 class="text-center text-color1 ">Ingresos</h2>
+            <a href=""><box-icon name='x-circle' color='#ffffff' ></box-icon></a>
+        </div>
+
+       <div>
+        <p>Saldo</p>
+        <Input placeholder="$" type="text" id="" />
+        <p>Descripcion</p>
+        
+        <Input placeholder=" " type="text" id="" />     
+        
+       
+       </div>
+
+        <div class="mt-2">
+            <Boton Text="Siguiente" id=""  />
+        </div>
+    </div>
+
+    
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+</Layout>

@@ -1,0 +1,20 @@
+---
+interface Props{
+  titulo:string;
+}
+
+const {titulo} = Astro.props;
+---
+
+    <header
+    class="text-3xl font-bold pl-16 bg-blueUwu flex justify-between items-center"
+    >
+    <h1 class="text-blanquito p-7 text-4xl">{titulo}</h1>
+    <div class="p-9 flex justify-end text-blanquito font-bold">
+        Luis
+        <span class="pl-5">
+        <div class="bi bi-caret-down-square-fill cursor-pointer"></div>
+        </span>
+    </div>
+    </header>
+

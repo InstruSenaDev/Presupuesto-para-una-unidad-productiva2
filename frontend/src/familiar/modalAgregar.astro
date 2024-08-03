@@ -1,0 +1,26 @@
+---
+import Boton from "../icoReutilizables/boton.astro";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="">
+    <div
+        class="cont flex flex-col justify-center items-center h-screen w-full gap-6" id="modalAgregar"
+    >
+        <div class="bg-blueUwu w-80 rounded flex justify-between">
+            <h2 class="text-center text-color1 ">Nuevo</h2>
+            <a href=""><box-icon name='x-circle' color='#ffffff' ></box-icon></a>
+        </div>
+
+        <select class="border-2 rounded  " name="" id="">
+            <option value="" id="">Presupuesto</option>
+            <option value="" id="">Movimientos</option>
+           
+        </select>
+
+        <div class="mt-20">
+            <Boton Text="Siguiente" />
+        </div>
+    </div>
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    </Layout>
