@@ -1,6 +1,11 @@
 import { defineConfig } from 'astro/config';
+<<<<<<< HEAD
 import react from '@astrojs/react';
+=======
+>>>>>>> origin/Juan
 import tailwind from "@astrojs/tailwind";
+
+import react from "@astrojs/react";
 
 // https://astro.build/config
 export default defineConfig({

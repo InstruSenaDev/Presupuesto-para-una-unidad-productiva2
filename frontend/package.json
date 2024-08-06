@@ -10,10 +10,22 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/react": "^3.6.1",
     "@astrojs/tailwind": "^5.1.0",
+<<<<<<< HEAD
     "@supabase/supabase-js": "^2.45.0",
     "astro": "^4.9.3",
     "boxicons": "^2.1.4",
+=======
+    "@supabase/supabase-js": "^2.44.4",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "astro": "^4.9.3",
+    "boxicons": "^2.1.4",
+    "flowbite": "^2.4.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+>>>>>>> origin/Juan
     "tailwindcss": "^3.4.4"
   }
 }
