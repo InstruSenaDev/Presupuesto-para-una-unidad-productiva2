@@ -1,16 +1,23 @@
+async function fetchData() {
     try {
-    const response = await fetch("http://localhost:3000/traerProductos", {
-        method: "GET",
-        headers: {
-        "Content-Type": "aplication/json",
-        },
-        body: JSON.stringify(data),
-    });
-    if (response.ok) {
-        console.log("Registro exitoso");
-    } else {
-        console.error("Error en el registro");
-    }
+        const response = await fetch("http://localhost:3000/traerProductos", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            console.log("Su solicitud GET ha sido exitosa", data);
+            // Aquí puedes hacer algo con los datos, como actualizar el estado en React
+        } else {
+            console.error("Error en el registro", response.statusText);
+        }
     } catch (error) {
-    console.error("Error al enviar la solicitud", error);
+        console.error("Error al enviar la solicitud", error);
     }
+}
+
+// Llamar a la función fetchData para obtener los productos
+fetchData();
