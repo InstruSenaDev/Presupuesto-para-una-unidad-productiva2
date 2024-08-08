@@ -1,8 +1,6 @@
 const { Pool } = require("pg");
 const bcrypt = require('bcrypt')
 const { CONFIG_BD } = require("../../config/db");
-// app.use(cors());
-// app.use(express.json());
 
 const pool = new Pool(CONFIG_BD);
 
