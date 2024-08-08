@@ -26,6 +26,7 @@ const iniciarSesion = async (req, res) => {
         res
           .status(200)
           .json({ message: "Inicio de sesión exitoso", user: user });
+          
       } else {
         res.status(400).json({ message: "Contraseña incorrecta" });
       }

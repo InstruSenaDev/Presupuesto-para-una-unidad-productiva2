@@ -1,5 +1,6 @@
 ---
 import { Productos } from "./ProductosFetch";
+const productos = [];
 ---
 
 <div class="bg-white rounded-lg shadow-md p-2 w-full">
@@ -32,9 +33,23 @@ import { Productos } from "./ProductosFetch";
       </tr>
     </thead>
     <tbody> 
-      <Productos /> 
+      {productos.map((producto) =>
+        (<tr class="border-t" >
+            <td class="py-2">
+                {producto.fecha}</td>
+            <td>{producto.nombre}</td>
+            <td>{producto.recibo}</td>
+            <td class="text-green-600">{producto.precio}</td>
+            <td>{producto.estado}</td>
+            <td>
+                <button><box-icon type='solid' name='plus-circle'></box-icon></button>
+                <button class="text-gray-600 mr-2"><box-icon name='edit' ></box-icon></button>
+                <button class="text-gray-600"><box-icon name='trash'></box-icon></button>
+            </td>
+        </tr>))}
     </tbody>
     <script src="../../js/getProducto.js"></script>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    
   </table>
 </div>

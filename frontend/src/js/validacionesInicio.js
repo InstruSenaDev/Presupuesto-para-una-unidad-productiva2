@@ -7,6 +7,7 @@
     const togglePassword = document.getElementById("togglePassword");
 
     if (formuInicio) formuInicio.reset();
+    
 
     if (togglePassword && contraseñaInicio) {
         togglePassword.addEventListener("click", function () {
