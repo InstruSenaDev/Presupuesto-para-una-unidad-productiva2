@@ -1,55 +1,143 @@
 ---
+import { useState } from "react";
 import { Productos } from "./ProductosFetch";
-const productos = [];
+// fetch de los productos
+const response = await fetch("http://localhost:3000/traerProductos");
+const productos = await response.json();
 ---
 
+<!-- link de los iconos sacados de boostrap -->
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+/>
+
 <div class="bg-white rounded-lg shadow-md p-2 w-full">
+  <!-- Conjunto de los botones y el buscador -->
   <div class="flex justify-between mb-4">
     <div>
-      <button class="text-blanquito text-white px-4 py-2 rounded-md bg-negro"
-        ><box-icon name="arrow-back" color="#ffffff"></box-icon> Volver</button
+      <button class="text-2xl text-blanquito text-white px-4 py-2 rounded-md bg-negro"
+        ><i class="bi bi-arrow-left"></i> Volver</button
       >
       <button
-        class="items-center text-blanquito text-white px-4 py-2 rounded-md bg-negro"
-        >Nuevo <box-icon class="items-center" name="plus-circle" color="#ffffff"
-        ></box-icon></button
+        class="text-2xl items-center text-blanquito text-white px-4 py-2 rounded-md bg-negro"
+        >Nuevo <i class="bi bi-plus-circle"></i></button
       >
     </div>
     <input
       type="text"
       placeholder="Buscar productos"
-      class="border rounded-md px-4 py-2 w-1/3"
+      class=" border rounded-md px-4 py-2 w-1/3"
     />
   </div>
+  <!-- Finaliza el div -->
+  <!-- inicio de tabla donde se muestran los productos -->
   <table class="w-full">
     <thead>
       <tr class="text-left text-indigo-700">
-        <th class="pb-2">Fecha</th>
-        <th class="pb-2">Nombre</th>
-        <th class="pb-2">Numero de recibo</th>
-        <th class="pb-2">Precio</th>
-        <th class="pb-2">Estado</th>
-        <th class="pb-2">Acciones</th>
+        <!-- <th class="text-center p-2 text-2xl font-bold">Fecha</th> -->
+        <th class="text-center p-2 text-2xl font-bold">Nombre</th>
+        <th class="text-center p-2 text-2xl font-bold">Numero de recibo</th>
+        <th class="text-center p-2 text-2xl font-bold">Precio</th>
+        <th class="text-center p-2 text-2xl font-bold">Estado</th>
+        <th class="text-center p-2 text-2xl font-bold">Acciones</th>
       </tr>
     </thead>
-    <tbody> 
-      {productos.map((producto) =>
-        (<tr class="border-t" >
-            <td class="py-2">
-                {producto.fecha}</td>
-            <td>{producto.nombre}</td>
-            <td>{producto.recibo}</td>
-            <td class="text-green-600">{producto.precio}</td>
-            <td>{producto.estado}</td>
-            <td>
-                <button><box-icon type='solid' name='plus-circle'></box-icon></button>
-                <button class="text-gray-600 mr-2"><box-icon name='edit' ></box-icon></button>
-                <button class="text-gray-600"><box-icon name='trash'></box-icon></button>
+    <tbody>
+      <!-- mapeo de los productos -->
+      {
+        productos.map((producto) => (
+          <tr class="border-t">
+            {/* <td class="text-center p-2">{producto.fecha}</td> */}
+            <td class="text-center p-2">{producto.nombre}</td>
+            <td class="text-center p-2">{producto.codigo}</td>
+            <td class="text-center p-2">{producto.valorunitario}</td>
+            <td class="text-center p-2">{producto.estado}</td>
+            <td class="text-center pl-2">
+              <button class="text-center font-bold">
+                <i class="bi bi-plus-circle" />
+              </button>
+              <button class="text-center font-bold">
+                <i class="bi bi-pencil-square" />
+              </button>
+              <button class="text-center font-bold">
+                <i class="bi bi-trash3" />
+              </button>
             </td>
-        </tr>))}
+          </tr>
+        ))
+      }
     </tbody>
-    <script src="../../js/getProducto.js"></script>
-    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
-    
+    <!-- <script src="../../js/getProducto.js"></script> -->
   </table>
 </div>
+<!-- <div class="bg-white rounded-lg shadow-md w-96">
+  <h2 class="text-xl text-center text-blanquito text-white text- font-bold mb-4 bg-indigo-700 text-white py-2 px-4 rounded-t-lg bg-blueUwu">Seleccionados</h2>
+  <ul class="p-6">
+    {seleccionados.map((item) => (
+      <li class="flex justify-between items-center mb-2">
+        <span>{item.nombre}<br><small class="text-gray-500">{item.cantidad} Unidades x ${item.precio}</small></span>
+        <span class="text-indigo-700 font-bold">${item.precio * item.cantidad}</span>
+      </li>
+    ))}
+  </ul>
+  <div class="mt-4 flex justify-between items-center bg-gris">
+    <button class="bg-black text-blanquito text-white px-4 py-2 rounded-md bg-negro"><i class="bi bi-currency-dollar"></i>Pagar</button>
+    <span class="text-indigo-700 font-bold">Total: ${total.toLocaleString()}</span>
+  </div>
+</div> -->
+
+
+<!-- Modal (oculto por defecto) -->
+<div id="crearProductoModal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
+  <div class="bg-blanquito rounded-lg shadow-sm  w-1/3">
+    <div class="rounded-md flex justify-between bg-blueUwu items-center mb-4">
+      <h2 class="text-xl font-bold text-blanquito">Crear Producto</h2>
+      <button id="cerrarModal" class="text-gray700"><box-icon name='x'></box-icon></button>
+    </div>
+    <form id="formularioProducto" class="p-6">
+      <div class=" mb-4">
+        <label for="nombreProducto" class="block text-sm font-medium text-gray700">Nombre:</label>
+        <input type="text" id="nombreProducto" class="mt-1 block w-full border rounded-md p-2" placeholder="Zapato">
+      </div>
+      <div class="mb-4">
+        <label for="valorunitario" class="block text-sm font-medium text-gray700">Precio:</label>
+        <input type="number" id="valorunitario" class="mt-1 block w-full border rounded-md p-2" placeholder="100000">
+      </div>
+      <div class="mb-4">
+        <label for="descripcion" class="block text-sm font-medium text-gray700">Descripcion:</label>
+        <input type="text" id="descripcion" class="mt-1 block w-full border rounded-md p-2" placeholder="Adidas">
+      </div>
+      <div class="mb-4">
+        <label for="codigo" class="block text-sm font-medium text-gray700">Número de recibo:</label>
+        <input type="text" id="codigo" class="mt-1 block w-full border rounded-md p-2" placeholder="1234-45641-1545">
+      </div>
+      <button type="submit" class="w-full text-blanquito bg-negro py-2 rounded-md">Aceptar</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Obtener el modal y el botón
+  const modal = document.getElementById('crearProductoModal');
+  const abrirModalBtn = document.querySelector('.bg-negro + .bg-negro');
+  const cerrarModalBtn = document.getElementById('cerrarModal');
+
+  // Mostrar el modal al hacer clic en el botón "Nuevo"
+  abrirModalBtn.addEventListener('click', () => {
+    modal.classList.remove('hidden');
+  });
+
+  // Cerrar el modal al hacer clic en el botón de cerrar
+  cerrarModalBtn.addEventListener('click', () => {
+    modal.classList.add('hidden');
+  });
+
+  // Cerrar el modal al hacer clic fuera de él
+  window.addEventListener('click', (e) => {
+    if (e.target == modal) {
+      modal.classList.add('hidden');
+    }
+  });
+</script>
+<script src="../../js/envioForProducto.js"></script>
