@@ -1,14 +1,27 @@
+
+const nombre = document.getElementById("nombre");
+const descripcion = document.getElementById("descripcion");
+
+
+const data = {
+
+    nombre,
+    descripcion,
+
+
+}
+
+
 async function fetchData() {
     try {
         const response = await fetch("http://localhost:3000/traerProductos", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-            }
+            },
         });
-
         if (response.ok) {
-            const data = await response.json();
+            const data = await response.json(data);
             console.log("Su solicitud GET ha sido exitosa", data);
             // Aquí puedes hacer algo con los datos, como actualizar el estado en React
         } else {
