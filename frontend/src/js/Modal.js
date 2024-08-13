@@ -8,6 +8,8 @@ document.querySelector('form').addEventListener('submit', async (e) => {
     e.preventDefault();
   
     const fecha = document.getElementById('fecha').value;
+    const descripcion = document.getElementById('descripcion').value;
+    const valor = document.getElementById('valor').value
    
     // Inserta los datos en la tabla "productos"
     const { data, error } = await supabase
