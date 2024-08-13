@@ -25,16 +25,16 @@ import Layout from "../../layouts/Layout.astro";
             <div class="w-full">
               <div>
                 <Input placeholder="Nombre" id="registroNombre" name="nombre" type="text" />
-                <span id="nombreError" class="text-color7 text-xs"></span>
+                <span id="nombreError" class="text-rojo text-xs"></span>
               </div>
               <div>
                 <Input placeholder="Correo" id="CorreoRegistro" name="correo" type="text" />
-                <span id="correoError" class="text-color7 text-xs"></span>
+                <span id="correoError" class="text-rojo text-xs"></span>
               </div>
               <div class="relative">
                 <Input placeholder="Contraseña" id="ContraseñaRegistro" name="contrasena" type="password" />
                 <i class='bx bx-show cursor-pointer absolute right-3 top-2/4 transform -translate-y-2/4' id="togglePassword"></i>
-                <span id="contrasenaError" class="text-color7 text-xs"></span>
+                <span id="contrasenaError" class="text-rojo text-xs"></span>
               </div>
               <div class="relative">
                 <select name="tipodocumento" id="tipodocumento" class="text-color2" required>
@@ -46,7 +46,7 @@ import Layout from "../../layouts/Layout.astro";
               </div>
               <div class="relative">
                 <Input placeholder="Número" id="documento" name="documento" type="text" />
-                <span id="numeroDcError" class="text-color7 text-xs"></span>
+                <span id="numeroDcError" class="text-rojo text-xs"></span>
               </div>
               <div class="flex-col">
                 <Boton Text="Registrarse" class="bg-negro"/>
