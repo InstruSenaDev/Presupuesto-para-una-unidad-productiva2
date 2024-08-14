@@ -4,7 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Responsive Sidebar</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
     <style>
       /* Custom Tailwind CSS classes */
       .sidebar-minimized {
@@ -30,85 +33,95 @@
       .sidebar-minimized + #main-content {
         margin-left: 4rem; /* equivalent to w-16 in Tailwind CSS */
       }
-      </style>
+    </style>
   </head>
-  
+
   <div class="w-64 flex flex-shrink-0 flex-wrap">
-
-
     <div
-    id="sidebar"
-    class="w-64 h-screen bg-blueUwu text-white transition-all duration-300 flex flex-col flex-shrink"
+      id="sidebar"
+      class="w-64 h-screen bg-blueUwu text-white transition-all duration-300 flex flex-col flex-shrink"
     >
-    <div class="flex justify-end p-2.5 bg-gray-700">
-      <button
-      id="toggleBtn"
-      class="bg-none border-none text-white text-2xl cursor-pointer">☰</button
-      >
-    </div>
-    <!-- El sidebar -->
-    <ul class="sidebar-menu list-none p-0">
-    <!-- En data-tooltip se puede cambiar la palabra que se va colocar en el sidebar minimizado -->
-      <li class="p-3.5 " data-tooltip="">
-        <div class="hover:bg-rosadito w-full flex items-center">
-          <a
-            href="/inicioSesion"
-            class="hover:bg-rosadito w-full font-bold text-2xl text-blanquito no-underline"
-            >Inicio</a>
+      <div class="flex justify-end p-2.5 bg-gray-700">
+        <button
+          id="toggleBtn"
+          class="bg-none border-none text-white text-2xl cursor-pointer"
+          >☰</button
+        >
+      </div>
+      <!-- El sidebar -->
+      <ul class="sidebar-menu list-none p-0">
+        <!-- En data-tooltip se puede cambiar la palabra que se va colocar en el sidebar minimizado -->
+        <li class="p-3.5" data-tooltip="">
+          <div class="hover:bg-rosadito w-full flex items-center">
+            <a
+              href="/home"
+              class="hover:bg-rosadito w-full font-bold text-2xl text-blanquito no-underline"
+              >Inicio</a
+            >
           </div>
         </li>
         <li class="p-3.5" data-tooltip="">
           <div class="hover:bg-rosadito w-full flex items-center">
             <a
-            href="#"
-            class="hover:bg-rosadito w-full font-bold text-2xl text-blanquito no-underline"
-              >Personal</a>
-            </div>
-          </li>
-          <li class="p-3.5" data-tooltip="">
-            <div class="hover:bg-rosadito w-full flex items-center">
-              <a
-                href="#"
-                class="hover:bg-rosadito w-full font-bold text-2xl text-blanquito no-underline"
-                >Familiar</a>
-              </div>
-          </li>
-          <li class="p-3.5" data-tooltip="">
-            <div class="hover:bg-rosadito w-full flex items-center">
-              <a
-                  href="#"
-                  class="hover:bg-rosadito w-full font-bold text-2xl text-blanquito no-underline"
-                  >Empresarial</a>
-                </div>
-            </li>
-            <li class="p-3.5 flex " data-tooltip="">
-              <div class="hover:bg-rosadito w-full flex items-center">
-                <a
-                href="#"
-                    class="hover:bg-rosadito w-full font-bold text-2xl text-blanquito no-underline"
-                    >Salir</a>
-                </div>
-              </li>
-              <!-- <div id="main-content" class="p-4"> -->
-                <!-- Aquí va el contenido principal -->
-                <!-- <h1>Contenido Principal</h1>
+              href="#"
+              class="hover:bg-rosadito w-full font-bold text-2xl text-blanquito no-underline"
+              >Personal</a
+            >
+          </div>
+        </li>
+        <li class="p-3.5" data-tooltip="">
+          <div class="hover:bg-rosadito w-full flex items-center">
+            <a
+              href="#"
+              class="hover:bg-rosadito w-full font-bold text-2xl text-blanquito no-underline"
+              >Familiar</a
+            >
+          </div>
+        </li>
+        <li class="p-3.5" data-tooltip="">
+          <div class="hover:bg-rosadito w-full flex items-center">
+            <a
+              href="#"
+              class="hover:bg-rosadito w-full font-bold text-2xl text-blanquito no-underline"
+              >Empresarial</a
+            >
+          </div>
+        </li>
+        <li class="p-3.5 flex" data-tooltip="">
+          <div class="hover:bg-rosadito w-full flex items-center">
+            <a
+              id="cerrarSesion"
+              
+              href="#"
+              class="hover:bg-rosadito w-full font-bold text-2xl text-blanquito no-underline"
+              >Salir</a
+            >
+          </div>
+        </li>
+        <!-- <div id="main-content" class="p-4"> -->
+        <!-- Aquí va el contenido principal -->
+        <!-- <h1>Contenido Principal</h1>
                 <p>Este es el contenido principal que se verá a la derecha del sidebar.</p>
                 </div> -->
-                
-          </li>
-        </li>
-      </li>
-    </ul>
+      </ul>
+    </div>
   </div>
-</div>
-                <script>
-              const toggleBtn = document.getElementById("toggleBtn");
-              const sidebar = document.getElementById("sidebar");
-              const mainContent = document.getElementById("main-content");
-              toggleBtn.addEventListener("click", () => {
-                sidebar.classList.toggle("sidebar-minimized");
-                mainContent.classList.toggle("sidebar-minimized");
-              });
-            </script>
-  </html>
-  
+
+</html>
+
+<script>
+  const toggleBtn = document.getElementById("toggleBtn");
+  const sidebar = document.getElementById("sidebar");
+  const mainContent = document.getElementById("main-content");
+  toggleBtn.addEventListener("click", () => {
+    sidebar.classList.toggle("sidebar-minimized");
+    mainContent.classList.toggle("sidebar-minimized");
+  });
+
+  document.getElementById("cerrarSesion").addEventListener("click", () => {
+    // Eliminar los datos almacenados en localStorage
+    localStorage.removeItem("nombre");
+    window.location.href = "/inicioSesion";
+  });
+</script>
+

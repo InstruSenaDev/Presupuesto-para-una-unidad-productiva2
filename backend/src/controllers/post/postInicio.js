@@ -10,7 +10,7 @@ const iniciarSesion = async (req, res) => {
   try {
     // Buscar un usuario con el correo proporcionado
     const result = await pool.query(
-      "SELECT idusuario, correo, contrasena, nombre FROM usuarios WHERE correo = $1",
+      "SELECT correo, contrasena, nombre FROM usuarios WHERE correo = $1",
       [correo]
     );
 
@@ -20,7 +20,10 @@ const iniciarSesion = async (req, res) => {
     if (result.rows.length > 0) {
       const user = result.rows[0];
       // Comparar la contraseña proporcionada con la contraseña encriptada almacenada
-      const isMatch = await bcrypt.compare(contrasena, user.contrasena);
+      const isMatch = await bcrypt.compare(contrasena, user.contrasena  );
+      // const comparar = await compare(nombre, user.nombre);
+
+      
 
       if (isMatch) {
         res

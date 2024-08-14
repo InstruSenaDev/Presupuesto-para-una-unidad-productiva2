@@ -8,11 +8,11 @@ document.getElementById("formuInicio").addEventListener("submit", async (e) => {
   // Crear un objeto con los datos del formulario
   const userData = {
     correo,
-    contrasena,
+    contrasena
   };
 
   console.log(userData);
- localStorage.setItem("correo", correo)
+
   // Enviar la solicitud a la API para iniciar sesión
   try {
     const response = await fetch("http://localhost:3000/inicio", {
@@ -24,7 +24,13 @@ document.getElementById("formuInicio").addEventListener("submit", async (e) => {
     });
 
     if (response.ok) {
+      const data = await response.json();
+
       console.log("Inicio de sesión exitoso");
+
+      // Almacenar el nombre en localStorage
+      localStorage.setItem("nombre", data.user.nombre);
+
       // Redirigir al usuario a la página de inicio o dashboard
       window.location.href = "/home";
     } else {

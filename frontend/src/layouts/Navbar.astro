@@ -10,7 +10,7 @@ const {titulo} = Astro.props;
     class="text-3xl font-bold pl-16 bg-blueUwu flex justify-between items-center"
     >
     <h1 class="text-blanquito p-7 text-4xl">{titulo}</h1>
-    <div id="correox" class="p-9 flex justify-end text-blanquito font-bold">
+    <div id="nombre" class="p-9 flex justify-end text-blanquito font-bold">
         <span class="pl-5">
         <div class="bi bi-caret-down-square-fill cursor-pointer"></div>
         </span>
@@ -19,12 +19,12 @@ const {titulo} = Astro.props;
 
 <script>
   document.addEventListener("DOMContentLoaded", function( ){
-    const correo = localStorage.getItem("correo")
+    const nombre = localStorage.getItem("nombre")
 
-    if (correo) {
-      document.getElementById("correox").textContent = correo
+    if (nombre) {
+      document.getElementById("nombre").textContent = nombre
     } else{
-      document.getElementById("correox").textContent= "Usuario desconocido"
+      document.getElementById("nombre").textContent= "Usuario desconocido"
     }
   })
 </script>
