@@ -1,5 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro"
+import Input from "../../icoReutilizables/input.astro"
+import Boton from "../../icoReutilizables/boton.astro"
 
 ---
 <Layout title="">
@@ -17,9 +19,13 @@ import Layout from "../../layouts/Layout.astro"
           <form id="reset-password-form" class="mt-6">
             <div class="mb-4">
              <input type="submit" value="correo" id="email">
-             
+             <Input/ text="text" name="text" id="" type="email" placeholder="Correo">
+          
+
             </div>
-            <button type="submit" class="w-full bg-blue-600 text-white font-semibold py-2 rounded-lg">Enviar enlace de recuperación</button>
+            <button type="submit">
+                <Boton Text="Cambiar Contraseña" />
+              </button>
             <p id="message" class="mt-4 text-center"></p>
           </form>
         </div>
