@@ -4,6 +4,7 @@ const { CONFIG_BD } = require("../../config/db");
 const pool = new Pool(CONFIG_BD);
 
 const llamadoUser = async (req, res) => {
+  console.log("aaaaaaaaaaaaaaaaaaaaa");
   try {
     const result = await pool.query(
       "SELECT nombre,  correo , tipodocumento FROM usuarios"
