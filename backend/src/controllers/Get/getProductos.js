@@ -4,11 +4,11 @@ const { CONFIG_BD } = require('../../config/db');
 const pool = new Pool(CONFIG_BD);
 
 const apiProductos = async (req, res) => {
-  const { idusuario } = req.body; // Asumiendo que tienes el idusuario disponible en req.user
-  
+  const {idusuario} = req.params; // Asumiendo que tienes el idusuario disponible en req.user
+  console.log(typeof idusuario, idusuario)
   try {
     const result = await pool.query(
-      "SELECT * FROM producto WHERE idusuario IS NULL OR idusuario = $1",
+      "SELECT * FROM producto WHERE idusuario = $1",
       [idusuario] // Aquí pasamos el idusuario como parámetro
     );
     

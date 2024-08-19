@@ -1,97 +1,151 @@
 ---
-const productos = await fetch("http://localhost:3000/traerProductos").then(res => res.json());
+const productos = await fetch("http://localhost:3000/traerProductos/${idusuario}").then(
+  (res) => res.json()
+);
+// const idusuario = localStorage.getItem('idusuario');
 ---
 
-<html>
-  <head>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-    />
-  </head>
-  <body>
-    <div class="bg-white rounded-lg shadow-md p-2 w-full">
-      <table class="w-full">
-        <thead>
-          <tr class="text-left text-indigo-700">
-            <th class="text-center p-2 text-2xl font-bold">Nombre</th>
-            <th class="text-center p-2 text-2xl font-bold">Numero de recibo</th>
-            <th class="text-center p-2 text-2xl font-bold">Precio</th>
-            <th class="text-center p-2 text-2xl font-bold">Estado</th>
-            <th class="text-center p-2 text-2xl font-bold">Acciones</th>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+/>
+
+<!-- tabla de los productos registrados por el usuario -->
+<div class="bg-white rounded-lg shadow-md p-2 w-full">
+  <table class="w-full">
+    <thead>
+      <tr class="text-left text-indigo-700">
+        <th class="text-center p-2 text-2xl font-bold">Nombre</th>
+        <th class="text-center p-2 text-2xl font-bold">Numero de recibo</th>
+        <th class="text-center p-2 text-2xl font-bold">Precio</th>
+        <th class="text-center p-2 text-2xl font-bold">Estado</th>
+        <th class="text-center p-2 text-2xl font-bold">Acciones</th>
+      </tr>
+    </thead>
+    <tbody id="productos-tbody">
+      {
+        productos.map((producto, index) => (
+          <tr class="border-t">
+            <td class="text-center p-2">{producto.nombre}</td>
+            <td class="text-center p-2">{producto.codigo}</td>
+            <td class="text-center p-2">{producto.valorunitario}</td>
+            <td class="text-center p-2">{producto.estado}</td>
+            <td class="text-center pl-2">
+              <button
+                class="text-center font-bold plus-circle"
+                data-index={index}
+              >
+                <i class="bi bi-plus-circle" />
+              </button>
+            </td>
           </tr>
-        </thead>
-        <tbody id="productos-tbody">
-          {productos.map((producto, index) => (
-            <tr class="border-t">
-              <td class="text-center p-2">{producto.nombre}</td>
-              <td class="text-center p-2">{producto.codigo}</td>
-              <td class="text-center p-2">{producto.valorunitario}</td>
-              <td class="text-center p-2">{producto.estado}</td>
-              <td class="text-center pl-2">
-                <button class="text-center font-bold plus-circle" data-index={index}>
-                  <i class="bi bi-plus-circle"></i>
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+        ))
+      }
+    </tbody>
+  </table>
+</div>
+<!-- fin de tabla donde muestra los productos -->
 
-    <div class="bg-white rounded-lg shadow-md w-96">
-      <h2 class="text-xl text-center text-blanquito text-white font-bold mb-4 bg-indigo-700 text-white py-2 px-4 rounded-t-lg">Seleccionados</h2>
-      <ul id="seleccionados-lista" class="p-6"></ul>
-      <div class="mt-4 flex justify-between items-center bg-gris">
-        <button class="bg-black text-blanquito text-white px-4 py-2 rounded-md"><i class="bi bi-currency-dollar"></i>Pagar</button>
-        <span id="total-valor" class="text-indigo-700 font-bold">Total: $0</span>
-      </div>
-    </div>
+<!-- Inicio de la tabla de los productos seleccionados para pagar -->
+<div class="bg-white rounded-lg shadow-md w-96">
+  <h2
+    class="bg-blueUwu text-xl text-center text-blanquito text-white font-bold mb-4 bg-indigo-700 text-white py-2 px-4 rounded-t-lg"
+  >
+    Seleccionados
+  </h2>
+  <ul id="seleccionados-lista" class="p-6"></ul>
+  <div class="mt-4 flex justify-between items-center bg-gris">
+    <button class="bg-negro text-blanquito text-white px-4 py-2 rounded-md"
+      ><i class="bi bi-currency-dollar"></i>Pagar</button
+    >
+    <span id="total-valor" class="pl-3 text-indigo-700 font-bold"
+      >Total: $0</span
+    >
+  </div>
+</div>
 
-    <script>
-const Productos = await fetch("http://localhost:3000/traerProductos").then(res => res.json());
+<script>
+  // Se hace una solicitud GET a la URL proporcionada para obtener la lista de productos desde el servidor.
+  // La respuesta se convierte en un objeto JavaScript utilizando `res.json()` y se almacena en la variable `Productos`.
+  const Productos = await fetch("http://localhost:3000/traerProductos/${idusuario}").then(
+    (res) => res.json()
+  );
 
-      const seleccionados = [];
-      let total = 0;
+  // Se define un array vacío `seleccionados` que almacenará los productos que el usuario seleccione,
+  // y una variable `total` que llevará el total acumulado del valor de los productos seleccionados.
+  const seleccionados = [];
+  let total = 0;
 
-      document.querySelectorAll('.plus-circle').forEach((button) => {
-        button.addEventListener('click', () => {
-          const index = button.getAttribute('data-index');
-          const producto = Productos[index];
-          const existente = seleccionados.find(item => item.codigo === producto.codigo);
-          
-          if (existente) {
-            existente.cantidad += 1;
-          } else {
-            seleccionados.push({ ...producto, cantidad: 1 });
-          }
+  // Se seleccionan todos los elementos en la página que tengan la clase `plus-circle`,
+  // y se les agrega un evento de clic. Cada botón representa un producto que el usuario puede seleccionar.
+  document.querySelectorAll(".plus-circle").forEach((button) => {
+    button.addEventListener("click", () => {
+      // Al hacer clic, se obtiene el índice del producto usando el atributo `data-index` del botón.
+      const index = button.getAttribute("data-index");
 
-          actualizarTotal();
-          renderizarSeleccionados();
-        });
-      });
+      // Se obtiene el producto correspondiente de la lista `Productos` usando el índice.
+      const producto = Productos[index];
 
-      function actualizarTotal() {
-        total = seleccionados.reduce((sum, item) => sum + (item.valorunitario * item.cantidad), 0);
-        document.getElementById('total-valor').textContent = `Total: $${total.toLocaleString()}`;
+      // Se verifica si el producto ya está en la lista de `seleccionados`.
+      const existente = seleccionados.find(
+        (item) => item.codigo === producto.codigo
+      );
+
+      // Si el producto ya está en la lista de `seleccionados`, se incrementa su cantidad.
+      if (existente) {
+        existente.cantidad += 1;
+      } else {
+        // Si no está en la lista, se agrega con una cantidad inicial de 1.
+        seleccionados.push({ ...producto, cantidad: 1 });
       }
 
-      function renderizarSeleccionados() {
-        const lista = document.getElementById('seleccionados-lista');
-        lista.innerHTML = '';
-        
-        seleccionados.forEach(item => {
-          const li = document.createElement('li');
-          li.classList.add('flex', 'justify-between', 'items-center', 'mb-2');
-          
-          li.innerHTML = `
-            <span>${item.nombre}<br><small class="text-gray-500">${item.cantidad} Unidades x $${item.valorunitario}</small></span>
-            <span class="text-indigo-700 font-bold">$${(item.valorunitario * item.cantidad).toLocaleString()}</span>
-          `;
-          
-          lista.appendChild(li);
-        });
-      }
-    </script>
-  </body>
-</html>
+      // Se actualiza el total de la compra.
+      actualizarTotal();
+
+      // Se actualiza la lista de productos seleccionados que se muestra en la página.
+      renderizarSeleccionados();
+    });
+  });
+
+  // Función para calcular el total acumulado de los productos seleccionados.
+  function actualizarTotal() {
+    // Se suma el valor de cada producto multiplicado por su cantidad.
+    total = seleccionados.reduce(
+      (sum, item) => sum + item.valorunitario * item.cantidad,
+      0
+    );
+
+    // Se muestra el total actualizado en el elemento con id `total-valor`.
+    document.getElementById("total-valor").textContent =
+      `Total: $${total.toLocaleString()}`;
+  }
+
+  // Función para renderizar la lista de productos seleccionados en la página.
+  function renderizarSeleccionados() {
+    // Se selecciona el elemento donde se mostrarán los productos seleccionados.
+    const lista = document.getElementById("seleccionados-lista");
+
+    // Se vacía la lista antes de volver a llenarla.
+    lista.innerHTML = "";
+
+    // Se itera sobre cada producto en `seleccionados` para crear y agregar un elemento de lista (li).
+    seleccionados.forEach((item) => {
+      // Se crea un nuevo elemento `li`.
+      const li = document.createElement("li");
+
+      // Se le agregan clases para darle estilo.
+      li.classList.add("flex", "justify-between", "items-center", "mb-2");
+
+      // Se define el contenido HTML del `li`, que incluye el nombre del producto, la cantidad seleccionada,
+      // el valor unitario y el valor total por ese producto.
+      li.innerHTML = `
+          <span>${item.nombre}<br><small class="text-gray-500">${item.cantidad} Unidades x $${item.valorunitario}</small></span>
+          <span class="text-indigo-700 font-bold">$${(item.valorunitario * item.cantidad).toLocaleString()}</span>
+        `;
+
+      // Se agrega el `li` al elemento lista en el DOM.
+      lista.appendChild(li);
+    });
+  }
+</script>
+<!-- fin de la tabla -->
