@@ -53,7 +53,7 @@ document.getElementById("formuInicio").addEventListener("submit", async (e) => {
       localStorage.setItem("id", data.user.id);
 
       // Redirigir al usuario a la página de inicio o dashboard
-      window.location.href = "/registro";
+      window.location.href = "/home";
     } else {
       console.error("Error en el inicio de sesión");
       // Mostrar mensaje de error al usuario

@@ -1,18 +1,17 @@
-    // validación registro
-    document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
     const formu = document.getElementById("formu");
     const nombre = document.getElementById("registroNombre");
     const correoRegistro = document.getElementById("CorreoRegistro");
     const contrasenaRegistro = document.getElementById("ContraseñaRegistro");
-    const numeroDc = document.getElementById("tipodocumento");
+    const numeroDc = document.getElementById("documento");
     const nombreError = document.getElementById("nombreError");
     const correoError = document.getElementById("correoError");
     const contrasenaError = document.getElementById("contrasenaError");
     const numeroDcError = document.getElementById("numeroDcError");
-    const togglePassword = document.getElementById("togglePassword");
+    const modal = document.getElementById("exitoModal");
 
     if (formu) formu.reset();
-
+    
     if (togglePassword && contrasenaRegistro) {
         togglePassword.addEventListener("click", function () {
         const type =
@@ -24,67 +23,73 @@
         this.classList.toggle("bx-hide");
         });
     }
-
     if (formu) {
         formu.addEventListener("submit", function (event) {
-        let valid = true;
-        if (nombreError) nombreError.textContent = "";
-        if (correoError) correoError.textContent = "";
-        if (contrasenaError) contrasenaError.textContent = "";
-        if (numeroDcError) numeroDcError.textContent = "";
+            let valid = true;
+            
 
-        // Validación del nombre
-        if (nombre) {
-            const nombreValue = nombre.value;
-            if (!nombreValue || !/^[A-Za-z\s]+$/.test(nombreValue)) {
-            valid = false;
-            if (nombreError)
-                nombreError.textContent = "Ingrese un nombre válido.";
+            // Limpiar mensajes de error previos
+            nombreError.textContent = "";
+            correoError.textContent = "";
+            contrasenaError.textContent = "";
+            numeroDcError.textContent = "";
+
+            // Validación del nombre
+            if (nombre) {
+                const nombreValue = nombre.value;
+                if (!nombreValue || !/^[A-Za-z\s]+$/.test(nombreValue)) {
+                    valid = false;
+                    nombreError.textContent = "Ingrese un nombre válido.";
+                }
             }
-        }
 
-        // Validación del correo electrónico
-        if (correoRegistro) {
-            const correoValue = correoRegistro.value;
-            if (!correoValue || !/\S+@\S+\.\S+/.test(correoValue)) {
-            valid = false;
-            if (correoError)
-                correoError.textContent = "Ingrese un correo electrónico válido.";
+            // Validación del correo electrónico
+            if (correoRegistro) {
+                const correoValue = correoRegistro.value;
+                if (!correoValue || !/\S+@\S+\.\S+/.test(correoValue)) {
+                    valid = false;
+                    correoError.textContent = "Ingrese un correo electrónico válido.";
+                }
             }
-        }
 
-        // Validación de la contraseña
-        if (contrasenaRegistro) {
-            const contrasenaValue = contrasenaRegistro.value;
-            if (!contrasenaValue || contrasenaValue.length < 8) {
-            valid = false;
-            if (contrasenaError)
-                contrasenaError.textContent =
-                "La contraseña debe tener al menos 8 caracteres.";
+            // Validación de la contraseña
+            if (contrasenaRegistro) {
+                const contrasenaValue = contrasenaRegistro.value;
+                if (!contrasenaValue || contrasenaValue.length < 8) {
+                    valid = false;
+                    contrasenaError.textContent =
+                        "La contraseña debe tener al menos 8 caracteres.";
+                }
             }
-        }
 
-        // Validación del número de documento
-        if (numeroDc) {
-            const numeroDcValue = numeroDc.value;
-            if (!numeroDcValue || isNaN(parseInt(numeroDcValue))) {
-            valid = false;
-            if (numeroDcError)
-                numeroDcError.textContent =
-                "Ingrese un número de documento válido.";
+            // Validación del número de documento
+            if (numeroDc) {
+                const numeroDcValue = numeroDc.value.trim();
+                if (!numeroDcValue || isNaN(parseInt(numeroDcValue))) {
+                    valid = false;
+                    numeroDcError.textContent = "Ingrese un número de documento válido.";
+                }
             }
-        }
 
-        if (!valid) {
-            event.preventDefault();
-        }
+            // Mostrar modal solo si todos los campos son válidos
+            if (valid) {
+                event.preventDefault(); // Evitar el envío del formulario
+                modal.classList.remove("hidden"); // Mostrar el modal
+            } else {
+                event.preventDefault(); // Evitar el envío del formulario
+            }
         });
     }
-    });
 
-    window.addEventListener("pageshow", function (event) {
+    document.getElementById('aceptarBtn').addEventListener('click', function () {
+        modal.classList.add("hidden");
+        window.location.href = '/inicioSesion';
+    });
+});
+
+window.addEventListener("pageshow", function (event) {
     const formu = document.getElementById("formu");
     if (event.persisted && formu) {
         formu.reset();
     }
-    });
+});

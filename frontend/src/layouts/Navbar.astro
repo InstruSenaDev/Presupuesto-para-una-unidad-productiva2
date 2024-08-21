@@ -1,29 +1,30 @@
 ---
-interface Props {
-    Inicio: string;
-    Personal: string;
-    Familiar: string;
-    Empresarial: string;
-    }
+interface Props{
+  titulo:string;
+}
 
-    const {
-    Inicio = "Inicio",
-    Personal = "Personal",
-    Familiar = "Familiar",
-    Empresarial = "Empresarial",
-    } = Astro.props;
+const {titulo} = Astro.props;
 ---
 
-    <!-- <header
+    <header
     class="text-3xl font-bold pl-4 bg-blueUwu flex justify-between items-center"
     >
-    <h1 class="text-blanquito p-7">{Empresarial}</h1>
-    <div class="p-9 flex justify-end text-blanquito">
-        Luis
+    <h1 class="text-blanquito p-7">{titulo}</h1>
+    <div id="nombre" class="p-9 flex justify-end text-blanquito">
         <span class="pl-5">
         <div class="bi bi-caret-down-square-fill cursor-pointer"></div>
         </span>
     </div>
-    <slot name="Empresarial"/>
-    </header> -->
+    </header>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function( ){
+          const nombre = localStorage.getItem("nombre")
+      
+          if (nombre) {
+            document.getElementById("nombre").textContent = nombre
+          } else{
+            document.getElementById("nombre").textContent= "Usuario desconocido"
+          }
+        })
+      </script>

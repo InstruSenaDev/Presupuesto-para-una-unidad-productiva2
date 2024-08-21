@@ -27,7 +27,7 @@
 
 <div
   id="sidebar"
-  class="w-64 h-screen bg-blueUwu text-white transition-all duration-300 fixed "
+  class="w-64 h-screen bg-blueUwu text-white transition-all duration-300 fixed"
 >
   <div class="flex justify-end">
     <button id="toggleBtn" class="bg-none border-none text-2xl cursor-pointer"
@@ -68,7 +68,9 @@
     </li>
     <li class="p-3.5" data-tooltip="">
       <div class="hover:bg-rosadito font-bold w-full flex items-center">
-        <a href="#" class="hover:bg-rosadito w-full text-blanquito no-underline"
+        <a
+        id="cerrarSesion" 
+        href="#" class="hover:bg-rosadito w-full text-blanquito no-underline"
           >Salir</a
         >
       </div>
@@ -86,6 +88,14 @@
       toggleBtn.addEventListener("click", () => {
         sidebar.classList.toggle("sidebar-minimized");
         mainContent.classList.toggle("sidebar-minimized");
+      });
+      document.getElementById("cerrarSesion").addEventListener("click", () => {
+        // Eliminar los datos almacenados en localStorage
+        localStorage.removeItem("nombre");
+        localStorage.removeItem("id")
+        localStorage.removeItem("correo")
+        
+        window.location.href = "/inicioSesion";
       });
     </script>
   </ul>
