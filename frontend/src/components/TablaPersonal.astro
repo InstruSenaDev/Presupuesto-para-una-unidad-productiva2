@@ -33,6 +33,7 @@ const usuarios = await response.json();
                 >Tipo documento</th
               >
               <th class="p-[10px] text-left border-b border-[#ccc]">Estado</th>
+
               <th class="p-[10px] text-left border-b border-[#ccc]"></th>
             </tr>
           </thead>
@@ -53,7 +54,7 @@ const usuarios = await response.json();
                   <td class="p-[10px] border-b border-[#ccc]">
                     {usuario.estado}
                   </td>
-                  <td class="p-[10px] border-b border-[#ccc]">
+                  <td class="p-[8px] border-b border-[#ccc]">
                     <button class="text-center font-bold">
                       <i class="bi bi-pencil-square" />
                     </button>
@@ -66,7 +67,14 @@ const usuarios = await response.json();
             }
           </tbody>
         </table>
+
+        <div id="data-container"></div>
+        <div id="paginator">
+          <button id="prev-btn">Anterior</button>
+          <button id="next-btn">Siguiente</button>
+        </div>
       </div>
     </div>
   </div>
+  <script src="../js/paginadorTablaFamiliar.js"></script>
 </div>
