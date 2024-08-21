@@ -1,20 +1,29 @@
 ---
-interface Props{
-  titulo:string;
-}
+interface Props {
+    Inicio: string;
+    Personal: string;
+    Familiar: string;
+    Empresarial: string;
+    }
 
-const {titulo} = Astro.props;
+    const {
+    Inicio = "Inicio",
+    Personal = "Personal",
+    Familiar = "Familiar",
+    Empresarial = "Empresarial",
+    } = Astro.props;
 ---
 
-    <header
-    class="text-3xl font-bold pl-16 bg-blueUwu flex justify-between items-center"
+    <!-- <header
+    class="text-3xl font-bold pl-4 bg-blueUwu flex justify-between items-center"
     >
-    <h1 class="text-blanquito p-7 text-4xl">{titulo}</h1>
-    <div class="p-9 flex justify-end text-blanquito font-bold">
+    <h1 class="text-blanquito p-7">{Empresarial}</h1>
+    <div class="p-9 flex justify-end text-blanquito">
         Luis
         <span class="pl-5">
         <div class="bi bi-caret-down-square-fill cursor-pointer"></div>
         </span>
     </div>
-    </header>
+    <slot name="Empresarial"/>
+    </header> -->
 

@@ -1,0 +1,36 @@
+---
+interface Props{
+  titulo:string;
+}
+
+const {titulo} = Astro.props;
+---
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+<div class="bg-blueUwu rounded-t-lg p-1">
+
+  <div class="flex flex-row justify-center items-center pb-8">
+
+    <div class="flex justify-between flex-col w-full">
+
+      <div class="flex space-x-2 justify-end p-2">
+        <div class="bg-opacity-65">
+          <span
+            class="bi bi-arrow-90deg-left bg-blanquito rounded-3xl cursor-pointer p-1"
+          ></span>
+        </div>
+        <div>
+          <span class="bi bi-x-lg bg-blanquito rounded-3xl cursor-pointer p-1"
+          ></span>
+        </div>
+      </div>
+
+      <div class="text-blanquito w-full flex justify-center font-bold text-3xl ">{titulo}</div>
+
+
+
+    </div>
+
+  </div>
+  
+</div>
