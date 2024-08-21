@@ -121,6 +121,7 @@
   document.getElementById("cerrarSesion").addEventListener("click", () => {
     // Eliminar los datos almacenados en localStorage
     localStorage.removeItem("nombre");
+    localStorage.removeItem("id");
     window.location.href = "/inicioSesion";
   });
 </script>
