@@ -11,10 +11,52 @@ const {titulo} = Astro.props;
     >
     <h1 class="text-blanquito p-7 text-4xl">{titulo}</h1>
     <div class="p-9 flex justify-end text-blanquito font-bold">
-        Luis
-        <span class="pl-5">
-        <div class="bi bi-caret-down-square-fill cursor-pointer"></div>
+        <h2> Luis</h2>
+        <span class="pl-5 md:pl-3 lg:pl-2 xl:pl-1">
+          <box-icon id="Open_" class="cursor-pointer" name='down-arrow-square' type='solid' color='#ffffff' ></box-icon>
         </span>
     </div>
     </header>
 
+    <!-- Modal -->
+  <div id="Modal" class=" fixed top-0 left-0 w-full h-full bg-gray-500 bg-opacity-50 flex justify-center items-center">
+    <div class="bg-white p-4 rounded bg-blanquito h-auto w-2/6 flex-col text-center">
+      <div>
+        <h1>Perfil</h1> 
+        <h2>Luis</h2>
+        <h2>Luis</h2>
+        <p>Modal content</p>
+        <button id="Close" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Cerrar</button>
+      </div>
+    </div>
+  </div>
+  <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+  <script>
+    const openModal = document.getElementById('Open_');
+    const closeModal = document.getElementById('Close');
+    const modal = document.getElementById('Modal');
+  
+    openModal.addEventListener('click', () => {
+      modal.classList.remove('hidden');
+    });
+  
+    closeModal.addEventListener('click', () => {
+      modal.classList.add('hidden');
+    });
+  
+    // Also, you can add an event to close the modal when clicking outside of it
+    document.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.add('hidden');
+      }
+    });
+  </script>
+
+<style is:global>
+  html {
+
+font-family: "Zen Kaku Gothic New, sans-serif";
+background: #ffffff;
+background-size: 224px;
+}
+</style>

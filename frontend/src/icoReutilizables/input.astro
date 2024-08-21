@@ -5,6 +5,7 @@ interface Props {
   type: "text" | "email" | "password";
   id: string; // Obligatorio para envío de formularios
   name:string;
+  text:string;
 }
 
 const { placeholder, type, id, name } = Astro.props;
