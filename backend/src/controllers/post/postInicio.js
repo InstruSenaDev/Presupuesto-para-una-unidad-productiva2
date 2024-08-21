@@ -10,7 +10,7 @@ const iniciarSesion = async (req, res) => {
   try {
     // Buscar un usuario con el correo proporcionado
     const result = await pool.query(
-      "SELECT correo, contrasena, nombre FROM usuarios WHERE correo = $1",
+      "SELECT id, correo, contrasena, nombre FROM usuarios WHERE correo = $1",
       [correo]
     );
 
