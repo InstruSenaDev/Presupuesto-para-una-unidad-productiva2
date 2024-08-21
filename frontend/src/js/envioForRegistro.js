@@ -26,6 +26,7 @@ form.addEventListener("submit", async (e) => {
   console.log(userData);
   console.log(tipodocumento);
 
+  
   /*
       nombre,
       correo,
