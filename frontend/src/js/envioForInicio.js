@@ -50,6 +50,9 @@ document.getElementById("formuInicio").addEventListener("submit", async (e) => {
 
       // Almacenar el nombre en localStorage
       localStorage.setItem("nombre", data.user.nombre);
+      localStorage.setItem("correo", data.user.correo);
+      localStorage.setItem("tipoDc", data.user.tipodocumento);
+      localStorage.setItem("numeroDc", data.user.documento);
       localStorage.setItem("id", data.user.id);
 
       // Redirigir al usuario a la página de inicio o dashboard

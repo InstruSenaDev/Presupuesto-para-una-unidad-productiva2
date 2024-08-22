@@ -3,6 +3,12 @@ export default {
 	content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
 	theme: {
 		colors:{
+			
+			
+			
+			
+			'griscard': '#2B2B2B',
+			'gray700': '#374151',
 			'blueUwu' : '#322FA0',
 			'blanquito' : '#FFFFFF',
 			'rosadito': '#9747FF',
@@ -14,7 +20,8 @@ export default {
 			'color4':'#3835A3',
 			'colorFondoInicio':"#F8F8F8",
 			'color6':"#9E9E9E",
-			'color7': "#FF0000"
+			'color7': "#FF0000",
+			'colorVerde': "#0ffb01"
 			
 		},
 		fontFamily: {

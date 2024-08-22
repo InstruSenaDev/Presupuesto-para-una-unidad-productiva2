@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.getElementById('aceptarBtn').addEventListener('click', function () {
         modal.classList.add("hidden");
-        window.location.href = '/inicioSesion';
+        window.location.href = '/';
     });
 });
 
