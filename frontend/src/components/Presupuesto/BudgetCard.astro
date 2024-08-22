@@ -63,11 +63,39 @@ const { title, icon, date, balance } = Astro.props;
       <div class="mb-4 flex justify-between">
         <div>
           <label for="mes" class="block text-sm font-medium text-gray-700">Mes:</label>
-          <input type="text" id="mes" class="mt-1 block w-full border rounded-md shadow-sm">
+          <select name="mes" id="mes" required>
+            <option value="" disabled selected>Seleccione un mes</option>
+            <option value="enero">Enero</option>
+            <option value="febrero">Febrero</option>
+            <option value="marzo">Marzo</option>
+            <option value="abril">Abril</option>
+            <option value="mayo">Mayo</option>
+            <option value="junio">Junio</option>
+            <option value="julio">Julio</option>
+            <option value="agosto">Agosto</option>
+            <option value="septiembre">Septiembre</option>
+            <option value="octubre">Octubre</option>
+            <option value="noviembre">Noviembre</option>
+            <option value="diciembre">Diciembre</option>
+        </select>
+        
+         
         </div>
         <div>
           <label for="ano" class="block text-sm font-medium text-gray-700">Año:</label>
-          <input type="text" id="ano" class="mt-1 block w-full border rounded-md shadow-sm">
+          <select name="" id=año" required >
+            
+            <option value="" disabled selected>Selecciona un Año:</option>
+
+            <option value="">2020</option>
+            <option value="">2021</option>
+            <option value="">2022</option>
+            <option value="">2023</option>
+            <option value="">2024</option>
+            
+          
+
+          </select>
         </div>
       </div>
       <button id="segundoSiguienteBtn" class="px-4 text-blanquito py-2 bg-negro text-base font-medium rounded-md shadow-sm hover:bg-blueUwu focus:outline-none focus:ring-2 focus:ring-rosadito">
@@ -88,8 +116,8 @@ const { title, icon, date, balance } = Astro.props;
     <div class="p-8">
       <div class="mb-4">
         <select id="movimientoSelect" class="w-full px-3 py-2 border rounded-md">
-          <option value="">Ingresos</option>
-          <option value="">Egresos</option>
+          <option value="" id="">Ingresos</option>
+          <option value="" id="">Egresos</option>
         </select>
       </div>
       <button id="terceroSiguienteBtn" class="px-4 text-blanquito py-2 bg-negro text-base font-medium rounded-md shadow-sm hover:bg-blueUwu focus:outline-none focus:ring-2 focus:ring-rosadito">
@@ -106,21 +134,31 @@ const { title, icon, date, balance } = Astro.props;
       <h2 class="text-blanquito text-2xl">Saldo</h2>
       <box-icon name='x-circle' color='#ffffff' id="closeFourthModalBtn"></box-icon>
     </div>
-    <div class="p-8">
+    <form action="" method="post">
+ <div class="p-8">
       <div class="mb-4">
         <label for="saldo" class="block text-sm font-medium text-gray-700">Saldo:</label>
         <input type="text" id="saldo" class="mt-1 block w-full border rounded-md shadow-sm">
+        <span id="saldoError" class="text-color7 text-sm"></span>
       </div>
       <div class="mb-4">
         <label for="descripcion" class="block text-sm font-medium text-gray-700">Descripción:</label>
         <textarea id="descripcion" class="mt-1 block w-full border rounded-md shadow-sm" rows="3"></textarea>
+        <span id="descripcionError" class="text-color7 text-sm"></span>
       </div>
       <button id="cuartoSiguienteBtn" class="px-4 text-blanquito py-2 bg-negro text-base font-medium rounded-md shadow-sm hover:bg-blueUwu focus:outline-none focus:ring-2 focus:ring-rosadito">
         Siguiente →
       </button>
     </div>
+
+
+    </form>
+   
   </div>
 </div>
+
+
+
 
 <!-- Alerta -->
 <div id="alertModal" class="fixed flex inset-0 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50 items-center justify-center">
@@ -139,100 +177,8 @@ const { title, icon, date, balance } = Astro.props;
   </div>
 </div>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const modal = document.getElementById('modal');
-    const secondModal = document.getElementById('secondModal');
-    const thirdModal = document.getElementById('thirdModal');
-    const fourthModal = document.getElementById('fourthModal');
-    const alertModal = document.getElementById('alertModal'); // Modal para alertas
-    const openModalBtn = document.getElementById('openModalBtn');
-    const closeModalBtn = document.getElementById('closeModalBtn');
-    const closeSecondModalBtn = document.getElementById('closeSecondModalBtn');
-    const closeThirdModalBtn = document.getElementById('closeThirdModalBtn');
-    const closeFourthModalBtn = document.getElementById('closeFourthModalBtn');
-    const siguienteBtn = document.getElementById('siguienteBtn');
-    const segundoSiguienteBtn = document.getElementById('segundoSiguienteBtn');
-    const terceroSiguienteBtn = document.getElementById('terceroSiguienteBtn');
-    const cuartoSiguienteBtn = document.getElementById('cuartoSiguienteBtn');
-    const alertSiBtn = document.getElementById('alertSiBtn');
-    const alertNoBtn = document.getElementById('alertNoBtn');
 
-    function openModal(modalElement) {
-      modalElement.classList.remove('hidden');
-    }
-
-    function closeModal(modalElement) {
-      modalElement.classList.add('hidden');
-    }
-
-    openModalBtn.addEventListener('click', () => openModal(modal));
-    closeModalBtn.addEventListener('click', () => closeModal(modal));
-    closeSecondModalBtn.addEventListener('click', () => closeModal(secondModal));
-    closeThirdModalBtn.addEventListener('click', () => closeModal(thirdModal));
-    closeFourthModalBtn.addEventListener('click', () => closeModal(fourthModal));
-
-    modal.addEventListener('click', function(e) {
-      if (e.target === modal) {
-        closeModal(modal);
-      }
-    });
-
-    secondModal.addEventListener('click', function(e) {
-      if (e.target === secondModal) {
-        closeModal(secondModal);
-      }
-    });
-
-    thirdModal.addEventListener('click', function(e) {
-      if (e.target === thirdModal) {
-        closeModal(thirdModal);
-      }
-    });
-
-    fourthModal.addEventListener('click', function(e) {
-      if (e.target === fourthModal) {
-        closeModal(fourthModal);
-      }
-    });
-
-    siguienteBtn.addEventListener('click', function() {
-      closeModal(modal);
-      openModal(secondModal);
-    });
-
-    segundoSiguienteBtn.addEventListener('click', function() {
-      closeModal(secondModal);
-      openModal(thirdModal);
-    });
-
-    terceroSiguienteBtn.addEventListener('click', function() {
-      closeModal(thirdModal);
-      openModal(fourthModal);
-    });
-
-    cuartoSiguienteBtn.addEventListener('click', function() {
-      const saldo = document.getElementById('saldo').value;
-      const descripcion = document.getElementById('descripcion').value;
-      console.log('Saldo:', saldo);
-      console.log('Descripción:', descripcion);
-      closeModal(fourthModal);
-      openModal(alertModal);
-    });
-
-    alertSiBtn.addEventListener('click', function() {
-      closeModal(alertModal);
-      openModal(modal);
-    });
-
-    alertNoBtn.addEventListener('click', function() {
-      // Aquí puedes agregar la lógica adicional que necesites
-      closeModal(alertModal);
-    });
-
-  });
-</script>
-
+<script src="../../js/mNuevoPresupuesto.js"></script>
 
 <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 

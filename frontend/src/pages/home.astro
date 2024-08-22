@@ -1,10 +1,13 @@
 ---
 import General from "../layouts/General.astro";
+import Layout from "../layouts/Layout.astro";
 ---
+<Layout title="">
 
-<General headername="Inicio" nombrepagina="INICIO">
-  <div class="flex flex- rounded-md bg-blanquito justify-center">
-    <div class="flex flex-wrap shadow-md shadow-blueUwu bg-blanquito">
+  <General headername="Inicio" nombrepagina="INICIO">
+  <div class="flex rounded bg-blanquito justify-center ml-14">
+    <div class="flex flex-wrap shadow-md shadow-blueUwu rounded-lg bg-blanquito">
+      
       <div class="p-6 w-full rounded-t-2xl bg-blueUwu">
         <!-- Titulo -->
         <h1 class="flex justify-center text-blanquito font-bold text-2xl">
@@ -47,3 +50,5 @@ import General from "../layouts/General.astro";
     </div>
   </div>
 </General>
+</Layout>
+
