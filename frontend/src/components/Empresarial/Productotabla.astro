@@ -1,0 +1,49 @@
+---
+const productos = [
+  { fecha: '17/05/2024', nombre: 'Smartphone Honor', recibo: '00027-445-2345', precio: '$27.000.00 COP', estado: 'En proceso' },
+  { fecha: '17/05/2024', nombre: 'Smartphone Honor', recibo: '00027-445-2345', precio: '$27.000.00 COP', estado: 'En proceso' },
+  { fecha: '17/05/2024', nombre: 'Smartphone Honor', recibo: '00027-445-2345', precio: '$27.000.00 COP', estado: 'En proceso' },
+  { fecha: '17/05/2024', nombre: 'Smartphone Honor', recibo: '00027-445-2345', precio: '$27.000.00 COP', estado: 'En proceso' },
+  { fecha: '17/05/2024', nombre: 'Smartphone Honor', recibo: '00027-445-2345', precio: '$27.000.00 COP', estado: 'En proceso' },
+];
+---
+
+<div class="bg-white rounded-lg shadow-md p-20 w-full">
+  <div class="flex justify-between mb-4">
+    <div>
+    <button class="text-blanquito text-white px-4 py-2 rounded-md bg-negro"><box-icon name='arrow-back' color='#ffffff' ></box-icon>   Volver</button>
+    <button class= "items-center text-blanquito text-white px-4 py-2 rounded-md bg-negro">Nuevo  <box-icon class="items-center" name='plus-circle' color='#ffffff' ></box-icon></button>
+  </div>
+    <input type="text" placeholder="Buscar productos" class="border rounded-md px-4 py-2 w-1/3">
+  </div>
+  
+  <table class="w-full">
+    <thead>
+      <tr class="text-left text-indigo-700">
+        <th class="pb-2">Fecha</th>
+        <th class="pb-2">Nombre</th>
+        <th class="pb-2">Numero de recibo</th>
+        <th class="pb-2">Precio</th>
+        <th class="pb-2">Estado</th>
+        <th class="pb-2">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {productos.map((producto) => (
+        <tr class="border-t">
+          <td class="py-2">{producto.fecha}</td>
+          <td>{producto.nombre}</td>
+          <td>{producto.recibo}</td>
+          <td class="text-green-600">{producto.precio}</td>
+          <td>{producto.estado}</td>
+          <td>
+            <button><box-icon type='solid' name='plus-circle'></box-icon></button>
+            <button class="text-gray-600 mr-2"><box-icon name='edit' ></box-icon></button>
+            <button class="text-gray-600"><box-icon name='trash'></box-icon></button>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+<script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>

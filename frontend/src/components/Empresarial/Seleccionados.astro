@@ -1,0 +1,29 @@
+---
+const seleccionados = [
+  { nombre: 'Smartphone Honor', cantidad: 1, precio: 27000 },
+  { nombre: 'Smartphone Honor', cantidad: 1, precio: 27000 },
+  { nombre: 'Smartphone Honor', cantidad: 1, precio: 27000 },
+  { nombre: 'Smartphone Honor', cantidad: 1, precio: 27000 },
+  { nombre: 'Smartphone Honor', cantidad: 1, precio: 27000 },
+];
+
+const total = seleccionados.reduce((sum, item) => sum + item.precio * item.cantidad, 0);
+---
+
+
+<div class="bg-white rounded-lg shadow-md w-96">
+  <h2 class="text-xl text-center text-blanquito text-white text- font-bold mb-4 bg-indigo-700 text-white py-2 px-4 rounded-t-lg bg-blueUwu">Seleccionados</h2>
+  <ul class="p-6">
+    {seleccionados.map((item) => (
+      <li class="flex justify-between items-center mb-2">
+        <span>{item.nombre}<br><small class="text-gray-500">{item.cantidad} Unidades x ${item.precio}</small></span>
+        <span class="text-indigo-700 font-bold">${item.precio * item.cantidad}</span>
+      </li>
+    ))}
+  </ul>
+  <div class="mt-4 flex justify-between items-center bg-gris">
+    <button class="bg-black text-blanquito text-white px-4 py-2 rounded-md bg-negro"><box-icon name='dollar-circle' color='#ffffff' ></box-icon>Pagar</button>
+    <span class="text-indigo-700 font-bold">Total: ${total.toLocaleString()}</span>
+  </div>
+</div>
+<script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
