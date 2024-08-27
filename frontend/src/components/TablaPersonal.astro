@@ -37,7 +37,7 @@ const usuarios = await response.json();
               <th class="p-[10px] text-left border-b border-[#ccc]"></th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="data-body">
             <!-- Aquí comienza la integración con los usuarios traídos desde el backend -->
             {
               usuarios.map((usuario) => (
@@ -71,7 +71,7 @@ const usuarios = await response.json();
         <div id="data-container"></div>
         <div id="paginator">
           <button id="prev-btn">Anterior</button>
-          <button id="next-btn">Siguiente</button>
+          <button id="next-btn">Siguiente</button> 
         </div>
       </div>
     </div>
