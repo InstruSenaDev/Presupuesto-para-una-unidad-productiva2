@@ -22,11 +22,11 @@ import Input from "../../icoReutilizables/input.astro";
             <h1 class="text-2xl text-color2">Inicio sesion</h1>
 
             <div class="w-full">
-              <Input placeholder="Correo" id="inicioCorreo" type="text" />
+              <Input name="" placeholder="Correo" id="inicioCorreo" type="text" />
               <span id="correoError" class="text-color7 text-xs"></span>
             </div>
             <div class="relative">
-              <Input placeholder="Contraseña" id="contraseñaInicio" type="password" />
+              <Input name="" placeholder="Contraseña" id="contraseñaInicio" type="password" />
               <i class='bx bx-show cursor-pointer absolute right-3 top-2/4 transform -translate-y-2/4' id="togglePassword"></i>
               <span id="contrasenaError" class="text-color7 text-xs"></span>
             </div>
@@ -45,7 +45,7 @@ import Input from "../../icoReutilizables/input.astro";
   </div>
 
 <!-- Modal -->
-<div id="modalInicioExitoso" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+<div id="modalExito" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
   <div class="bg-white p-5 rounded-md shadow-md">
     <h2 class="text-xl font-bold mb-4">¡Registro exitoso!</h2>
     <button id="aceptarModalInicio" class="bg-blue-500 text-white px-4 py-2 rounded-md">Aceptar</button>
