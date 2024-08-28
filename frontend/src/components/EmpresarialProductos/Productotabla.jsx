@@ -19,16 +19,16 @@ function Productos() {
       try {
         // Asegúrate de que la URL incluya el ID del usuario
         const response = await fetch(`http://localhost:3000/traerProductos/${idusuario}`);
-        console.log('Estado de la respuesta:', response.status);
         
-
+        
         if (response.status === 404) {
           console.log('No se encontraron productos');
           alert('No se encontraron productos para este usuario.');
           setProductos([]);
           return;
         }
-
+        console.log('Estado de la respuesta:', response.status);
+        
         if (!response.ok) {
           throw new Error(`Error HTTP! status: ${response.status}`);
         }

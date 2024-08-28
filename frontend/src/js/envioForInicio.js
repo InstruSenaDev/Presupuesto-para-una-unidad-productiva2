@@ -5,30 +5,10 @@ document.getElementById("formuInicio").addEventListener("submit", async (e) => {
   const correo = document.getElementById("inicioCorreo").value;
   const contrasena = document.getElementById("contraseñaInicio").value;
 
-  // const modal = document.getElementById("modalInicio");
-  // const abrirModal = document.getElementById("abrirModal");
-  // // const cerrarModal = document.getElementById("cerrarModal")[0];
-  // const aceptarBtn = document.getElementById("aceptarBtn");
-
-
-  //   abrirModal.onclick = function () {
-  //     modal.classList.remove("hidden");
-  //   }
-
-  //   cerrarModal.onclick = function () {
-  //     modal.classList.add("hidden");
-  //   }
-
-  //   window.onclick = function (event) {
-  //     if (event.target == modal) {
-  //       modal.classList.add("hidden")
-  //     }
-  //   }
-
   // Crear un objeto con los datos del formulario
   const userData = {
     correo,
-    contrasena
+    contrasena,
   };
 
   console.log(userData);
@@ -48,12 +28,13 @@ document.getElementById("formuInicio").addEventListener("submit", async (e) => {
 
       console.log("Inicio de sesión exitoso");
 
-      // Almacenar el nombre en localStorage
-      localStorage.setItem("nombre", data.user.nombre);
-      localStorage.setItem("correo", data.user.correo);
-      localStorage.setItem("tipoDc", data.user.tipodocumento);
-      localStorage.setItem("numeroDc", data.user.documento);
-      localStorage.setItem("id", data.user.id);
+      // Almacenar el token JWT y la información del usuario en localStorage
+      localStorage.setItem("token", data.token);
+      // localStorage.setItem("nombre", data.user.nombre);
+      // localStorage.setItem("correo", data.user.correo);
+      // localStorage.setItem("tipoDc", data.user.tipodocumento);
+      // localStorage.setItem("numeroDc", data.user.documento);
+      // localStorage.setItem("id", data.user.id);
 
       // Redirigir al usuario a la página de inicio o dashboard
       window.location.href = "/home";
