@@ -1,49 +1,55 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 function Productos() {
   const [productos, setProductos] = useState([]);
   const [seleccionados, setSeleccionados] = useState([]);
   const [total, setTotal] = useState(0);
+  const [idusuario, setIdusuario] = useState(null); // Estado para el ID de usuario
 
   useEffect(() => {
-    const fetchProductos = async () => {
-      const idusuario = localStorage.getItem('id'); // Recuperar el ID del localStorage
-      console.log('ID de usuario desde localStorage:', idusuario); // Verificar que el ID se ha recuperado correctamente
+    // Código dentro de useEffect se ejecuta solo en el cliente
+    const id = localStorage.getItem("id"); // Recuperar el ID del localStorage
+    setIdusuario(id); // Guardar el ID en el estado
 
-      if (!idusuario) {
-        console.log('ID de usuario no encontrado en localStorage', idusuario);
-        alert('ID de usuario no encontrado. Por favor, inicia sesión de nuevo.');
-        return;
-      }
+    console.log("ID de usuario desde localStorage:", id); // Verificar que el ID se ha recuperado correctamente
+
+    if (!id) {
+      console.log("ID de usuario no encontrado en localStorage", id);
+      alert("ID de usuario no encontrado. Por favor, inicia sesión de nuevo.");
+      return;
+    }
+
+    const fetchProductos = async () => {
+      console.log("Fetch de productos iniciado"); // Verificar que la función de fetch comienza
 
       try {
         // Asegúrate de que la URL incluya el ID del usuario
-        const response = await fetch(`http://localhost:3000/traerProductos/${idusuario}`);
-        
-        
-        if (response.status === 404) {
-          console.log('No se encontraron productos');
-          alert('No se encontraron productos para este usuario.');
-          setProductos([]);
-          return;
-        }
-        console.log('Estado de la respuesta:', response.status);
-        
+        const response = await fetch(
+          `http://localhost:3000/traerProductos/${id}`
+        );
+
         if (!response.ok) {
-          throw new Error(`Error HTTP! status: ${response.status}`);
+          if (response.status === 404) {
+            console.log("No se encontraron productos");
+            alert("No se encontraron productos para este usuario.");
+            setProductos([]);
+          } else {
+            throw new Error(`Error HTTP! status: ${response.status}`);
+          }
+          return;
         }
 
         const data = await response.json(); // Convertir la respuesta en JSON
-        console.log('Productos recibidos:', data); // Verificar los productos recibidos
+        console.log("Productos recibidos:", data); // Verificar los productos recibidos
         setProductos(data); // Actualizar el estado de productos
       } catch (error) {
-        console.error('Error al obtener productos:', error);
-        alert('Error al obtener productos. Inténtalo de nuevo más tarde.');
+        console.error("Error al obtener productos:", error);
+        alert("Error al obtener productos. Inténtalo de nuevo más tarde.");
       }
     };
 
-    fetchProductos();
-  }, []); // Ejecutar solo una vez al cargar el componente
+    fetchProductos(); // Llamar a la función de fetch
+  }, []); // Ejecutar solo una vez al montar el componente
 
   const actualizarTotal = (seleccionados) => {
     const nuevoTotal = seleccionados.reduce(
@@ -55,12 +61,17 @@ function Productos() {
 
   const agregarProducto = (index) => {
     const producto = productos[index];
-    const existe = seleccionados.find(item => item.codigo === producto.codigo);
+    const existe = seleccionados.find(
+      (item) => item.codigo === producto.codigo
+    );
 
     if (existe) {
       existe.cantidad += 1;
     } else {
-      setSeleccionados(prevSeleccionados => [...prevSeleccionados, { ...producto, cantidad: 1 }]);
+      setSeleccionados((prevSeleccionados) => [
+        ...prevSeleccionados,
+        { ...producto, cantidad: 1 },
+      ]);
     }
 
     actualizarTotal(seleccionados);
@@ -74,7 +85,9 @@ function Productos() {
           <thead>
             <tr className="text-left text-indigo-700">
               <th className="text-center p-2 text-2xl font-bold">Nombre</th>
-              <th className="text-center p-2 text-2xl font-bold">Numero de recibo</th>
+              <th className="text-center p-2 text-2xl font-bold">
+                Numero de recibo
+              </th>
               <th className="text-center p-2 text-2xl font-bold">Precio</th>
               <th className="text-center p-2 text-2xl font-bold">Estado</th>
               <th className="text-center p-2 text-2xl font-bold">Acciones</th>
@@ -83,11 +96,13 @@ function Productos() {
           <tbody>
             {productos.length === 0 ? (
               <tr>
-                <td colSpan="5" className="text-center p-2">No hay productos disponibles</td>
+                <td colSpan="5" className="text-center p-2">
+                  No hay productos disponibles
+                </td>
               </tr>
             ) : (
               productos.map((producto, index) => (
-                <tr id={id} className="border-t" key={producto.codigo}>
+                <tr className="border-t" key={producto.codigo}>
                   <td className="text-center p-2">{producto.nombre}</td>
                   <td className="text-center p-2">{producto.codigo}</td>
                   <td className="text-center p-2">${producto.valorunitario}</td>
@@ -116,8 +131,11 @@ function Productos() {
           {seleccionados.map((item, index) => (
             <li className="flex justify-between items-center mb-2" key={index}>
               <span>
-                {item.nombre}<br />
-                <small className="text-gray-500">{item.cantidad} Unidades x ${item.valorunitario}</small>
+                {item.nombre}
+                <br />
+                <small className="text-gray-500">
+                  {item.cantidad} Unidades x ${item.valorunitario}
+                </small>
               </span>
               <span className="text-indigo-700 font-bold">
                 ${item.valorunitario * item.cantidad}

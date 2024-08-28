@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (cerrarModal) {
         cerrarModal.addEventListener("click", function () {
             modalExito.classList.add("hidden");  // Oculta el modal
-            window.location.href = "/home";  // Redirige a la ruta '/inicioSesion'
+            window.location.href = "/inicioSesion";  // Redirige a la ruta '/inicioSesion'
         });
     }
 });
