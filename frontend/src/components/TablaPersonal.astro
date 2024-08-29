@@ -1,6 +1,8 @@
 ---
 const response = await fetch("http://localhost:3000/user");
-const usuarios = await response.json();
+console.log(response);
+
+//const usuarios = await response.json();
 ---
 
 <!-- src/components/Dashboard.astro -->
@@ -39,7 +41,7 @@ const usuarios = await response.json();
           </thead>
           <tbody id="data-body">
             <!-- Aquí comienza la integración con los usuarios traídos desde el backend -->
-            {
+            <!--{
               usuarios.map((usuario) => (
                 <tr class="border-t">
                   <td class="p-[10px] border-b border-[#ccc]">
@@ -64,7 +66,7 @@ const usuarios = await response.json();
                   </td>
                 </tr>
               ))
-            }
+          }-->
           </tbody>
         </table>
 
