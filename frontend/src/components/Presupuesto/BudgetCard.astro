@@ -43,7 +43,7 @@ const { title, icon, date, balance } = Astro.props;
             <option value="">Movimiento</option>
           </select>
         </div>
-        <button id="siguienteBtn" class="px-4 text-blanquito py-2 bg-negro text-white text-base font-medium rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300">
+        <button id="siguienteBtn" class="px-4 text-blanquito py-2 bg-negro text-base font-medium rounded-md shadow-sm hover:bg-blueUwu focus:outline-none focus:ring-2 focus:ring-rosadito">
           Siguiente →
         </button>
       </div>
@@ -51,37 +51,134 @@ const { title, icon, date, balance } = Astro.props;
   </div>
 </div>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const modal = document.getElementById('modal');
-  const openModalBtn = document.getElementById('openModalBtn');
-  const closeModalBtn = document.getElementById('closeModalBtn');
-  const siguienteBtn = document.getElementById('siguienteBtn');
 
-  function openModal() {
-    modal.classList.remove('hidden');
-  }
+<!-- Segundo Modal (Fecha) -->
+<div id="secondModal" class="fixed flex inset-0 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50 items-center justify-center">
+  <div class="relative border bg-blanquito w-96 shadow-lg rounded-md bg-white">
+    <div class="flex justify-between bg-blueUwu h-1/4">
+      <h2 class="text-blanquito text-2xl">Fecha</h2>
+      <box-icon name='x-circle' color='#ffffff' id="closeSecondModalBtn"></box-icon>
+    </div>
+    <div class="p-8">
+      <div class="mb-4 flex justify-between">
+        <div>
+          <label for="mes" class="block text-sm font-medium text-gray-700">Mes:</label>
+          <select name="mes" id="mes" required>
+            <option value="" disabled selected>Seleccione un mes</option>
+            <option value="enero">Enero</option>
+            <option value="febrero">Febrero</option>
+            <option value="marzo">Marzo</option>
+            <option value="abril">Abril</option>
+            <option value="mayo">Mayo</option>
+            <option value="junio">Junio</option>
+            <option value="julio">Julio</option>
+            <option value="agosto">Agosto</option>
+            <option value="septiembre">Septiembre</option>
+            <option value="octubre">Octubre</option>
+            <option value="noviembre">Noviembre</option>
+            <option value="diciembre">Diciembre</option>
+        </select>
+        
+         
+        </div>
+        <div>
+          <label for="ano" class="block text-sm font-medium text-gray-700">Año:</label>
+          <select name="" id=año" required >
+            
+            <option value="" disabled selected>Selecciona un Año:</option>
 
-  function closeModal() {
-    modal.classList.add('hidden');
-  }
+            <option value="">2020</option>
+            <option value="">2021</option>
+            <option value="">2022</option>
+            <option value="">2023</option>
+            <option value="">2024</option>
+            
+          
 
-  openModalBtn.addEventListener('click', openModal);
+          </select>
+        </div>
+      </div>
+      <button id="segundoSiguienteBtn" class="px-4 text-blanquito py-2 bg-negro text-base font-medium rounded-md shadow-sm hover:bg-blueUwu focus:outline-none focus:ring-2 focus:ring-rosadito">
+        Siguiente →
+      </button>
+    </div>
+  </div>
+</div>
 
-  closeModalBtn.addEventListener('click', closeModal);
 
-  modal.addEventListener('click', function(e) {
-    if (e.target === modal) {
-      closeModal();
-    }
-  });
+<!-- Tercer Modal (Movimientos) -->
+<div id="thirdModal" class="fixed flex inset-0 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50 items-center justify-center">
+  <div class="relative border bg-blanquito w-96 shadow-lg rounded-md bg-white">
+    <div class="flex justify-between bg-blueUwu h-1/4">
+      <h2 class="text-blanquito text-2xl">Movimientos</h2>
+      <box-icon name='x-circle' color='#ffffff' id="closeThirdModalBtn"></box-icon>
+    </div>
+    <div class="p-8">
+      <div class="mb-4">
+        <select id="movimientoSelect" class="w-full px-3 py-2 border rounded-md">
+          <option value="" id="">Ingresos</option>
+          <option value="" id="">Egresos</option>
+        </select>
+      </div>
+      <button id="terceroSiguienteBtn" class="px-4 text-blanquito py-2 bg-negro text-base font-medium rounded-md shadow-sm hover:bg-blueUwu focus:outline-none focus:ring-2 focus:ring-rosadito">
+        Siguiente →
+      </button>
+    </div>
+  </div>
+</div>
 
-  siguienteBtn.addEventListener('click', function() {
-    console.log('Siguiente clicked');
-    closeModal();
-  });
-});
-</script>
+<!-- Cuarto Modal (Saldo) -->
+<div id="fourthModal" class="fixed flex inset-0 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50 items-center justify-center">
+  <div class="relative border bg-blanquito w-96 shadow-lg rounded-md bg-white">
+    <div class="flex justify-between bg-blueUwu h-1/4">
+      <h2 class="text-blanquito text-2xl">Saldo</h2>
+      <box-icon name='x-circle' color='#ffffff' id="closeFourthModalBtn"></box-icon>
+    </div>
+    <form action="" method="post">
+ <div class="p-8">
+      <div class="mb-4">
+        <label for="saldo" class="block text-sm font-medium text-gray-700">Saldo:</label>
+        <input type="text" id="saldo" class="mt-1 block w-full border rounded-md shadow-sm">
+        <span id="saldoError" class="text-color7 text-sm"></span>
+      </div>
+      <div class="mb-4">
+        <label for="descripcion" class="block text-sm font-medium text-gray-700">Descripción:</label>
+        <textarea id="descripcion" class="mt-1 block w-full border rounded-md shadow-sm" rows="3"></textarea>
+        <span id="descripcionError" class="text-color7 text-sm"></span>
+      </div>
+      <button id="cuartoSiguienteBtn" class="px-4 text-blanquito py-2 bg-negro text-base font-medium rounded-md shadow-sm hover:bg-blueUwu focus:outline-none focus:ring-2 focus:ring-rosadito">
+        Siguiente →
+      </button>
+    </div>
+
+
+    </form>
+   
+  </div>
+</div>
+
+
+
+
+<!-- Alerta -->
+<div id="alertModal" class="fixed flex inset-0 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50 items-center justify-center">
+  <div class="relative border bg-blanquito w-96 shadow-lg rounded-md bg-white">
+    <div class="flex flex-col items-center p-8">
+      <h2 class="text-2xl font-bold mb-4">¿Desea hacer otro movimiento?</h2>
+      <div class="flex space-x-4">
+        <button id="alertSiBtn" class="px-4 text-blanquito py-2 bg-negro text-base font-medium rounded-md shadow-sm hover:bg-blueUwu focus:outline-none focus:ring-2 focus:ring-rosadito">
+          Sí
+        </button>
+        <button id="alertNoBtn" class="px-4 text-blanquito py-2 bg-negro text-base font-medium rounded-md shadow-sm hover:bg-blueUwu focus:outline-none focus:ring-2 focus:ring-rosadito">
+          No
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="../../js/mNuevoPresupuesto.js"></script>
 
 <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 

@@ -1,4 +1,6 @@
 ---
+import Registro from '../pages/registro.astro';
+
 interface Props {
 	title: string;
 }
@@ -34,12 +36,11 @@ const { title } = Astro.props;
 		);
 	}
 	html {
-
-		font-family: "Zen Kaku Gothic New, sans-serif";
+		font-family: system-ui, sans-serif;
 		background: #ffffff;
 		background-size: 224px;
 	}
-	code {	
+	code {
 		font-family:
 			Menlo,
 			Monaco,

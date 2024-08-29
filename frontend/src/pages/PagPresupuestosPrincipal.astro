@@ -1,0 +1,46 @@
+---
+import Layout from '../layouts/Layout.astro';
+import BudgetCard from '../components/Presupuesto/BudgetCard.astro';
+import General from '../layouts/General.astro';
+import BudgetCard2 from '../components/Presupuesto/BudgetCard2.astro';
+import BudgetCard3 from '../components/Presupuesto/BudgetCard3.astro'
+---
+
+<General headername='PRESUPUESTOS' nombrepagina='Presupuesto'></General>
+<Layout title="tipos de Presupuestos">
+  <div class="p-6 max-w-3xl mx-auto">
+    <header class="flex justify-between items-center mb-6 ">
+      <div class="flex items-center bg-indigo-800 rounded-full px-3 py-1">
+       
+      </div>
+    </header>
+    
+    
+    <div class="space-y-4 bg-griscard rounded-lg">
+
+      <BudgetCard 
+        title="Personal" 
+        date="Fecha: Febrero 2024"
+        balance="Saldo: $900000"
+      />
+    </div>
+
+    <div class="space-y-4 bg-griscard rounded-lg">
+      <BudgetCard2 
+        title="Familiar" 
+        date="Fecha: Febrero 2024"
+        balance="Saldo: $900000"
+      />
+    </div>
+
+    <div class="space-y-4 bg-griscard rounded-lg">
+      <BudgetCard3 
+      title="Empresa" 
+      date="Fecha: Febrero 2024"
+      balance="Saldo: $900000"
+    />
+
+    </div>
+
+  </div>
+</Layout>

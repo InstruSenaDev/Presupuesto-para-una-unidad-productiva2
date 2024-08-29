@@ -1,7 +1,4 @@
 ---
-import FFecha from '../../../pages/fFecha.astro';
-
-
 interface Props{
   titulo:string;
 }
@@ -17,8 +14,10 @@ const {titulo} = Astro.props;
         <h1 class=" text-blanquito p-7 "> {titulo}</h1>
         <div class=" p-9 flex justify-end text-blanquito">Luis 
             <span class=" pl-5">
-                <div class="bi bi-caret-down-square-fill  cursor-pointer">
-                    </div>
+               <button>
+                <i class="bi bi-person-circle"></i>
+               </button>
                 </span>
         </div>
     </header>
+    

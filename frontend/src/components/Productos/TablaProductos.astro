@@ -43,4 +43,57 @@ const productos = [
     </tbody>
   </table>
 </div>
+
+
+<!-- Modal (oculto por defecto) -->
+<div id="crearProductoModal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
+  <div class="bg-blanquito rounded-lg shadow-sm p-6 w-1/3">
+    <div class="flex justify-between bg-blueUwu items-center mb-4">
+      <h2 class="text-xl font-bold text-blanquito">Crear Producto</h2>
+      <button id="cerrarModal" class="text-gray700"><box-icon name='x'></box-icon></button>
+    </div>
+    <form>
+      <div class="mb-4">
+        <label for="nombreProducto" class="block text-sm font-medium text-gray700">Nombre:</label>
+        <input type="text" id="nombreProducto" class="mt-1 block w-full border rounded-md p-2" placeholder="Zapato">
+      </div>
+      <div class="mb-4">
+        <label for="precioProducto" class="block text-sm font-medium text-gray700">Precio:</label>
+        <input type="text" id="precioProducto" class="mt-1 block w-full border rounded-md p-2" placeholder="100000">
+      </div>
+      <div class="mb-4">
+        <label for="numeroRecibo" class="block text-sm font-medium text-gray700">Número de recibo:</label>
+        <input type="text" id="numeroRecibo" class="mt-1 block w-full border rounded-md p-2" placeholder="100000">
+      </div>
+      <button type="submit" class="w-full text-blanquito bg-negro py-2 rounded-md">Siguiente</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Obtener el modal y el botón
+  const modal = document.getElementById('crearProductoModal');
+  const abrirModalBtn = document.querySelector('.bg-negro + .bg-negro');
+  const cerrarModalBtn = document.getElementById('cerrarModal');
+
+  // Mostrar el modal al hacer clic en el botón "Nuevo"
+  abrirModalBtn.addEventListener('click', () => {
+    modal.classList.remove('hidden');
+  });
+
+  // Cerrar el modal al hacer clic en el botón de cerrar
+  cerrarModalBtn.addEventListener('click', () => {
+    modal.classList.add('hidden');
+  });
+
+  // Cerrar el modal al hacer clic fuera de él
+  window.addEventListener('click', (e) => {
+    if (e.target == modal) {
+      modal.classList.add('hidden');
+    }
+  });
+</script>
+
+
+
 <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>

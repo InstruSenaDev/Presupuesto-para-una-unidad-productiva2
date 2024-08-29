@@ -1,0 +1,41 @@
+---
+// src/components/Header.astro
+---
+<style>
+    .header {
+      background-color: #f5f5f5;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-left: 250px; /* same width as sidebar */
+      height: 60px;
+    }
+    .search-bar {
+      width: 300px;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .user-info {
+      display: flex;
+      align-items: center;
+    }
+    .user-info img {
+      border-radius: 50%;
+      width: 40px;
+      margin-right: 10px;
+    }
+  </style>
+  
+  <div class="header">
+    <input type="text" class="search-bar" placeholder="Search" />
+    <div class="user-info">
+      <img src="../../public/img/imagenprueba.png" alt="User Avatar" />
+      <div>
+        <h2>CarlosRG</h2>
+        <p>Admin</p>
+      </div>
+    </div>
+  </div>
+  
