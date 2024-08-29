@@ -1,11 +1,11 @@
 const CONFIG_BD = {
-  user: "postgres.fpzrttavkfpjrzgjoivb",
-  host: "aws-0-us-west-1.pooler.supabase.com",
-  database: "postgres",
-  password: "CalivsAmerica123",
-  port: "6543",
+  user: "root",
+  host: "localhost",
+  database: "pup",
+  password: "",
+  port: "3306",
 };
 
 module.exports = {
-  CONFIG_BD,
+  CONFIG_BD
 };
