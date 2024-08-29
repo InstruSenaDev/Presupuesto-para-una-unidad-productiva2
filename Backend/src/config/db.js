@@ -7,5 +7,5 @@ const CONFIG_BD = {
 };
 
 module.exports = {
-  CONFIG_BD,
+  CONFIG_BD
 };
