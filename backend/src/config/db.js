@@ -1,8 +1,8 @@
 const CONFIG_BD = {
-  user: "root",
+  user: "php",
   host: "localhost",
   database: "pup",
-  password: "",
+  password: "ServesvINcuUJttZ",
   port: "3306",
 };
 

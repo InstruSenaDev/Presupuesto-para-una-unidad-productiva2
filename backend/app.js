@@ -21,7 +21,7 @@ const swaggerDocument = yaml.load(fs.readFileSync("./swagger.yaml", "utf-8"));
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Configuración de rutas
-const userRoutes = require("../Backend/src/routes/users.routes");
+const userRoutes = require("../backend/src/routes/users.routes");
 app.use("/", userRoutes);
 
 // Puerto en el que el servidor escuchará las peticiones
