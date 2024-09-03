@@ -1,0 +1,54 @@
+---
+import General from "../layouts/General.astro";
+import Layout from "../layouts/Layout.astro";
+---
+<Layout title="">
+
+  <General headername="Inicio" nombrepagina="INICIO">
+  <div class="flex rounded bg-blanquito justify-center ml-14">
+    <div class="flex flex-wrap shadow-md shadow-blueUwu rounded-lg bg-blanquito">
+      
+      <div class="p-6 w-full rounded-t-2xl bg-blueUwu">
+        <!-- Titulo -->
+        <h1 class="flex justify-center text-blanquito font-bold text-2xl">
+          INICIO
+        </h1>
+        <!-- Fin del titulo -->
+      </div>
+      <div>
+        <!-- Componente de inicio -->
+        <div
+          class="border-spacing-4 shadow-gris w p-6 flex flex-row items-center"
+        >
+          <p>
+            La conciencia financiera es una habilidad importante que puede
+            beneficiar a las familias de todas las maneras. Al tomar el control
+            de sus finanzas <span class="text-blueUwu font-bold">
+              ¡Pueden mejorar su calidad de vida y alcanzar sus metas!</span
+            >
+          </p>
+          <img src="../../public/Img/inicio.png " alt="" />
+        </div>
+        <!-- Fin del componente de inicio -->
+
+        <!-- Componentes Personal, Familiar y Empresarial -->
+        <div
+          class="border-spacing-4 shadow-gris w p-6 flex flex-row items-center"
+        >
+          <div>
+            <p>
+              La conciencia financiera es una habilidad importante que puede
+              beneficiar a las familias de todas las maneras. Al tomar el
+              control de sus finanzas <span class="text-blueUwu font-bold">
+                ¡Pueden mejorar su calidad de vida y alcanzar sus metas!</span
+              >
+            </p>
+            <img src="../../public/Img/inicio.png " alt="" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</General>
+</Layout>
+
