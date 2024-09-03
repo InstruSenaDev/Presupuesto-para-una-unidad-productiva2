@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./src/**/*.{react,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
+  content: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
   theme: {
     colors: {
       'griscard': '#2B2B2B',
@@ -17,16 +17,13 @@ export default {
       'colorFondoInicio': "#F8F8F8",
       'color6': "#9E9E9E",
       'color7': "#FF0000",
-      'colorVerde': "#0ffb01"
-
+      'colorVerde': "#0ffb01",
     },
     fontFamily: {
       'zen-kaku-gothic-antique': ['Zen Kaku Gothic Antique', 'sans-serif'],
     },
     extend: {},
   },
-  plugins: [
-
-  ],
+  plugins: [],
 }
 
