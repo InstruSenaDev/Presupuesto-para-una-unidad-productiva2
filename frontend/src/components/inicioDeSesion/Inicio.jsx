@@ -6,7 +6,7 @@ const LoginForm = () => {
     const [correo, setCorreo] = useState('');
     const [contrasena, setContrasena] = useState('');
     const { handleSubmit, errors: loginErrors, loading, success } = useLoginForm();
-    const { validateForm, errors: validationErrors, isValid } = useFormValidation();
+    const { validateForm, errors: validationErrors } = useFormValidation();
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -49,7 +49,7 @@ const LoginForm = () => {
             {success && (
                 <div id="modalExito">
                     <p>¡Inicio exitoso!</p>
-                    <button onClick={() => window.location.href = '/home'}>Aceptar</button>
+                    <button onClick={() => window.location.href = '/Inicio'}>Aceptar</button>
                 </div>
             )}
         </form>
