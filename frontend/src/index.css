@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#root{
+    margin: 0;
+    padding: 0;
+    
+} 
+/* media para las img del home */
+@media (max-width : 750px){
+    .imgh1{
+        width: 50%;
+        height: 25%;
+    }
+    .imgh2{
+        width: 50%;
+        height: 25%;
+    }
+}
