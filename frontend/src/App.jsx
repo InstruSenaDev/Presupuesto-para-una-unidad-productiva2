@@ -7,8 +7,8 @@ import './App.css'
 import InicioSesion from './components/inicioDeSesion/Inicio';
 import RegistrodeUsuarios from './pages/registro';
 import Inicio from './pages/Inicio';
-import Productos from './components/Empresarial/productosTabla';
-
+// import Productos from './components/Empresarial/TablaProductos';
+import Productos from './pages/Productos'
 
 function App() {
   // const [count, setCount] = useState(0)

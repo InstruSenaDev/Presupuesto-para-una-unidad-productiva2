@@ -34,6 +34,10 @@ const useLoginForm = () => {
 
         if (data.user && data.user.id) {
           localStorage.setItem("id", data.user.id);
+          localStorage.setItem("nombre", data.nombre || "");
+          localStorage.setItem("correo", data.correo || "");
+          localStorage.setItem("numeroDc", data.documento || "");
+          localStorage.setItem("tipoDc", data.tipodedocumento || "");
           console.log("ID de usuario guardado en localStorage:", data.user.id);
         } else {
           console.error("No se recibió un ID de usuario válido.");
