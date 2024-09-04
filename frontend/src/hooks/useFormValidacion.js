@@ -1,95 +1,51 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const formu = document.getElementById("formu");
-    const nombre = document.getElementById("registroNombre");
-    const correoRegistro = document.getElementById("CorreoRegistro");
-    const contrasenaRegistro = document.getElementById("ContraseñaRegistro");
-    const numeroDc = document.getElementById("documento");
-    const nombreError = document.getElementById("nombreError");
-    const correoError = document.getElementById("correoError");
-    const contrasenaError = document.getElementById("contrasenaError");
-    const numeroDcError = document.getElementById("numeroDcError");
-    const modal = document.getElementById("exitoModal");
+import { useState } from 'react';
 
-    if (formu) formu.reset();
-    
-    if (togglePassword && contrasenaRegistro) {
-        togglePassword.addEventListener("click", function () {
-        const type =
-            contrasenaRegistro.getAttribute("type") === "password"
-            ? "text"
-            : "password";
-        contrasenaRegistro.setAttribute("type", type);
-        this.classList.toggle("bx-show");
-        this.classList.toggle("bx-hide");
-        });
-    }
-    if (formu) {
-        formu.addEventListener("submit", function (event) {
-            let valid = true;
-            
+const useFormValidation = () => {
+    const [errors, setErrors] = useState({});
+    const [isValid, setIsValid] = useState(true);
 
-            // Limpiar mensajes de error previos
-            nombreError.textContent = "";
-            correoError.textContent = "";
-            contrasenaError.textContent = "";
-            numeroDcError.textContent = "";
+    const validateForm = (correo, contrasena, nombre, tipoDocumento, documento) => {
+        let valid = true;
+        const newErrors = {};
 
-            // Validación del nombre
-            if (nombre) {
-                const nombreValue = nombre.value;
-                if (!nombreValue || !/^[A-Za-z\s]+$/.test(nombreValue)) {
-                    valid = false;
-                    nombreError.textContent = "Ingrese un nombre válido.";
-                }
-            }
+        // Validación del correo
+        if (!correo || !/\S+@\S+\.\S+/.test(correo)) {
+            valid = false;
+            newErrors.correo = "Ingrese un correo electrónico válido.";
+        }
 
-            // Validación del correo electrónico
-            if (correoRegistro) {
-                const correoValue = correoRegistro.value;
-                if (!correoValue || !/\S+@\S+\.\S+/.test(correoValue)) {
-                    valid = false;
-                    correoError.textContent = "Ingrese un correo electrónico válido.";
-                }
-            }
+        // Validación de la contraseña
+        if (!contrasena || contrasena.length < 8) {
+            valid = false;
+            newErrors.contrasena = "La contraseña debe tener al menos 8 caracteres.";
+        }
+        if (!nombre) {
+            newErrors.nombre = 'El nombre es obligatorio';
+        }
 
-            // Validación de la contraseña
-            if (contrasenaRegistro) {
-                const contrasenaValue = contrasenaRegistro.value;
-                if (!contrasenaValue || contrasenaValue.length < 8) {
-                    valid = false;
-                    contrasenaError.textContent =
-                        "La contraseña debe tener al menos 8 caracteres.";
-                }
-            }
+        if (!correo.includes('@')) {
+            newErrors.correo = 'Correo no válido';
+        }
 
-            // Validación del número de documento
-            if (numeroDc) {
-                const numeroDcValue = numeroDc.value.trim();
-                if (!numeroDcValue || isNaN(parseInt(numeroDcValue))) {
-                    valid = false;
-                    numeroDcError.textContent = "Ingrese un número de documento válido.";
-                }
-            }
+        if (contrasena.length < 6) {
+            newErrors.contrasena = 'La contraseña debe tener al menos 6 caracteres';
+        }
 
-            // Mostrar modal solo si todos los campos son válidos
-            if (valid) {
-                event.preventDefault(); // Evitar el envío del formulario
-                modal.classList.remove("hidden"); // Mostrar el modal
-            } else {
-                event.preventDefault(); // Evitar el envío del formulario
-            }
-        });
-    }
+        if (!tipoDocumento) {
+            newErrors.tipoDocumento = 'Debe seleccionar un tipo de documento';
+        }
 
-    document.getElementById('aceptarBtn').addEventListener('click', function () {
-        modal.classList.add("hidden");
-        window.location.href = '/';
-    });
-});
+        if (!documento) {
+            newErrors.documento = 'El número de documento es obligatorio';
+        }
 
-window.addEventListener("pageshow", function (event) {
-    const formu = document.getElementById("formu");
-    if (event.persisted && formu) {
-        formu.reset();
-    }
-});
+
+        setErrors(newErrors);
+        setIsValid(valid);
+        return valid;
+    };
+
+    return { validateForm, errors, isValid };
+};
+
+export default useFormValidation;

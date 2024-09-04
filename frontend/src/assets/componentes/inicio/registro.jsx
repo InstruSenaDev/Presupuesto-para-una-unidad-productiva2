@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import Boton from '../icoReutilizables/boton.jsx';
-import Input from '../icoReutilizables/input.jsx';
-import Logo from '../../img/Logo.png';
+import useFormValidation from '../../../hooks/useFormValidacion';
+import Boton from '../icoReutilizables/boton';
+import Input from '../icoReutilizables/input';
+
+
 
 
 const Registro = () => {
+    // Estados para los inputs y los errores
     const [nombre, setNombre] = useState('');
     const [correo, setCorreo] = useState('');
     const [contrasena, setContrasena] = useState('');
@@ -14,10 +17,12 @@ const Registro = () => {
 
     const [showPassword, setShowPassword] = useState(false);
 
+    // Función para mostrar/ocultar la contraseña
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
 
+    // Función de validación del formulario
     const validarFormulario = () => {
         const nuevosErrores = {};
 
@@ -43,13 +48,16 @@ const Registro = () => {
 
         setErrores(nuevosErrores);
 
+        // Devuelve true si no hay errores
         return Object.keys(nuevosErrores).length === 0;
     };
 
+    // Función para manejar el envío del formulario
     const handleFormSubmit = (event) => {
         event.preventDefault();
 
         if (validarFormulario()) {
+            // Si la validación pasa, enviar el formulario
             console.log('Formulario enviado:', {
                 nombre,
                 correo,
@@ -65,7 +73,7 @@ const Registro = () => {
             <div className="contM justify-center pt-3 flex flex-col md:flex-row h-screen w-full items-center">
                 <div className="cont1 px-8 grid justify-items-center bg-color4 h-5/6 rounded-s-lg text-color1 flex-col items-center">
                     <h1 className="text-2xl font-bold">PUP</h1>
-                    <img className="h-26 w-28" src={Logo} alt="Logo" />
+                    <img className="h-26 w-28" src="/Img/Logo/logo.png" alt="Logo" />
                     <p className="text-xl font-bold">Presupuesto para unidades productivas</p>
                 </div>
 
@@ -76,13 +84,13 @@ const Registro = () => {
 
                             <div className="w-full">
                                 <div>
-                                    <Input
+                                    <input
                                         placeholder="Nombre"
                                         id="registroNombre"
                                         name="nombre"
                                         type="text"
                                         value={nombre}
-                                        onChange={(e) => setNombre(e.target.value)}
+                                        onChange={(e) => setNombre(e.target.value)} // Actualiza el estado
                                     />
                                     <span id="nombreError" className="text-color7 text-xs">
                                         {errores.nombre}
@@ -90,13 +98,13 @@ const Registro = () => {
                                 </div>
 
                                 <div>
-                                    <Input
+                                    <input
                                         placeholder="Correo"
                                         id="CorreoRegistro"
                                         name="correo"
                                         type="text"
                                         value={correo}
-                                        onChange={(e) => setCorreo(e.target.value)}
+                                        onChange={(e) => setCorreo(e.target.value)} // Actualiza el estado
                                     />
                                     <span id="correoError" className="text-color7 text-xs">
                                         {errores.correo}
@@ -104,13 +112,13 @@ const Registro = () => {
                                 </div>
 
                                 <div className="relative">
-                                    <Input
+                                    <input
                                         placeholder="Contraseña"
                                         id="ContraseñaRegistro"
                                         name="contrasena"
                                         type={showPassword ? 'text' : 'password'}
                                         value={contrasena}
-                                        onChange={(e) => setContrasena(e.target.value)}
+                                        onChange={(e) => setContrasena(e.target.value)} // Actualiza el estado
                                     />
                                     <i
                                         className="bx bx-show cursor-pointer absolute right-3 top-2/4 transform -translate-y-2/4"
@@ -127,7 +135,7 @@ const Registro = () => {
                                         id="tipodocumento"
                                         className="text-color2"
                                         value={tipoDocumento}
-                                        onChange={(e) => setTipoDocumento(e.target.value)}
+                                        onChange={(e) => setTipoDocumento(e.target.value)} // Actualiza el estado
                                         required
                                     >
                                         <option value="">Tipo de identificación</option>
@@ -138,13 +146,13 @@ const Registro = () => {
                                 </div>
 
                                 <div className="relative">
-                                    <Input
+                                    <input
                                         placeholder="Número"
                                         id="documento"
                                         name="documento"
                                         type="text"
                                         value={documento}
-                                        onChange={(e) => setDocumento(e.target.value)}
+                                        onChange={(e) => setDocumento(e.target.value)} // Actualiza el estado
                                     />
                                     <span id="numeroDcError" className="text-color7 text-xs">
                                         {errores.documento}
@@ -152,9 +160,7 @@ const Registro = () => {
                                 </div>
 
                                 <div className="flex-col">
-                                <button id="abrirModal" type="submit">
-                    <Boton Text="Registrarse" />
-                  </button>
+                                    <button>Registrarse</button>
                                     <p className="text-color6 text-sm text-center">Copyright 2024 - 2025 Sena</p>
                                     <p className="text-color6 text-sm text-center">
                                         ¿Ya tienes cuenta? - <a href="/inicioSesion">Inicia Sesión</a>

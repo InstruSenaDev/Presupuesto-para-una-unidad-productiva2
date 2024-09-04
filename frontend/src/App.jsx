@@ -22,6 +22,7 @@ function App() {
     <Router>  
       <Routes>
         
+        <Route path='/' element = {<FormularioInicio/>} />
         <Route path='/dashPrincipal' element = {<DashPrincipal/>} />
         <Route path='/TablaUserPersonal' element = {<TablaUserPersonal/>} />
         <Route path='/TablaUserFamiliar' element = {<TablaUserFamiliar/>} />
@@ -29,8 +30,10 @@ function App() {
         <Route path='/TablaProductos' element = {<TablaProductos/>} />
         <Route path='/home' element = {<Home/>} />
         <Route path='/sidebar' element = {<Sidebar/>} />
-        <Route path='/inicio' element = {<FormularioInicio/>} />
+      
         <Route path='/registro' element = {<Registro/>}/>
+      
+       
         <Route path='/navbar' element = {<Layout/>}/>
       </Routes>
     </Router>
