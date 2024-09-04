@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import useLoginForm from '../../hooks/useInicioForm';
 import useFormValidation from '../../hooks/useFormValidacion';
 
+
 const LoginForm = () => {
     const [correo, setCorreo] = useState('');
     const [contrasena, setContrasena] = useState('');
@@ -28,6 +29,8 @@ const LoginForm = () => {
                 />
                 {validationErrors.correo && <p>{validationErrors.correo}</p>}
             </div>
+
+        
 
             <div>
                 <label htmlFor="contraseñaInicio">Contraseña:</label>
