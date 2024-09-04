@@ -1,25 +1,25 @@
-require('dotenv').config();  // Importa y configura dotenv al inicio
-
-const { Pool } = require("pg");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { CONFIG_BD } = require("../../config/db");
-
-// Ahora la clave secreta la obtienes de las variables de entorno
+const { Pool } = require('pg');
+const { CONFIG_BD } = require('../../config/db');
 const pool = new Pool(CONFIG_BD);
 
 const nuevosUser = async (req, res) => {
   const { nombre, correo, contrasena, tipodocumento, documento } = req.body;
 
+  console.log("Datos recibidos:", { nombre, correo, contrasena, tipodocumento, documento });
+
+  // Validación de campos vacíos
+  if (!nombre || !correo || !contrasena || !tipodocumento || !documento) {
+    return res.status(400).json({ error: 'Todos los campos son obligatorios' });
+  }
+
   try {
+    // Verificar si el usuario ya existe
     const buscarUsuario = await pool.query(
       "SELECT * FROM usuarios WHERE correo = $1 OR documento = $2", 
       [correo, documento]
     );
-
-    if (!nombre || !correo || !contrasena || !tipodocumento || !documento) {
-      return res.status(400).json({ error: 'Todos los campos son obligatorios' });
-    }
 
     if (buscarUsuario.rowCount >= 1) {
       return res.status(400).json({ message: "El correo o documento ya existe" });
@@ -36,11 +36,11 @@ const nuevosUser = async (req, res) => {
 
     const user = resultMovimiento.rows[0];
 
-    // Crear token JWT usando la clave secreta del .env
+    // Crear token JWT
     const token = jwt.sign(
       { id: user.idusuario, nombre: user.nombre, correo: user.correo },
-      process.env.SECRET_KEY,  // Se usa la clave secreta desde el archivo .env
-      { expiresIn: '1h' }  // El token expira en 1 hora
+      process.env.SECRET_KEY,
+      { expiresIn: '1h' }
     );
 
     res.status(201).json({ user, token });
@@ -50,6 +50,7 @@ const nuevosUser = async (req, res) => {
   }
 };
 
+// Exporta la función para que pueda ser usada en las rutas
 module.exports = {
   nuevosUser,
 };

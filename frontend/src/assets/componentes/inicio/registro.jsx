@@ -84,7 +84,7 @@ const Registro = () => {
 
                             <div className="w-full">
                                 <div>
-                                    <input
+                                    <Input
                                         placeholder="Nombre"
                                         id="registroNombre"
                                         name="nombre"
@@ -98,7 +98,7 @@ const Registro = () => {
                                 </div>
 
                                 <div>
-                                    <input
+                                    <Input
                                         placeholder="Correo"
                                         id="CorreoRegistro"
                                         name="correo"
@@ -112,7 +112,7 @@ const Registro = () => {
                                 </div>
 
                                 <div className="relative">
-                                    <input
+                                    <Input
                                         placeholder="Contraseña"
                                         id="ContraseñaRegistro"
                                         name="contrasena"
@@ -146,7 +146,7 @@ const Registro = () => {
                                 </div>
 
                                 <div className="relative">
-                                    <input
+                                    <Input
                                         placeholder="Número"
                                         id="documento"
                                         name="documento"
@@ -160,7 +160,7 @@ const Registro = () => {
                                 </div>
 
                                 <div className="flex-col">
-                                    <button>Registrarse</button>
+                                    <Boton type="submit" Text={'Registrarse'}></Boton>
                                     <p className="text-color6 text-sm text-center">Copyright 2024 - 2025 Sena</p>
                                     <p className="text-color6 text-sm text-center">
                                         ¿Ya tienes cuenta? - <a href="/inicioSesion">Inicia Sesión</a>
