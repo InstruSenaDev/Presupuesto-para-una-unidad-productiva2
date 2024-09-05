@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+
 
 function Input({ placeholder, type, id, name }) {
   return (
@@ -17,13 +16,5 @@ function Input({ placeholder, type, id, name }) {
     </div>
   );
 }
-
-// Validación de tipos de las props
-Input.propTypes = {
-  placeholder: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-};
 
 export default Input;

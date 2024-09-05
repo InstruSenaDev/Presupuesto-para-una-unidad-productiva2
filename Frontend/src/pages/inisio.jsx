@@ -1,11 +1,11 @@
-import React from 'react';
-import Registro from '../components/RegistroDeUsuarios/Registro'
+
+import Inisio from '../components/inicioDeSesion/Inisio.jsx'
 
 
 const RegistrodeUsuarios =  () =>{
     return(
         <>
-        <Registro/>
+        <Inisio/>
         </>
     )
 }

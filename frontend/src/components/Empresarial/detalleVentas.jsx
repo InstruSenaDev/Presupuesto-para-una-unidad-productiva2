@@ -32,6 +32,9 @@ const detalleVentas = () => {
                     </table>
                 </div>
             </div>
+            
+
+
         </>
     )
 }
