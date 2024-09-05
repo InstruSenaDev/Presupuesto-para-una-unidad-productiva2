@@ -1,22 +1,37 @@
 import React, { useState, useEffect } from "react";
-import usePago from '../../hooks/usePostPago'; // Importa el hook
+import usePago from '../../hooks/usePostPago'; // Hook personalizado
+import ModalProducto from '../../hooks/useNuevoProducto'; // Modal de nuevo producto
 
 function Productos() {
   const [productos, setProductos] = useState([]);
   const [seleccionados, setSeleccionados] = useState([]);
   const [total, setTotal] = useState(0);
   const [idusuario, setIdusuario] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false); // Estado para controlar el modal
 
   useEffect(() => {
+    // Obtener el ID almacenado en localStorage
     const storedId = localStorage.getItem("id");
-    const id = storedId ? JSON.parse(storedId) : null;
+
+    // Manejar caso donde el valor no está o no es JSON válido
+    let id = null;
+    try {
+      id = storedId ? JSON.parse(storedId) : null;
+    } catch (error) {
+      console.error("Error al parsear el ID de usuario:", error);
+    }
+
     setIdusuario(id);
 
+    // Si el ID es nulo o inválido
     if (!id) {
-      alert("ID de usuario no encontrado. Por favor, inicia sesión de nuevo.");
+      console.error("El usuario no tiene un ID válido.");
+      alert("Por favor, inicia sesión para continuar.");
+      window.location = '/login'; // Redirigir al login
       return;
     }
 
+    // Función para obtener productos si el ID es válido
     const fetchProductos = async () => {
       try {
         const response = await fetch(`http://localhost:3000/traerProductos/${id}`);
@@ -25,8 +40,9 @@ function Productos() {
         }
         const data = await response.json();
         setProductos(data);
-      } catch (Error) {
+      } catch (error) {
         alert("Error al obtener productos. Inténtalo de nuevo más tarde.");
+        console.error("Error al obtener productos:", error);
       }
     };
 
@@ -39,14 +55,13 @@ function Productos() {
       0
     );
     setTotal(nuevoTotal);
-  }, [seleccionados]); // Se actualiza el total cuando cambian los productos seleccionados
+  }, [seleccionados]);
 
   const agregarProducto = (index) => {
     const producto = productos[index];
     const existe = seleccionados.find(item => item.codigo === producto.codigo);
 
     if (existe) {
-      // Actualiza la cantidad del producto si ya existe en los seleccionados
       setSeleccionados((prevSeleccionados) =>
         prevSeleccionados.map((item) =>
           item.codigo === producto.codigo
@@ -55,7 +70,6 @@ function Productos() {
         )
       );
     } else {
-      // Agrega el producto con cantidad 1 si no está en los seleccionados
       setSeleccionados((prevSeleccionados) => [
         ...prevSeleccionados,
         { ...producto, cantidad: 1 },
@@ -66,14 +80,12 @@ function Productos() {
   const quitarProducto = (index) => {
     const producto = seleccionados[index];
     if (producto.cantidad > 1) {
-      // Reduce la cantidad del producto si es mayor a 1
       setSeleccionados((prevSeleccionados) =>
         prevSeleccionados.map((item, i) =>
           i === index ? { ...item, cantidad: item.cantidad - 1 } : item
         )
       );
     } else {
-      // Elimina el producto de los seleccionados si la cantidad es 1
       setSeleccionados((prevSeleccionados) =>
         prevSeleccionados.filter((_, i) => i !== index)
       );
@@ -86,10 +98,13 @@ function Productos() {
     <div className="flex justify-between">
       <div className="bg-white rounded-t-lg shadow-md p-2 w-full">
         <div>
-          <button className="text-blanquito px-4 py-2 rounded-md bg-negro">
+          <button className="text-blanquito px-4 py-2 rounded-md bg-negro"
+            onClick={() => window.location = '/Presupuestos'}>
             <i name="arrow-back" color="#ffffff"></i> Volver
           </button>
-          <button className="items-center text-blanquito px-4 py-2 rounded-md bg-negro">
+          <button className="items-center text-blanquito px-4 py-2 rounded-md bg-negro"
+            onClick={() => setIsModalOpen(true)} // Abrir el modal al hacer clic
+          >
             Nuevo <i className="items-center" name="plus-circle" color="#ffffff"></i>
           </button>
           <input
@@ -103,7 +118,7 @@ function Productos() {
             <tr className="text-left text-indigo-700">
               <th className="text-center p-2 text-2xl font-bold">Nombre</th>
               <th className="text-center p-2 text-2xl font-bold">Precio</th>
-              <th className="text-center p-2 text-2xl font-bold">Numero de recibo</th>
+              <th className="text-center p-2 text-2xl font-bold">Número de recibo</th>
               <th className="text-center p-2 text-2xl font-bold">Acciones</th>
             </tr>
           </thead>
@@ -170,6 +185,12 @@ function Productos() {
           </span>
         </div>
       </div>
+
+      {/* Modal de agregar producto */}
+      <ModalProducto
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)} // Función para cerrar el modal
+      />
 
       {modalVisible && (
         <div className="fixed inset-0 flex justify-center items-center bg-gray-800 bg-opacity-50">

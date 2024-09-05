@@ -11,7 +11,7 @@ const { postPago } = require("../controllers/post/postPago");
 
 router.get("/traerProductos/:idusuario", apiProductos);// http://localhost:3000/rol
 router.post("/registro", nuevosUser);// http://localhost:3000/registro
-router.post("/productos", productos);// http://localhost:3000/productos
+router.post("/productos/:idusuario", productos);// http://localhost:3000/productos:idusuario
 router.post("/inicio", iniciarSesion);// http://localhost:3000/inicio
 router.post("/postPago", postPago); // http://localhost:3000/postPago
 
