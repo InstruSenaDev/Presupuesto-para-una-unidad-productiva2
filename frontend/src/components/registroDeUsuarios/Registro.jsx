@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import Boton from '../IcoReutilizables/Boton'; 
+import Boton from '../IcoReutilizables/Boton';
 import Input from '../IcoReutilizables/Input';
 import ImgR from '../Img/Logo.png';
-
+import { useValidaciones } from '../../hooks/useFormRegistro';
+import { useRegistroFetch } from '../../hooks/useEnvioRegistro';
 
 const Registro = () => {
   const [nombre, setNombre] = useState("");
@@ -10,15 +11,24 @@ const Registro = () => {
   const [contrasena, setContrasena] = useState("");
   const [documento, setDocumento] = useState("");
   const [tipoDocumento, setTipoDocumento] = useState("");
+  const { errores } = useValidaciones();
+  const { registrarUsuario } = useRegistroFetch();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Lógica para enviar datos o validaciones
+  const manejarSubmit = (evento) => {
+    evento.preventDefault();
+    const datosUsuario = {
+      nombre,
+      correo,
+      contrasena,
+      tipodocumento: tipoDocumento,
+      documento,
+    };
+    registrarUsuario(datosUsuario);
   };
 
   return (
     <>
-      <div className="contM justify-center flex flex-col md:flex-row ">
+      <div className="contM justify-center flex flex-col md:flex-row">
         <div className="contM justify-center pt-3 flex flex-col md:flex-row h-screen w-full items-center">
           <div className="cont1 px-8 grid justify-items-center bg-color4 h-5/6 rounded-s-lg text-color1 flex-col items-center">
             <h1 className="text-2xl font-bold">PUP</h1>
@@ -26,8 +36,8 @@ const Registro = () => {
             <p className="text-xl font-bold">Presupuesto para unidades productivas</p>
           </div>
 
-          <div className=" cont2 px-8 grid justify-items-center w-auto text-color1 flex-col items-center rounded-e-xl h-auto">
-            <form id="formu" className="contform" method="post" action="/registro" onSubmit={handleSubmit}>
+          <div className="cont2 px-8 grid justify-items-center w-auto text-color1 flex-col items-center rounded-e-xl h-auto">
+            <form id="formu" className="contform" method="post" action="/registro" onSubmit={manejarSubmit}>
               <div className="conthf m-4 grid grid-flow-row sm:grid-flow-row-col gap-3 text-center bg-color3">
                 <h1 className="text-2xl text-color2">Registro</h1>
 
@@ -41,7 +51,7 @@ const Registro = () => {
                       value={nombre}
                       onChange={(e) => setNombre(e.target.value)}
                     />
-                    <span id="nombreError" className="text-color7 text-xs"></span>
+                    <span id="errorNombre" className="text-color7 text-xs">{errores.errorNombre}</span>
                   </div>
                   <div>
                     <Input
@@ -52,7 +62,7 @@ const Registro = () => {
                       value={correo}
                       onChange={(e) => setCorreo(e.target.value)}
                     />
-                    <span id="correoError" className="text-color7 text-xs"></span>
+                    <span id="errorCorreo" className="text-color7 text-xs">{errores.errorCorreo}</span>
                   </div>
                   <div className="relative">
                     <Input
@@ -67,7 +77,7 @@ const Registro = () => {
                       className="bx bx-show cursor-pointer absolute right-3 top-2/4 transform -translate-y-2/4"
                       id="togglePassword"
                     ></i>
-                    <span id="contrasenaError" className="text-color7 text-xs"></span>
+                    <span id="errorContrasena" className="text-color7 text-xs">{errores.errorContrasena}</span>
                   </div>
                   <div className="relative">
                     <select
@@ -93,17 +103,16 @@ const Registro = () => {
                       value={documento}
                       onChange={(e) => setDocumento(e.target.value)}
                     />
-                    <span id="numeroDcError" className="text-color7 text-xs"></span>
+                    <span id="errorDocumento" className="text-color7 text-xs">{errores.errorDocumento}</span>
                   </div>
                   <div className="flex-col">
                     <Boton Text="Registrarse" />
-                    <p className="text-color6 text-sm text-center text-negro ">
+                    <p className="text-color6 text-sm text-center text-negro">
                       Copyright 2024 - 2025 Sena
                     </p>
                     <p className="text-color6 text-sm text-center text-negro">
                       ¿Ya tienes cuenta? - <a className="underline" href="/Inisio">Inicia Sesión</a>
                     </p>
-                    <span id="submit" className="text-color7 text-xs"></span>
                   </div>
                 </div>
               </div>
@@ -119,13 +128,14 @@ const Registro = () => {
       >
         <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full text-center">
           <h2 className="text-2xl font-bold mb-4">¡Inicio exitoso!</h2>
-          <button id="aceptarBtn" className="bg-blue-500 text-white px-4 py-2 rounded">
+          <button 
+          id="aceptarBtn" 
+          className="bg-blue-500 text-white px-4 py-2 rounded"
+          onClick={() => window.location.href = '/'}>
             Aceptar
           </button>
         </div>
       </div>
-
-     
     </>
   );
 };

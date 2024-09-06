@@ -16,7 +16,7 @@ const Sidebar = () => {
         localStorage.removeItem('correo');
         localStorage.removeItem('tipoDc');
         localStorage.removeItem('numeroDc');
-        window.location.href = '/inicioSesion';
+        window.location.href = '/';
     };
 
     return (

@@ -4,7 +4,7 @@ const useFormValidation = () => {
     const [errors, setErrors] = useState({});
     const [isValid, setIsValid] = useState(true);
 
-    const validateForm = (correo, contrasena, nombre, tipoDocumento, documento) => {
+    const validateForm = (correo, contrasena) => {
         let valid = true;
         const newErrors = {};
 
@@ -19,25 +19,25 @@ const useFormValidation = () => {
             valid = false;
             newErrors.contrasena = "La contraseña debe tener al menos 8 caracteres.";
         }
-        if (!nombre) {
-            newErrors.nombre = 'El nombre es obligatorio';
-        }
+        // if (!nombre) {
+        //     newErrors.nombre = 'El nombre es obligatorio';
+        // }
 
-        if (!correo.includes('@')) {
-            newErrors.correo = 'Correo no válido';
-        }
+        // if (!correo.includes('@')) {
+        //     newErrors.correo = 'Correo no válido';
+        // }
 
-        if (contrasena.length < 6) {
-            newErrors.contrasena = 'La contraseña debe tener al menos 6 caracteres';
-        }
+        // if (contrasena.length < 6) {
+        //     newErrors.contrasena = 'La contraseña debe tener al menos 6 caracteres';
+        // }
 
-        if (!tipoDocumento) {
-            newErrors.tipoDocumento = 'Debe seleccionar un tipo de documento';
-        }
+        // if (!tipoDocumento) {
+        //     newErrors.tipoDocumento = 'Debe seleccionar un tipo de documento';
+        // }
 
-        if (!documento) {
-            newErrors.documento = 'El número de documento es obligatorio';
-        }
+        // if (!documento) {
+        //     newErrors.documento = 'El número de documento es obligatorio';
+        // }
 
 
         setErrors(newErrors);

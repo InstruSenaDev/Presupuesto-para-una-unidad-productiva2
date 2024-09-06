@@ -14,7 +14,7 @@ const ModalProducto = ({ isOpen, onClose }) => {
             alert("El nombre del producto debe tener al menos 3 caracteres.");
             return;
         }
-        if (descripcion.trim().length < 5) {
+        if (descripcion.trim().length < 5 ) {
             alert("La descripción debe tener al menos 5 caracteres.");
             return;
         }
