@@ -26,9 +26,10 @@ const Navbar = ({ titulo }) => {
   return (
     <>
       <header className="bg-blueUwu text-blanquito justify-between py-4 px-6">
-       
+       <div className='display text-center'><h1 className="text-3xl font-bold mr-10">{titulo}</h1> </div>
         <div className="container mx-auto flex justify-between items-center">
-          <h1 className="text-3xl font-bold">{titulo}</h1>
+        <h1 className="text-3xl font-bold mr-10"></h1>
+         
           <div className="flex items-center space-x-2">
             <span className="text-lg">{userData.nombre}</span>
             <button

@@ -8,13 +8,19 @@ const LayoutN= ({titulo, children})=>{
         <>
 
         
-     <div className=""><Navbar titulo={titulo} />  </div> 
-    <div className="Si"><Sidebar /> </div>    
+<div className="">
+  <Navbar titulo={titulo} />
+</div> 
+<div className="Si fixed top-0 left-0 h-full">
+  <Sidebar />
+</div>    
 
-       <div className="flex flex-col justify-center items-center min-h-screen">
-  
-  <main className=" mt-10 flex justify-center items-center w-full h-full">{children}</main>
+<div className="flex flex-col justify-center items-center min-h-screen ml-64">
+  <main className="mt-10 flex justify-center items-center w-full h-full">
+    {children}
+  </main>
 </div>
+
 
       
         </>

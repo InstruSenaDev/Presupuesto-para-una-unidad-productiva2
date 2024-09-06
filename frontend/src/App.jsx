@@ -15,6 +15,7 @@ import RegistroDeUsuarios from './components/RegistroDeUsuarios/Registro';
 import Sidebar from './components/Sidebar/Sidebar';
 import Navbar from './components/Navbar/Navbar';
 import Home from './components/Home/InicioHome';
+import PagPersonal from './components/pag/pagPresupuestoPersonal';
 
 
 
@@ -29,6 +30,7 @@ function App() {
         <Route path="/Registro" element={<RegistroDeUsuarios />} />
         <Route path="/Sidebar" element={<Sidebar />} />
         <Route path="/Navbar" element={<Navbar />} />
+        <Route path="/PagPersonal" element={<PagPersonal />} />
        
 
 
