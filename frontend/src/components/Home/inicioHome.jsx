@@ -1,17 +1,17 @@
-import Layout from '../Layout/NabvarSisebar';
-import Sidebar from '../Sidebar/Sidebar';
-import Navbar from '../Navbar/Navbar';
+import LayoutN from '../Layout/NabvarSisebar';
 import ImgH1 from '../Img/imgH.png';
 import ImgH2 from '../Img/imgP.png';
 import ImgH3 from '../Img/imgf.png';
 import ImgH4 from '../Img/imgE.png';
+import  './home.css';
+
 
 const Home = () => {
     return (
-        <Layout titulo="Home">
+        <LayoutN titulo="Home">
                 
 
-            <div className="flex rounded bg-blanquito justify-center ml-14 pl-10 ">
+            <div className="flex rounded bg-blanquito justify-center mr-36 ">
                 
                 <div className="flex flex-wrap shadow-md shadow-blueUwu rounded-lg bg-blanquito ">
                     <div className="p-6 w-full rounded-t-2xl bg-blueUwu">
@@ -22,9 +22,9 @@ const Home = () => {
                         {/* Fin del título */}
                     </div>
 
-                    <div className="">
+                    <div id='x' className="contP">
                         {/* Componente de inicio */}
-                        <div className="border-spacing-4 shadow-gris w p-6 flex flex-row items-center">
+                        <div id='c1' className="border-spacing-4 shadow-gris w p-6 flex flex-row items-center">
                             <p>
                                 La conciencia financiera es una habilidad importante que puede
                                 beneficiar a las familias de todas las maneras. Al tomar el control
@@ -38,8 +38,8 @@ const Home = () => {
                         {/* Fin del componente de inicio */}
 
                         {/* Componentes Personal, Familiar y Empresarial */}
-                        <div className="border-spacing-4 shadow-gris w p-6 flex flex-row items-center">
-                            <div>
+                        <div id='c1' className="border-spacing-4 shadow-gris w p-6 flex flex-row items-center">
+                            <div >
                                 <p>
                                     La conciencia financiera es una habilidad importante que puede
                                     beneficiar a las familias de todas las maneras. Al tomar el
@@ -62,7 +62,7 @@ const Home = () => {
                                 <img className='imgh3' src={ImgH3} alt="Imagen de inicio" />
                             </div>
                         </div>
-                        <div className="border-spacing-4 shadow-gris w p-6 flex flex-row items-center">
+                        <div id='c1' className="border-spacing-4 shadow-gris w p-6 flex flex-row items-center">
                             <p>
                                 La conciencia financiera es una habilidad importante que puede
                                 beneficiar a las familias de todas las maneras. Al tomar el control
@@ -76,7 +76,7 @@ const Home = () => {
                     </div>
                 </div>
             </div>
-        </Layout>
+        </LayoutN>
     );
 };
 
