@@ -16,7 +16,7 @@ import Sidebar from './components/Sidebar/Sidebar';
 import Navbar from './components/Navbar/Navbar';
 import Home from './components/Home/InicioHome';
 import PagPersonal from './components/pag/pagPresupuestoPersonal';
-
+import PresupuestoPag from './pages/PresupuestoPag';
 
 
 function App() {
@@ -31,6 +31,7 @@ function App() {
         <Route path="/Sidebar" element={<Sidebar />} />
         <Route path="/Navbar" element={<Navbar />} />
         <Route path="/PagPersonal" element={<PagPersonal />} />
+        <Route path="/Presupuestos" element={<PresupuestoPag />} />
        
 
 
