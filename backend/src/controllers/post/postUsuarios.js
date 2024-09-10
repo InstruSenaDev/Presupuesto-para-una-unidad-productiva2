@@ -31,7 +31,7 @@ const nuevosUser = async (req, res) => {
     // Insertar el usuario en la base de datos
     const resultMovimiento = await pool.query(
       "INSERT INTO usuarios (nombre, correo, contrasena, estado, tipodocumento, documento, idrol) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
-      [nombre, correo, hashedPassword, true, tipodocumento, documento, "1"]
+      [nombre, correo, hashedPassword, "1", tipodocumento, documento, "1"]
     );
 
     const user = resultMovimiento.rows[0];

@@ -3,7 +3,7 @@ import usePresupuesto from '../hooks/usePresupuesto';
 
 const PresupuestoForm = () => {
     const { crearPresupuesto, crearMovimiento, obtenerPresupuestos } = usePresupuesto();
-    const [paso, setPaso] = useState(1);
+    const [paso, setPaso] = useState(1); // Para controlar los pasos
     const [presupuestoData, setPresupuestoData] = useState({
         idtipopresupuesto: 1,
         presupuesto: 0,
@@ -28,6 +28,7 @@ const PresupuestoForm = () => {
         const nuevoPresupuesto = await crearPresupuesto(presupuestoData);
         console.log("Presupuesto creado: ", nuevoPresupuesto);
         setMostrarModal('tipoMovimiento');
+        setPaso(2); // Cambiar a paso 2 después de crear presupuesto
     };
 
     const handleMovimientoSubmit = async () => {
@@ -41,14 +42,12 @@ const PresupuestoForm = () => {
     };
 
     const handleOtroMovimiento = async () => {
-        setMostrarModal('movimiento');
+        setMostrarModal('tipoMovimiento');
     };
 
     const handleFinalizar = async () => {
-        // Redirigir a la página de presupuestos o actualizar la vista
         const presupuestos = await obtenerPresupuestos();
         console.log("Presupuestos obtenidos: ", presupuestos);
-        // Redirigir o actualizar vista según sea necesario
     };
 
     return (
@@ -70,6 +69,7 @@ const PresupuestoForm = () => {
                             setMostrarModal('fecha');
                         } else {
                             setMostrarModal('tipoMovimiento');
+                            setPaso(2); // Cambiar a paso 2 si selecciona Movimiento
                         }
                     }} className="bg-blue-500 text-white px-4 py-2 mt-4">Aceptar</button>
                 </div>
@@ -136,12 +136,6 @@ const PresupuestoForm = () => {
                 </div>
             )}
 
-            {/* Modal Mostrar Presupuestos */}
-            {paso === 3 && (
-                <div>
-                    {/* Lógica para mostrar los presupuestos aquí */}
-                </div>
-            )}
         </div>
     );
 };
