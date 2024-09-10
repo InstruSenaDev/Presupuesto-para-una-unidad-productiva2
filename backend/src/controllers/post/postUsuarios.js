@@ -30,11 +30,8 @@ const nuevosUser = async (req, res) => {
 
     // Insertar el usuario en la base de datos
     const resultMovimiento = await pool.query(
-<<<<<<< Updated upstream
-      "INSERT INTO usuarios (nombre, correo, contrasena, estado, tipodocumento, documento, idrol) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
-=======
+
       "INSERT INTO usuarios (nombre, correo, contrasena, estados, tipodocumento, documento, idrol) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
->>>>>>> Stashed changes
       [nombre, correo, hashedPassword, "1", tipodocumento, documento, "1"]
     );
 
