@@ -1,30 +1,14 @@
-<<<<<<< HEAD
-import React, { useState } from 'react';
-import useLoginForm from '../../hooks/useInicioForm';
-import useFormValidation from '../../hooks/useFormValidacion';
-
-=======
 import React, { useState, useEffect } from 'react';
 import ImgI from '../Img/Logo.png';
 import Input from '../IcoReutilizables/Input';
 import Boton from '../IcoReutilizables/Boton';
 import useLoginForm from '../../hooks/useInicioForm';
 import useFormValidation from '../../hooks/useFormInicio';
->>>>>>> Juan
 
 const LoginForm = () => {
     const [correo, setCorreo] = useState('');
     const [contrasena, setContrasena] = useState('');
     const { handleSubmit, errors: loginErrors, loading, success } = useLoginForm();
-<<<<<<< HEAD
-    const { validateForm, errors: validationErrors, isValid } = useFormValidation();
-
-    const onSubmit = async (e) => {
-        e.preventDefault();
-
-        if (validateForm(correo, contrasena)) {
-            await handleSubmit(correo, contrasena);
-=======
     const { validateForm, errors: validationErrors } = useFormValidation();
     const [showModal, setShowModal] = useState(false);
 
@@ -44,51 +28,10 @@ const LoginForm = () => {
         if (validateForm(correo, contrasena)) {
             await handleSubmit(correo, contrasena);
             console.log("Resultado del inicio de sesión:", success);
->>>>>>> Juan
         }
     };
 
     return (
-<<<<<<< HEAD
-        <form id="formuInicio" onSubmit={onSubmit}>
-            <div>
-                <label htmlFor="inicioCorreo">Correo:</label>
-                <input
-                    id="inicioCorreo"
-                    type="email"
-                    value={correo}
-                    onChange={(e) => setCorreo(e.target.value)}
-                />
-                {validationErrors.correo && <p>{validationErrors.correo}</p>}
-            </div>
-
-        
-
-            <div>
-                <label htmlFor="contraseñaInicio">Contraseña:</label>
-                <input
-                    id="contraseñaInicio"
-                    type="password"
-                    value={contrasena}
-                    onChange={(e) => setContrasena(e.target.value)}
-                />
-                {validationErrors.contrasena && <p>{validationErrors.contrasena}</p>}
-            </div>
-
-            {loginErrors.general && <p>{loginErrors.general}</p>}
-            {loading && <p>Cargando...</p>}
-
-            <button type="submit">Iniciar sesión</button>
-
-            {/* Mostrar modal si el inicio de sesión fue exitoso */}
-            {success && (
-                <div id="modalExito">
-                    <p>¡Inicio exitoso!</p>
-                    <button onClick={() => window.location.href = '/home'}>Aceptar</button>
-                </div>
-            )}
-        </form>
-=======
         <div className="contM justify-center flex flex-col md:flex-row">
             <div className="contM justify-center pt-3 flex flex-col md:flex-row h-screen w-full items-center">
                 {/* Contenedor izquierdo */}
@@ -156,7 +99,6 @@ const LoginForm = () => {
                 </div>
             )}
         </div>
->>>>>>> Juan
     );
 };
 
