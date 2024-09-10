@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 
 const usePresupuesto = () => {
     const [idusuario, setIdusuario] = useState(null);
+    const [idpresupuestoActivo, setIdpresupuestoActivo] = useState(null);
 
     useEffect(() => {
         const storedUser = localStorage.getItem('id');
@@ -37,19 +38,25 @@ const usePresupuesto = () => {
                 throw new Error(`Error HTTP! status: ${response.status}`);
             }
 
-            return await response.json();
+            const nuevoPresupuesto = await response.json();
+            setIdpresupuestoActivo(nuevoPresupuesto.idpresupuesto); // Guardar el id del presupuesto activo
+            return nuevoPresupuesto;
         } catch (error) {
             console.error("Error al crear presupuesto: ", error);
         }
     };
 
-    const crearMovimiento = async (movimientoData, idtipopresupuesto) => {
+    const crearMovimiento = async (movimientoData) => {
         if (idusuario === null) {
             console.error("ID de usuario no disponible");
             return;
         }
+        if (idpresupuestoActivo === null) {
+            console.error("No hay un presupuesto activo.");
+            return;
+        }
         try {
-            const response = await fetch(`http://localhost:3000/movimientos/${idusuario}/${idtipopresupuesto}`, {
+            const response = await fetch(`http://localhost:3000/movimientos/${idusuario}/${idpresupuestoActivo}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

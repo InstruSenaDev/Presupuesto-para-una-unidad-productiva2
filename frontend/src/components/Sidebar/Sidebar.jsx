@@ -33,7 +33,7 @@ const Sidebar = () => {
                 </li>
                 <li className="p-3.5 flex items-center sidebar-item">
                     <FaMoneyBill className="text-2xl icon-white" />
-                    {!isMinimized && <a href="/PagPresupuestosPrincipal" className="ml-4">Presupuesto</a>}
+                    {!isMinimized && <a href="/Presupuestos" className="ml-4">Presupuesto</a>}
                 </li>
                 <li className="p-3.5 flex items-center sidebar-item">
                     <FaUser className="text-2xl icon-white" />

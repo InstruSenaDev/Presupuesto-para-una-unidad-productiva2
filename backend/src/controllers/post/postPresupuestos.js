@@ -12,7 +12,7 @@ const crearPresupuesto = async (req, res) => {
 
         const resultPresupuesto = await pool.query(
             "INSERT INTO presupuesto (idusuario, idtipopresupuesto, presupuesto, saldo, estado, fecha) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
-            [idusuario, idtipopresupuesto, presupuesto, saldo, estado, fecha]
+            [idusuario, idtipopresupuesto, presupuesto, saldo, "1", fecha]
         );
 
         res.status(201).json(resultPresupuesto.rows[0]);
