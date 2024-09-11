@@ -18,6 +18,9 @@ import Home from './components/Home/InicioHome';
 import PagPersonal from './components/pag/pagPresupuestoPersonal';
 import PresupuestoPag from './pages/PresupuestoPag';
 import { BoxIconElement } from 'boxicons';
+import EmpresarialPag from './pages/EmpresarialPag';
+import PersonalPag from './pages/PersonalPag';
+import familiarPag from './pages/FamiliarPag'
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -32,6 +35,9 @@ function App() {
         <Route path="/Navbar" element={<Navbar />} />
         <Route path="/PagPersonal" element={<PagPersonal />} />
         <Route path="/Presupuestos" element={<PresupuestoPag />} />
+        <Route path="/EmpresarialPag" element={<EmpresarialPag />} />
+        <Route path="/PersonalPag" element={<PersonalPag />} />
+        <Route path="/familiarPag" element={<familiarPag />} />
        
 
 

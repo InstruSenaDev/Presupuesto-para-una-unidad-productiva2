@@ -87,7 +87,7 @@ const PresupuestoForm = () => {
 
                                     <button className='curson-pointer'>
 
-                                        <box-icon name='down-arrow-alt' color='#ffffff' ></box-icon>
+                                    <box-icon name='download' color='#ffffff' ></box-icon>
                                     </button>
 
 
@@ -110,7 +110,7 @@ const PresupuestoForm = () => {
                                     <h2>Fecha</h2>
                                     <button className='curson-pointer'>
 
-                                        <box-icon name='down-arrow-alt' color='#ffffff' ></box-icon>
+                                    <box-icon name='download' color='#ffffff' ></box-icon>
                                     </button>
 
 
