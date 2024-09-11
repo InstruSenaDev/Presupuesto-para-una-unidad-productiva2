@@ -18,8 +18,8 @@ function App() {
   return (
     <Router>  
       <Routes>
-        <Route path="/" element={<Navigate to="/home" />} />
-        <Route path='/InicioSesion' element={<InicioSesion />} />
+      <Route path='/' element = {<InicioSesion/>} />
+        {/* <Route path='/InicioSesion' element={<InicioSesion />} /> */}
         <Route path='/RegistrodeUsuario' element={<RegistrodeUsuarios />} />
         <Route path='/PagPresupuestos' element={<PagPresupuestos />} />
         <Route path="*" element={<NotFound />} /> {/* Manejo de rutas no existentes */}
