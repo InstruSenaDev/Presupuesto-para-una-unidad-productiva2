@@ -5,11 +5,11 @@ import {BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom
 // import viteLogo from '/vite.svg'
 import { BoxIconElement } from 'boxicons';
 import './App.css'
-// Productos
+
 import InicioSesion from './components/inicioDeSesion/Inicio';
-// import RegistrodeUsuarios from './pages/registro';
+
 import Inicio from './pages/Home';
-// import Productos from './components/Empresarial/TablaProductos';
+
 import Productos from './pages/Productos';
 import ProductosL from './pages/Productos';
 
@@ -31,12 +31,23 @@ import PersonalPag from './pages/PersonalPag';
 import FamiliarPa from './pages/FamiliarPag'
 import FamiliarPag from './pages/FamiliarPag'
 
+ //rutas admin
+
+ import Dash from './pages/DashHome';
+
+
 function App() {
   // const [count, setCount] = useState(0)
 
   return (
     <Router>  
       <Routes>
+
+        <Route path="/Dash" element={<Dash />} /> 
+
+
+ {/*/////////////////////////////////////////////*/}
+
         <Route path="/Inisio" element={<Inisio />} /> 
         <Route path="/Home" element={<Home />} /> 
         <Route path="/Registro" element={<RegistroDeUsuarios />} />
