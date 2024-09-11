@@ -6,6 +6,7 @@ const Familiar =  () =>{
         <>
 
         <LayoutN>
+            
 
          <div className="bg-blueUwu w-7/12 h-64 mx-auto flex flex-col items-center justify-center p-4 rounded">
             <div className="flex flex-col items-center">

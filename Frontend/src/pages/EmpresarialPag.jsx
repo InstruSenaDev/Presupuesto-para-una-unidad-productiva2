@@ -2,6 +2,13 @@ import LayoutN from "../components/Layout/NabvarSisebar";
 
 
 const Empresarial =  () =>{
+
+    const { setTitle } = useContext(TitleContext);
+
+  useEffect(() => {
+    setTitle('Empresarial');
+  }, [setTitle]);
+
     return(
         <>
 
