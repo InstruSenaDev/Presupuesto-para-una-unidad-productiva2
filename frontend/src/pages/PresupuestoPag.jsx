@@ -4,6 +4,7 @@ import LayoutN from '../components/Layout/NabvarSisebar';
 import imgP from '../components/Img/imgP.png'
 import imgF from '../components/Img/imgF.png'
 
+
 const PresupuestoForm = () => {
     const { crearPresupuesto, crearMovimiento, obtenerPresupuestos } = usePresupuesto();
     const [paso, setPaso] = useState(1); // Para controlar los pasos
@@ -63,29 +64,59 @@ const PresupuestoForm = () => {
             <div className="container mx-auto p-4 h-full mr-52">
                 {/* Botones para seleccionar tipo de presupuesto */}
                 {paso === 1 && !mostrarModal && (
-                    <div className="flex justify-center items-center h-screen">
-                        <div className="flex space-x-4 flex-col w-full ">
-                            <div className='bg-negro text-blanquito border-rouded  h-2/4'>
-                            <img src={imgP} alt="" className='h-20 rounded' />
-                                <button
-                                    onClick={() => handleTipoPresupuesto(1)} // Presupuesto Personal
-                                    className="bg-blue-500 text-white px-4 py-2 rounded"
-                                >
-                                    Presupuesto Personal
-                                </button>
+                    <div className="flex justify-center items-center h-full">
+                        <div className="flex flex-col w-full h-full justify-between gap-y-4">
+                            <div className='bg-griscard h-full text-blanquito rounded  '>
+
+                                <div className='flex items-center justify-around rounded h-2/6'>
+
+                                    <img src={imgP} alt="" className='h-20 rounded flex justify-center text-center' />
+
+
+                                    <button
+
+
+                                        onClick={() => handleTipoPresupuesto(1)} // Presupuesto Personal
+                                        className="bg-blue-500 text-white px-4 py-2 rounded underline"
+                                    >
+                                        Presupuesto Personal
+
+                                    </button>
+
+                                    <h2>Fecha</h2>
+
+                                    <button className='curson-pointer'>
+
+                                        <box-icon name='down-arrow-alt' color='#ffffff' ></box-icon>
+                                    </button>
+
+
+                                </div>
+
 
                             </div>
-                            <div className='bg-negro text-blanquito border-rouded h-2/4'>
-                            <img src={imgF} alt="" className='h-20 rounded' />
-                            
-                                <button
-                                    onClick={() => handleTipoPresupuesto(2)} // Presupuesto Familiar
-                                    className="bg-green-500 text-white px-4 py-2 rounded"
-                                >
-                                    Presupuesto Familiar
-                                </button>
 
+                            <div className='bg-griscard h-full text-blanquito rounded'>
+
+                                <div className='flex items-center justify-around rounded h-2/6'>
+                                    <img src={imgF} alt="" className='h-20 rounded' />
+
+                                    <button
+                                        onClick={() => handleTipoPresupuesto(2)} // Presupuesto Familiar
+                                        className="bg-green-500 text-white px-4 py-2 rounded underline"
+                                    >
+                                        Presupuesto Familiar
+                                    </button>
+                                    <h2>Fecha</h2>
+                                    <button className='curson-pointer'>
+
+                                        <box-icon name='down-arrow-alt' color='#ffffff' ></box-icon>
+                                    </button>
+
+
+                                </div>
                             </div>
+
 
                         </div>
                     </div>
@@ -93,9 +124,13 @@ const PresupuestoForm = () => {
 
                 {/* Modal Selección */}
                 {paso === 1 && mostrarModal === 'seleccion' && (
-                    <div className="modal fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50">
-                        <div className="bg-white p-8 rounded shadow-lg">
-                            <h2 className="text-xl font-bold">Nuevo</h2>
+                    <div className="modal fixed inset-0 flex items-center  justify-center bg-gray-500 bg-opacity-50">
+                        <div className=" p-8 rounded shadow-lg w-3/12">
+                            <div>
+                                <h2 className="bg-blueUwu text-xl w-auto font-bold rounded">Nuevo</h2>
+
+
+                            </div>
                             <select
                                 value={presupuestoData.idtipopresupuesto}
                                 onChange={(e) => setPresupuestoData({ ...presupuestoData, idtipopresupuesto: parseInt(e.target.value, 10) })}
@@ -124,8 +159,12 @@ const PresupuestoForm = () => {
                 {/* Modal Fecha */}
                 {paso === 1 && mostrarModal === 'fecha' && (
                     <div className="modal fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50">
-                        <div className="bg-white p-8 rounded shadow-lg">
-                            <h2 className="text-xl font-bold">Fecha</h2>
+                        <div className="bg-white p-8 rounded shadow-lg w-3/12">
+                            <div>
+
+                                <h2 className="bg-blueUwu  text-xl font-bold rounded">Fecha</h2>
+
+                            </div>
                             <input
                                 type="date"
                                 value={presupuestoData.fecha}
@@ -142,8 +181,13 @@ const PresupuestoForm = () => {
                 {/* Modal Tipo de Movimiento */}
                 {paso === 2 && mostrarModal === 'tipoMovimiento' && (
                     <div className="modal fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50">
-                        <div className="bg-white p-8 rounded shadow-lg">
-                            <h2 className="text-xl font-bold">Tipo de Movimiento</h2>
+                        <div className="bg-white p-8 rounded shadow-lg w-3/12">
+
+                            <div>
+
+                                <h2 className="bg-blueUwu  text-xl font-bold rounded">Tipo de Movimiento</h2>
+
+                            </div>
                             <select
                                 value={movimientoData.idtipomovimiento}
                                 onChange={(e) => setMovimientoData({ ...movimientoData, idtipomovimiento: parseInt(e.target.value, 10) })}
@@ -162,8 +206,13 @@ const PresupuestoForm = () => {
                 {/* Modal Movimientos */}
                 {paso === 2 && mostrarModal === 'movimiento' && (
                     <div className="modal fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50">
-                        <div className="bg-white p-8 rounded shadow-lg">
-                            <h2 className="text-xl font-bold">Movimientos</h2>
+                        <div className="bg-white p-8 rounded shadow-lg w-3/12">
+
+                            <div>
+
+                                <h2 className="bg-blueUwu  text-xl font-bold rounded">Movimientos</h2>
+
+                            </div>
                             <input
                                 type="number"
                                 placeholder="Saldo"
@@ -188,8 +237,12 @@ const PresupuestoForm = () => {
                 {/* Modal Confirmar Otro Movimiento */}
                 {paso === 2 && mostrarModal === 'confirmarOtroMovimiento' && (
                     <div className="modal fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50">
-                        <div className="bg-white p-8 rounded shadow-lg">
-                            <h2 className="text-xl font-bold">¿Quieres hacer otro movimiento?</h2>
+                        <div className="bg-white p-8 rounded shadow-lg w-3/12">
+
+                            <div>
+                                <h2 className="bg-blueUwu  text-xl font-bold rounded">¿Quieres hacer otro movimiento?</h2>
+
+                            </div>
                             <button onClick={handleOtroMovimiento} className="bg-green-500 text-white px-4 py-2 mt-4 mr-2">
                                 Sí
                             </button>

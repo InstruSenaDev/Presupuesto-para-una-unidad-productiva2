@@ -17,7 +17,7 @@ import Navbar from './components/Navbar/Navbar';
 import Home from './components/Home/InicioHome';
 import PagPersonal from './components/pag/pagPresupuestoPersonal';
 import PresupuestoPag from './pages/PresupuestoPag';
-
+import { BoxIconElement } from 'boxicons';
 
 function App() {
   // const [count, setCount] = useState(0)
