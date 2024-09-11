@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import usePresupuesto from '../hooks/usePresupuesto';
-import LayoutN from '../components/Layout/NabvarSisebar';
+import Navbar from '../components/Navbar/Navbar';
+import Sidebar from '../components/sidebar/sidebar';
 import imgP from '../components/Img/imgP.png';
 import imgF from '../components/Img/imgF.png';
 import imgE from '../components/Img/imgE.png';
 import { Link } from 'react-router-dom';
+
 
 
 
@@ -64,8 +66,18 @@ const PresupuestoForm = () => {
     };
 
     return (
-        <LayoutN>
-            <div className="container mx-auto p-4 h-full mr-52">
+      <>
+    <Navbar titulo={"Presupuestos"}/>
+    <Sidebar/>
+
+
+
+    <div className="flex items-center justify-center min-h-screen">
+    <div className=" w-7/12  flex flex-col items-center justify-center p-4 rounded">
+        <div className="flex flex-col items-center ">
+            
+           
+        <div className="container mx-auto p-4 h-full mr-52">
                 {/* Botones para seleccionar tipo de presupuesto */}
                 {paso === 1 && !mostrarModal && (
                     <div className="flex justify-center items-center h-full">
@@ -303,8 +315,20 @@ const PresupuestoForm = () => {
                         </div>
                     </div>
                 )}
-            </div>
-        </LayoutN>
+            </div> 
+
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+           
+            </>
+        
     );
 };
 
