@@ -1,94 +1,64 @@
-import { useState, useEffect } from "react";
+import { useState } from 'react';
 
 const usePresupuesto = () => {
-    const [idusuario, setIdusuario] = useState(null);
-    const [idpresupuestoActivo, setIdpresupuestoActivo] = useState(null);
+    const [error, setError] = useState(null);
 
-    useEffect(() => {
-        const storedUser = localStorage.getItem('id');
-        console.log("ID usuario desde localStorage:", storedUser); // Debugging
+    const crearPresupuesto = async (datos) => {
         try {
-            const parsedIdusuario = storedUser ? parseInt(storedUser, 10) : null;
-            if (isNaN(parsedIdusuario)) {
-                throw new Error("ID de usuario no válido");
-            }
-            setIdusuario(parsedIdusuario);
-            console.log("ID usuario parseado:", parsedIdusuario); // Debugging
-        } catch (error) {
-            console.error("Error al parsear el ID de usuario:", error);
-            setIdusuario(null); // Asegúrate de manejar el caso en el que el ID no es válido
-        }
-    }, []);
-
-    const crearPresupuesto = async (presupuestoData) => {
-        if (idusuario === null) {
-            console.error("ID de usuario no disponible");
-            return;
-        }
-        try {
+            const idusuario = localStorage.getItem('id');
             const response = await fetch(`http://localhost:3000/presupuestos/${idusuario}`, {
-                method: "POST",
+                method: 'POST',
                 headers: {
-                    "Content-Type": "application/json",
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(presupuestoData),
+                body: JSON.stringify(datos),
             });
-
             if (!response.ok) {
-                throw new Error(`Error HTTP! status: ${response.status}`);
+                throw new Error('Error al crear el presupuesto');
             }
-
-            const nuevoPresupuesto = await response.json();
-            setIdpresupuestoActivo(nuevoPresupuesto.idpresupuesto); // Guardar el id del presupuesto activo
-            return nuevoPresupuesto;
-        } catch (error) {
-            console.error("Error al crear presupuesto: ", error);
+            const result = await response.json();
+            // Guardar el idpresupuesto del resultado en localStorage
+            localStorage.setItem('ultimoPresupuesto', result.idpresupuesto);
+            return result;
+        } catch (err) {
+            setError(err.message);
+            console.error('Error en crearPresupuesto:', err);
         }
     };
 
-    const crearMovimiento = async (movimientoData) => {
-        if (idusuario === null) {
-            console.error("ID de usuario no disponible");
-            return;
-        }
-        if (idpresupuestoActivo === null) {
-            console.error("No hay un presupuesto activo.");
-            return;
-        }
+    const crearMovimiento = async (datos, idpresupuesto) => {
         try {
-            const response = await fetch(`http://localhost:3000/movimientos/${idusuario}/${idpresupuestoActivo}`, {
-                method: "POST",
+            const idusuario = localStorage.getItem('id');
+            const response = await fetch(`http://localhost:3000/movimientos/${idusuario}/${idpresupuesto}`, {
+                method: 'POST',
                 headers: {
-                    "Content-Type": "application/json",
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(movimientoData),
+                body: JSON.stringify(datos),
             });
-
             if (!response.ok) {
-                throw new Error(`Error HTTP! status: ${response.status}`);
+                throw new Error('Error al crear el movimiento');
             }
-
             return await response.json();
-        } catch (error) {
-            console.error("Error al crear movimiento: ", error);
+        } catch (err) {
+            setError(err.message);
+            console.error('Error en crearMovimiento:', err);
         }
     };
 
     const obtenerPresupuestos = async () => {
-        if (idusuario === null) {
-            console.error("ID de usuario no disponible");
-            return;
-        }
         try {
-            const response = await fetch(`http://localhost:3000/presupuestos/${idusuario}`);
-            
+            const idusuario = localStorage.getItem('id');
+            const response = await fetch(`http://localhost:3000/presupuestos/${idusuario}`, {
+                method: 'GET',
+            });
             if (!response.ok) {
-                throw new Error(`Error HTTP! status: ${response.status}`);
+                throw new Error('Error al obtener presupuestos');
             }
-
             return await response.json();
-        } catch (error) {
-            console.error("Error al obtener presupuestos: ", error);
+        } catch (err) {
+            setError(err.message);
+            console.error('Error en obtenerPresupuestos:', err);
         }
     };
 
@@ -96,6 +66,7 @@ const usePresupuesto = () => {
         crearPresupuesto,
         crearMovimiento,
         obtenerPresupuestos,
+        error,
     };
 };
 
