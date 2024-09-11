@@ -29,7 +29,7 @@ const nuevosUser = async (req, res) => {
     const hashedPassword = await bcrypt.hash(contrasena, 10);
 
     // Insertar el usuario en la base de datos
-    const resultMovimiento = await pool.query(
+    const resultMovimiento = await pool.query( 
 
       "INSERT INTO usuarios (nombre, correo, contrasena, estados, tipodocumento, documento, idrol) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
       [nombre, correo, hashedPassword, "1", tipodocumento, documento, "1"]

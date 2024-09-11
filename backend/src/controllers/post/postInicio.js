@@ -14,8 +14,6 @@ const iniciarSesion = async (req, res) => {
       [correo]
     );
 
-    console.log(result.rows[0]);
-
     // Verificar si se encontró un usuario con el correo proporcionado
     if (result.rows.length > 0) {
       const user = result.rows[0];
@@ -23,9 +21,25 @@ const iniciarSesion = async (req, res) => {
       const isMatch = await bcrypt.compare(contrasena, user.contrasena);
 
       if (isMatch) {
-        res
-          .status(200)
-          .json({ message: "Inicio de sesión exitoso", user: user });
+        // Obtener el último presupuesto activo del usuario
+        const presupuestoResult = await pool.query(
+          "SELECT id FROM presupuesto WHERE idusuario = $1 AND estado = 1 ORDER BY fecha DESC LIMIT 1",
+          [user.id]
+        );
+
+        const ultimoPresupuesto = presupuestoResult.rows.length > 0 ? presupuestoResult.rows[0].id : null;
+
+        res.status(200).json({
+          message: "Inicio de sesión exitoso",
+          user: {
+            id: user.id,
+            nombre: user.nombre,
+            correo: user.correo,
+            documento: user.documento,
+            tipodocumento: user.tipodocumento,
+            ultimoPresupuesto: ultimoPresupuesto, // El último presupuesto activo
+          },
+        });
       } else {
         res.status(400).json({ message: "Contraseña incorrecta" });
       }
@@ -34,10 +48,7 @@ const iniciarSesion = async (req, res) => {
     }
   } catch (error) {
     console.log("Error al iniciar sesión: ", error);
-    res
-    
-      .status(500)
-      .json({ message: "Error interno al procesar la solicitud: ", error });
+    res.status(500).json({ message: "Error interno al procesar la solicitud", error });
   }
 };
 
