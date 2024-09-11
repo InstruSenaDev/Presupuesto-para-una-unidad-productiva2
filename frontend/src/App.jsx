@@ -10,7 +10,9 @@ import InicioSesion from './components/inicioDeSesion/Inicio';
 // import RegistrodeUsuarios from './pages/registro';
 import Inicio from './pages/Home';
 // import Productos from './components/Empresarial/TablaProductos';
-import Productos from './pages/Productos'
+import Productos from './pages/Productos';
+import ProductosL from './pages/Productos';
+
 import Ventas from './pages/ventas';
 import Inisio from './pages/Inisio';
 import RegistroDeUsuarios from './components/RegistroDeUsuarios/Registro';
@@ -60,10 +62,13 @@ function App() {
          {/* <ruta del componente si y la ruta dinamica */}
         <Route path='/' element = {<InicioSesion/>} />
         <Route path="/Inicio" element={<Inicio />} />
+        
+
+          {/* <ruta del componente si y la ruta dinamica */}
+        <Route path='/Productos' element = {<Productos/>}/>
+        <Route path='/ProductosL' element = {<ProductosL/>}/>
 
         
-        {/* <Route path='/RegistrodeUsuario' element = {<RegistrodeUsuarios/>}/> */}
-        <Route path='/Productos' element = {<Productos/>}/>
         <Route path='/ventas' element = {<Ventas/>}/>
       </Routes>
     </Router>

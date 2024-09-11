@@ -95,10 +95,10 @@ function Productos() {
   const { handlePago, modalVisible, resetSeleccionados, loading } = usePago(idusuario, seleccionados, total, setSeleccionados, setTotal);
 
   return (
-    <div className="flex justify-between">
-      <div className="bg-white rounded-t-lg shadow-md p-2 w-full">
+    <div className=" flex justify-between lg:flex-row flex-col  ">
+      <div className="bg-white rounded-t-lg shadow-md p-2 w-full  lg:w-2/3">
         <div>
-          <button className="text-blanquito px-4 py-2 rounded-md bg-negro"
+          <button className="text-blanquito px-4 py-2 rounded-md bg-negro mb-2 lg:mb-0"
             onClick={() => window.location = '/Presupuestos'}>
             <i name="arrow-back" color="#ffffff"></i> Volver
           </button>
@@ -148,7 +148,7 @@ function Productos() {
         </table>
       </div>
 
-      <div className="bg-white rounded-lg shadow-md w-full">
+      <div className="bg-white rounded-lg shadow-md w-full lg:w-1/3">
         <h2 className="bg-blueUwu text-xl text-center text-blanquito font-bold mb-4 py-2 px-4 rounded-t-lg">
           Seleccionados
         </h2>

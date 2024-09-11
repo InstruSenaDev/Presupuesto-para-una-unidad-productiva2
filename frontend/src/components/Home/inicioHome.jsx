@@ -11,9 +11,13 @@ import  './home.css';
 const Home = () => {
     return (
        <>
-                
-<Navbar titulo={"Familiar"}/>
-    <Sidebar/>
+   <div className="">
+  <Navbar titulo={"Home"} />
+</div>             
+
+<div className="Si fixed top-0 left-0 h-full">
+  <Sidebar />
+</div> 
     <div className="flex rounded bg-blanquito justify-center p-16 ml-44 space-x-16">
     <div className="flex flex-wrap shadow-md shadow-blueUwu rounded-lg bg-blanquito">
         <div className="p-6 w-full rounded-t-2xl bg-blueUwu">

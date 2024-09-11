@@ -67,9 +67,13 @@ const PresupuestoForm = () => {
 
     return (
       <>
-    <Navbar titulo={"Presupuestos"}/>
-    <Sidebar/>
+   <div className="">
+  <Navbar titulo={"Presupuestos"} />
+</div>             
 
+<div className="Si fixed top-0 left-0 h-full">
+  <Sidebar />
+</div> 
 
 
     <div className="flex items-center justify-center min-h-screen">
@@ -161,7 +165,19 @@ const PresupuestoForm = () => {
 
                                     </button>
 
+                                    <Link to="/Productos">
+                                    
+                                    <button className='curson-pointer underline'>
+
+                                    <box-icon name='edit' color='#ffffff' ></box-icon>
+                                        
+                                    </button>
+                                    </Link>
+                                    
+
+                                    
                                     <h2 className=''>Fecha:</h2>
+
                                     <Link to="/PersonalPag">
                                     
                                     <button className='curson-pointer underline'>
@@ -171,10 +187,6 @@ const PresupuestoForm = () => {
                                         
                                     </button>
                                     </Link>
-
-                                    
-
-
                                 </div>
 
 

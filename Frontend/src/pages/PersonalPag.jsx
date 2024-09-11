@@ -8,10 +8,13 @@ const Familiar =  () =>{
     return(
         <>
 
-        
-<Navbar titulo={"Personal"}/>
-<Sidebar/>
+<div className="">
+  <Navbar titulo={"personal"} />
+</div>             
 
+<div className="Si fixed top-0 left-0 h-full">
+  <Sidebar />
+</div> 
 <div className="flex items-center justify-center min-h-screen">
     <div className="bg-blueUwu w-7/12 h-64 flex flex-col items-center justify-center p-4 rounded">
         <div className="flex flex-col items-center ">
