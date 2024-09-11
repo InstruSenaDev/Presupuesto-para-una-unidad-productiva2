@@ -1,3 +1,5 @@
+import Navbar from '../Navbar/Navbar';
+import SidebarAdmind from '../Sidebar/SidebarAdmin';
 import React from 'react';
 import 'boxicons'; // Para poder utilizar los íconos de Boxicons
 
@@ -12,6 +14,16 @@ const UserTable = () => {
   ];
 
   return (
+    <>
+    
+    <div className="">
+  <Navbar titulo={"Usuarios"} />
+</div>             
+
+<div className="Si fixed top-0 left-0 h-full">
+  <SidebarAdmind />
+</div> 
+    
     <div className="p-4">
       <input
         type="text"
@@ -50,6 +62,7 @@ const UserTable = () => {
         </tbody>
       </table>
     </div>
+    </>
   );
 };
 
