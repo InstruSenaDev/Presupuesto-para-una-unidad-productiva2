@@ -1,7 +1,9 @@
 import  React  from 'react'
+
 // import reactLogo from './assets/react.svg'
 import {BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom';
 // import viteLogo from '/vite.svg'
+import { BoxIconElement } from 'boxicons';
 import './App.css'
 // Productos
 import InicioSesion from './components/inicioDeSesion/Inicio';
@@ -14,13 +16,18 @@ import Inisio from './pages/Inisio';
 import RegistroDeUsuarios from './components/RegistroDeUsuarios/Registro';
 import Sidebar from './components/Sidebar/Sidebar';
 import Navbar from './components/Navbar/Navbar';
-import Home from './components/Home/InicioHome';
+
 import PagPersonal from './components/pag/pagPresupuestoPersonal';
 import PresupuestoPag from './pages/PresupuestoPag';
-import { BoxIconElement } from 'boxicons';
 import EmpresarialPag from './pages/EmpresarialPag';
+
+import Home from './pages/Home';
+import PersonalPa from './pages/PersonalPag';
 import PersonalPag from './pages/PersonalPag';
-import familiarPag from './pages/FamiliarPag'
+
+
+import FamiliarPa from './pages/FamiliarPag'
+import FamiliarPag from './pages/FamiliarPag'
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -33,16 +40,28 @@ function App() {
         <Route path="/Registro" element={<RegistroDeUsuarios />} />
         <Route path="/Sidebar" element={<Sidebar />} />
         <Route path="/Navbar" element={<Navbar />} />
-        <Route path="/PagPersonal" element={<PagPersonal />} />
-        <Route path="/Presupuestos" element={<PresupuestoPag />} />
-        <Route path="/EmpresarialPag" element={<EmpresarialPag />} />
+
+ {/* <ruta del componente si y la ruta dinamica */}
+        <Route path="/PersonalPa" element={<PersonalPa />} />
         <Route path="/PersonalPag" element={<PersonalPag />} />
-        <Route path="/familiarPag" element={<familiarPag />} />
+
+        <Route path="/Presupuestos" element={<PresupuestoPag />} />
+
+        
+        <Route path="/EmpresarialPag" element={<EmpresarialPag />} />
+        <Route path="/PersonalPa" element={<PersonalPa />} />
+
+         {/* <ruta del componente si y la ruta dinamica */}
+        <Route path="/FamiliarPa" element={<FamiliarPa />} />
+        <Route path="/familiarPag" element={<FamiliarPag />} />
+        
        
 
-
+         {/* <ruta del componente si y la ruta dinamica */}
         <Route path='/' element = {<InicioSesion/>} />
         <Route path="/Inicio" element={<Inicio />} />
+
+        
         {/* <Route path='/RegistrodeUsuario' element = {<RegistrodeUsuarios/>}/> */}
         <Route path='/Productos' element = {<Productos/>}/>
         <Route path='/ventas' element = {<Ventas/>}/>

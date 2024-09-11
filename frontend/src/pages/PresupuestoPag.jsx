@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import usePresupuesto from '../hooks/usePresupuesto';
 import LayoutN from '../components/Layout/NabvarSisebar';
-import imgP from '../components/Img/imgP.png'
-import imgF from '../components/Img/imgF.png'
+import imgP from '../components/Img/imgP.png';
+import imgF from '../components/Img/imgF.png';
+import imgE from '../components/Img/imgE.png';
+import { Link } from 'react-router-dom';
+
+
 
 
 const PresupuestoForm = () => {
@@ -79,16 +83,22 @@ const PresupuestoForm = () => {
                                         onClick={() => handleTipoPresupuesto(1)} // Presupuesto Personal
                                         className="bg-blue-500 text-white px-4 py-2 rounded underline"
                                     >
-                                        Presupuesto Personal
+                                        Presupuesto personal
 
                                     </button>
 
-                                    <h2>Fecha</h2>
+                                    <h2 className=''>Fecha:</h2>
+                                    <Link to="/PersonalPag">
+                                    
+                                    <button className='curson-pointer underline'>
 
-                                    <button className='curson-pointer'>
-
-                                    <box-icon name='download' color='#ffffff' ></box-icon>
+                                    <box-icon name='download' color='#ffffff' >
+                                        </box-icon>
+                                        
                                     </button>
+                                    </Link>
+
+                                    
 
 
                                 </div>
@@ -105,16 +115,57 @@ const PresupuestoForm = () => {
                                         onClick={() => handleTipoPresupuesto(2)} // Presupuesto Familiar
                                         className="bg-green-500 text-white px-4 py-2 rounded underline"
                                     >
-                                        Presupuesto Familiar
+                                        Presupuesto familiar
                                     </button>
-                                    <h2>Fecha</h2>
-                                    <button className='curson-pointer'>
+                                    <h2>Fecha:</h2>
+                                    <Link to="/FamiliarPag">
+                                    
+                                    <button className='curson-pointer underline'>
 
-                                    <box-icon name='download' color='#ffffff' ></box-icon>
+                                    <box-icon name='download' color='#ffffff' >
+                                        </box-icon>
+                                        
                                     </button>
+                                    </Link>
+
+                                </div>
+                            </div>
+
+
+                            <div className='bg-griscard h-full text-blanquito rounded  '>
+
+                                <div className='flex items-center justify-around rounded h-2/6'>
+
+                                    <img src={imgE} alt="" className='h-20 rounded flex justify-center text-center' />
+
+
+                                    <button
+
+
+                                        onClick={() => handleTipoPresupuesto(1)} // Presupuesto Personal
+                                        className="bg-blue-500 text-white px-4 py-2 rounded underline"
+                                    >
+                                        Presupuesto empresarial
+
+                                    </button>
+
+                                    <h2 className=''>Fecha:</h2>
+                                    <Link to="/PersonalPag">
+                                    
+                                    <button className='curson-pointer underline'>
+
+                                    <box-icon name='download' color='#ffffff' >
+                                        </box-icon>
+                                        
+                                    </button>
+                                    </Link>
+
+                                    
 
 
                                 </div>
+
+
                             </div>
 
 

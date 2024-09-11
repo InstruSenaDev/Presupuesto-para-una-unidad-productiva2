@@ -27,7 +27,7 @@ function Productos() {
     if (!id) {
       console.error("El usuario no tiene un ID válido.");
       alert("Por favor, inicia sesión para continuar.");
-      window.location = '/login'; // Redirigir al login
+      window.location = '/'; // Redirigir al login
       return;
     }
 
