@@ -7,10 +7,12 @@ const { iniciarSesion } = require("../controllers/post/postInicio");
 const { apiProductos } = require("../controllers/Get/getProductos");
 const { postPago } = require("../controllers/post/postPago");
 const { crearPresupuesto, crearMovimiento, obtenerPresupuestos } = require("../controllers/post/postPresupuestos");
+const { apiUsuarios } = require("../controllers/Get/getUsuarios");
 
 // Router GET
 router.get("/traerProductos/:idusuario", apiProductos); // Obtener productos http://localhost:3000/traerProductos/1
 router.get("/presupuestos/:idusuario", obtenerPresupuestos); // Obtener presupuestos http://localhost:3000/presupuestos/1
+router.get("/usuarios/:idusuarios", apiUsuarios); // Obtener usuarios http://localhost:3000/usuarios/1
 
 // Router POST
 router.post("/presupuestos/:idusuario", crearPresupuesto); // Crear presupuesto http://localhost:3000/presupuestos/1

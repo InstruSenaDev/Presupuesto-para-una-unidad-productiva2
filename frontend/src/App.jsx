@@ -59,7 +59,7 @@ function App() {
         <Route path="/FamiliarPa" element={<FamiliarPa />} />
         <Route path="/familiarPag" element={<FamiliarPag />} />
          {/* <ruta del componente si y la ruta dinamica */}
-        <Route path='/' element = {<InicioSesion/>} />
+        <Route path='/InicioSesion' element = {<InicioSesion/>} />
         <Route path="/Inicio" element={<Inicio />} />
           {/* <ruta del componente si y la ruta dinamica */}
         <Route path='/Productos' element = {<Productos/>}/>

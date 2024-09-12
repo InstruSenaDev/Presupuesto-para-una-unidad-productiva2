@@ -1,5 +1,7 @@
 import React from 'react';
 import 'boxicons'; // Para poder utilizar los íconos de Boxicons
+import Navbar from '../components/Navbar/Navbar';
+import SidebarAdmin from '../components/Sidebar/SidebarAdmin';
 
 const UserTable = () => {
   const users = [
@@ -12,7 +14,17 @@ const UserTable = () => {
   ];
 
   return (
-    <div className="p-4">
+<>
+
+<div className="">
+  <Navbar titulo={"Home administrador"} />
+</div>             
+
+<div className="Si fixed top-0 left-0 h-full">
+  <SidebarAdmin />
+</div> 
+
+    <div className="p-24 ml-44">
       <input
         type="text"
         placeholder="Search"
@@ -23,8 +35,7 @@ const UserTable = () => {
           <tr>
             <th className="py-2 px-4 border-b">Nombre</th>
             <th className="py-2 px-4 border-b">Correo electronico</th>
-            <th className="py-2 px-4 border-b">Telefono</th>
-            <th className="py-2 px-4 border-b">Estado</th>
+            
             <th className="py-2 px-4 border-b">Acciones</th>
           </tr>
         </thead>
@@ -33,10 +44,7 @@ const UserTable = () => {
             <tr key={index} className="hover:bg-gray-100">
               <td className="py-2 px-4 border-b">{user.name}</td>
               <td className="py-2 px-4 border-b">{user.email}</td>
-              <td className="py-2 px-4 border-b">{user.phone}</td>
-              <td className={`py-2 px-4 border-b ${user.status === 'Activo' ? 'text-green-500' : 'text-red-500'}`}>
-                {user.status}
-              </td>
+              
               <td className="py-2 px-4 border-b flex justify-center items-center">
                 <button className="text-blue-500 hover:text-blue-700 mr-2">
                   <box-icon name="edit-alt" />
@@ -50,6 +58,8 @@ const UserTable = () => {
         </tbody>
       </table>
     </div>
+
+    </>
   );
 };
 

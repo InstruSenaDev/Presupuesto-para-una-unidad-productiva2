@@ -128,12 +128,14 @@ const PresupuestoPage = () => {
                 <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
                     <div className="bg-white p-6 rounded shadow-lg">
                         <h2 className="text-xl mb-4">Selecciona la fecha</h2>
-                        <input
+                        
+                        <input 
+                        
                             type="date"
                             value={presupuestoData.fecha}
                             onChange={(e) => setPresupuestoData({ ...presupuestoData, fecha: e.target.value })}
                             className="mb-4 p-2 border rounded"
-                        />
+                        />  
                         <button
                             onClick={handlePresupuestoSubmit}
                             className="bg-blue-500 text-white px-4 py-2 rounded"
