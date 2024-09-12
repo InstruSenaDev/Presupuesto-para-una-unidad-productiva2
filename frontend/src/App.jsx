@@ -1,33 +1,24 @@
-import  React  from 'react'
-// import reactLogo from './assets/react.svg'
-import {BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom';
-// import viteLogo from '/vite.svg'
-import './App.css'
-import InicioSesion from './components/inicioDeSesion/Inicio';
-import RegistrodeUsuarios from './pages/registro';
-import PagPresupuestos from './pages/PagPresupuestos';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import PrincipalAdmin from './pages/PrincipalAdmin'; 
+import TablaPersonal from './components/Dashboard/TablaPersonal'; // Importa el componente Personal
+import TablaEmpresarial from './components/Dashboard/TablaEmpresarial'; // Importa el componente Empresarial
 
-
-
-
-function NotFound() {
-  return <h2>404: Página no encontrada</h2>;
-}
-
-function App() {
+const App = () => {
   return (
-    <Router>  
+    <Router>
       <Routes>
-      <Route path='/' element = {<InicioSesion/>} />
-        {/* <Route path='/InicioSesion' element={<InicioSesion />} /> */}
-        <Route path='/RegistrodeUsuario' element={<RegistrodeUsuarios />} />
-        <Route path='/PagPresupuestos' element={<PagPresupuestos />} />
-        <Route path="*" element={<NotFound />} /> {/* Manejo de rutas no existentes */}
+        {/* Ruta para PrincipalAdmin */}
+        <Route path="/" element={<PrincipalAdmin />} />
+        
+        {/* Ruta para Personal */}
+        <Route path="/personal" element={<TablaPersonal/>} />
+        
+        {/* Ruta para Empresarial */}
+        <Route path="/empresarial" element={<TablaEmpresarial/>} />
       </Routes>
     </Router>
   );
-}
+};
 
-
-
-export default App
+export default App;

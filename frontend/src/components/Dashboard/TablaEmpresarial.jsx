@@ -19,7 +19,7 @@ const UserTable = () => {
             <table className="w-full border-collapse">
               <thead>
                 <tr>
-                  <th className="p-[10px] text-left border-b border-[#ccc]">Nombre usuario</th>
+                  <th className="p-[10px] text-left border-b border-[#c93838]">Nombre usuario</th>
                   <th className="p-[10px] text-left border-b border-[#ccc]">Correo electronico</th>
                   <th className="p-[10px] text-left border-b border-[#ccc]">Tipo documento</th>
                   <th className="p-[10px] text-left border-b border-[#ccc]">Estado</th>
@@ -29,7 +29,7 @@ const UserTable = () => {
               <tbody>
                 <tr>
                   <td className="p-[10px] border-b border-[#ccc]">Damian felipe</td>
-                  <td className="p-[10px] border-b border-[#ccc]">Damian@gmaeil.com</td>
+                  <td className="p-[10px] border-b border-[#d31010]">Damian@gmaeil.com</td>
                   <td className="p-[10px] border-b border-[#ccc]">C.C</td>
                   <td className="p-[10px] border-b border-[#ccc]">Activo</td>
                   <td className="p-[10px] border-b border-[#ccc]">
@@ -44,7 +44,7 @@ const UserTable = () => {
                   <td className="p-[10px] border-b border-[#ccc]">Jairo@gmaeil.com</td>
                   <td className="p-[10px] border-b border-[#ccc]">C.C</td>
                   <td className="p-[10px] border-b border-[#ccc]">Inactivo</td>
-                  <td className="p-[10px] border-b border-[#ccc]">
+                  <td className="p-[10px] border-b border-[#aa1616]">
                     <i className="bi bi-pencil-square"></i>
                   </td>
                   <td className="p-[10px] border-b border-[#ccc]">
