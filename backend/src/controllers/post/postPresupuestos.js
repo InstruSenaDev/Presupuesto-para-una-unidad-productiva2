@@ -1,105 +1,86 @@
-const { Pool } = require("pg");
-const { CONFIG_BD } = require("../../config/db");
+const { Pool } = require('pg');
+const { CONFIG_BD } = require('../../config/db');
 
 const pool = new Pool(CONFIG_BD);
 
-// Crear un presupuesto
+// Crear presupuesto
 const crearPresupuesto = async (req, res) => {
-    const { idtipopresupuesto, presupuesto, saldo, estado, fecha } = req.body;
+    const { idtipopresupuesto, presupuesto, saldo, fecha } = req.body;
     const { idusuario } = req.params;
 
-    // Validación de parámetros
-    if (!idusuario || isNaN(parseInt(idusuario))) {
-        return res.status(400).json({ message: "ID de usuario inválido" });
-    }
-    if (!idtipopresupuesto || isNaN(parseInt(idtipopresupuesto))) {
-        return res.status(400).json({ message: "ID de tipo de presupuesto inválido" });
-    }
-    if (isNaN(presupuesto)) {
-        return res.status(400).json({ message: "Presupuesto inválido" });
-    }
-    if (isNaN(saldo)) {
-        return res.status(400).json({ message: "Saldo inválido" });
-    }
-    if (isNaN(estado)) {
-        return res.status(400).json({ message: "Estado inválido" });
-    }
-    if (!fecha) {
-        return res.status(400).json({ message: "Fecha es requerida" });
-    }
-
     try {
-        const resultPresupuesto = await pool.query(
-            "INSERT INTO presupuesto (idusuario, idtipopresupuesto, presupuesto, saldo, estado, fecha) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
-            [parseInt(idusuario, 10), parseInt(idtipopresupuesto, 10), parseFloat(presupuesto), parseFloat(saldo), parseInt(estado, 10), fecha]
+        const result = await pool.query(
+            'INSERT INTO presupuesto (idusuario, idtipopresupuesto, presupuesto, saldo, estado, fecha) VALUES ($1, $2, $3, $4,$5,$6) RETURNING *',
+            [Number(idusuario), idtipopresupuesto, Number(presupuesto), Number(saldo),"1", fecha]
         );
-
-        res.status(201).json(resultPresupuesto.rows[0]);
+        res.status(201).json(result.rows[0]);
     } catch (error) {
-        console.error("Error al registrar presupuesto: ", error);
-        res.status(500).json({ message: "Error al registrar presupuesto", error });
+        console.error('Error al crear presupuesto:', error);
+        res.status(500).json({ message: 'Error interno al procesar la solicitud', error });
     }
 };
 
-// Crear un movimiento
+// Crear movimiento
 const crearMovimiento = async (req, res) => {
-    const { descripcion, valor, idtipomovimiento, fecha } = req.body;
+    const { descripcion, valor } = req.body;
     const { idusuario, idpresupuesto } = req.params;
-
-    // Validación de parámetros
-    if (!idusuario || !idpresupuesto || isNaN(parseInt(idusuario)) || isNaN(parseInt(idpresupuesto))) {
-        return res.status(400).json({ message: "ID de usuario o presupuesto inválido" });
-    }
-    if (!descripcion) {
-        return res.status(400).json({ message: "Descripción es requerida" });
-    }
-    if (isNaN(valor)) {
-        return res.status(400).json({ message: "Valor inválido" });
-    }
-    if (isNaN(idtipomovimiento)) {
-        return res.status(400).json({ message: "ID de tipo de movimiento inválido" });
-    }
-    if (!fecha) {
-        return res.status(400).json({ message: "Fecha es requerida" });
-    }
-
+    
     try {
-        const resultMovimiento = await pool.query(
-            "INSERT INTO movimientos (descripcion, valor, estado, idpresupuesto, idtipomovimiento, fecha) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
-            [descripcion, parseFloat(valor), "1", parseInt(idpresupuesto, 10), parseInt(idtipomovimiento, 10), fecha]
+        // Obtener el tipo de movimiento (ingreso o egreso) de algún parámetro o lógica
+        // Aquí se asume que el tipo de movimiento se envía en el cuerpo de la solicitud
+        const { idtipomovimiento } = req.body;
+
+        // Obtener el presupuesto actual
+        const presupuestoResult = await pool.query(
+            'SELECT saldo FROM presupuesto WHERE id = $1',
+            [idpresupuesto]
+        );
+        if (presupuestoResult.rows.length === 0) {
+            return res.status(404).json({ message: 'Presupuesto no encontrado' });
+        }
+
+        const saldoActual = presupuestoResult.rows[0].saldo;
+
+        // Calcular el nuevo saldo
+        const nuevoSaldo = idtipomovimiento === 1 ? saldoActual + Number(valor) : saldoActual - Number(valor);
+
+        // Insertar el movimiento
+        await pool.query(
+            'INSERT INTO movimientos (descripcion, valor, estado, idpresupuesto, idtipomovimiento, fecha) VALUES ($1, $2, true, $3, $4, NOW())',
+            [descripcion, Number(valor), idpresupuesto, idtipomovimiento]
         );
 
-        res.status(201).json(resultMovimiento.rows[0]);
+        // Actualizar el saldo del presupuesto
+        await pool.query(
+            'UPDATE presupuesto SET saldo = $1 WHERE id = $2',
+            [nuevoSaldo, idpresupuesto]
+        );
+
+        res.status(201).json({ message: 'Movimiento creado con éxito' });
     } catch (error) {
-        console.error("Error al registrar movimiento: ", error);
-        res.status(500).json({ message: "Error al registrar movimiento", error });
+        console.error('Error al crear movimiento:', error);
+        res.status(500).json({ message: 'Error interno al procesar la solicitud', error });
     }
 };
 
-// Obtener los presupuestos por usuario
+// Obtener presupuestos
 const obtenerPresupuestos = async (req, res) => {
     const { idusuario } = req.params;
 
-    // Validación de parámetros
-    if (!idusuario || isNaN(parseInt(idusuario))) {
-        return res.status(400).json({ message: "ID de usuario inválido" });
-    }
-
     try {
-        const resultPresupuestos = await pool.query(
-            "SELECT * FROM presupuesto WHERE idusuario = $1",
-            [parseInt(idusuario, 10)]
+        const result = await pool.query(
+            'SELECT id, idtipopresupuesto, presupuesto, saldo, fecha FROM presupuesto WHERE idusuario = $1 AND estado = 1',
+            [idusuario]
         );
-
-        res.status(200).json(resultPresupuestos.rows);
+        res.status(200).json(result.rows);
     } catch (error) {
-        console.error("Error al obtener presupuestos: ", error);
-        res.status(500).json({ message: "Error al obtener presupuestos", error });
+        console.error('Error al obtener presupuestos:', error);
+        res.status(500).json({ message: 'Error interno al procesar la solicitud', error });
     }
 };
 
 module.exports = {
     crearPresupuesto,
     crearMovimiento,
-    obtenerPresupuestos,
+    obtenerPresupuestos
 };
