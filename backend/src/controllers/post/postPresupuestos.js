@@ -11,7 +11,7 @@ const crearPresupuesto = async (req, res) => {
     try {
         const result = await pool.query(
             'INSERT INTO presupuesto (idusuario, idtipopresupuesto, presupuesto, saldo, estado, fecha) VALUES ($1, $2, $3, $4,$5,$6) RETURNING *',
-            [Number(idusuario), idtipopresupuesto, Number(presupuesto), Number(saldo),"1", fecha]
+            [Number(idusuario), idtipopresupuesto, Number(presupuesto), Number(saldo), "1", fecha]
         );
         res.status(201).json(result.rows[0]);
     } catch (error) {
@@ -24,7 +24,7 @@ const crearPresupuesto = async (req, res) => {
 const crearMovimiento = async (req, res) => {
     const { descripcion, valor } = req.body;
     const { idusuario, idpresupuesto } = req.params;
-    
+
     try {
         // Obtener el tipo de movimiento (ingreso o egreso) de algún parámetro o lógica
         // Aquí se asume que el tipo de movimiento se envía en el cuerpo de la solicitud
