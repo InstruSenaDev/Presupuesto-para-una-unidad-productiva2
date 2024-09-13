@@ -5,6 +5,7 @@
     import imgF from "../components/Img/imgF.png";
     import imgE from "../components/Img/imgE.png";
     import { Link } from "react-router-dom";
+    
     import "bootstrap/dist/css/bootstrap.min.css";
     import "boxicons/css/boxicons.min.css";
 
