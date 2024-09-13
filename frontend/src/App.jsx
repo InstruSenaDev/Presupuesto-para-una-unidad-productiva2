@@ -21,6 +21,8 @@ import Navbar from './components/Navbar/Navbar';
 
 // import PagPersonal from './components/pag/pagPresupuestoPersonal';
 import PresupuestoPag from './pages/PresupuestoPag';
+import PresupuestoPrueba from './pages/Presupuestos';
+
 import EmpresarialPag from './pages/EmpresarialPag';
 
 import Home from './pages/Home';
@@ -52,7 +54,11 @@ function App() {
  {/* <ruta del componente si y la ruta dinamica */}
         <Route path="/PersonalPa" element={<PersonalPa />} />
         <Route path="/PersonalPag" element={<PersonalPag />} />
+
         <Route path="/Presupuestos" element={<PresupuestoPag />} />
+        <Route path="/PresupuestoPrueba" element={<PresupuestoPrueba />} />
+
+
         <Route path="/EmpresarialPag" element={<EmpresarialPag />} />
         <Route path="/PersonalPa" element={<PersonalPa />} />
          {/* <ruta del componente si y la ruta dinamica */}
