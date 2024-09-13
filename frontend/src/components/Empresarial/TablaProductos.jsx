@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import usePago from '../../hooks/usePostPago'; // Hook personalizado
 import ModalProducto from '../../hooks/useNuevoProducto'; // Modal de nuevo producto
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'boxicons/css/boxicons.min.css';
 
 function Productos() {
   const [productos, setProductos] = useState([]);
@@ -178,7 +180,7 @@ function Productos() {
             onClick={handlePago}
             disabled={loading}
           >
-            <i className="bi bi-currency-dollar"></i> Pagar
+            <i className="bi bi-currency-dollar"></i>Pagar
           </button>
           <span className="pl-3 text-indigo-700 font-bold">
             Total: ${total.toLocaleString()}

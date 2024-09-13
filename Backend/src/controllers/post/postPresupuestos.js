@@ -5,7 +5,9 @@ const pool = new Pool(CONFIG_BD);
 
 // Crear presupuesto
 const crearPresupuesto = async (req, res) => {
-    const { idtipopresupuesto, presupuesto, saldo, fecha } = req.body;
+
+    const { idtipopresupuesto, presupuesto, saldo, fechaPresupuesto, estadoPresupuesto, descripcion, valor, idtipomovimiento, fechaMovimiento, estadoMovimiento } = req.body;
+    
     const { idusuario } = req.params;
 
     try {
@@ -14,6 +16,8 @@ const crearPresupuesto = async (req, res) => {
             [Number(idusuario), idtipopresupuesto, Number(presupuesto), Number(saldo), "1", fecha]
         );
         res.status(201).json(result.rows[0]);
+        console.log(result);
+        
     } catch (error) {
         console.error('Error al crear presupuesto:', error);
         res.status(500).json({ message: 'Error interno al procesar la solicitud', error });

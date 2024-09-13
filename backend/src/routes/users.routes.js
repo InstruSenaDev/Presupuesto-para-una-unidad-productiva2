@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
+const { presu } = require("../controllers/post/postPresu");
 const { nuevosUser } = require("../controllers/post/postUsuarios");
 const { productos } = require("../controllers/post/postProductos");
 const { iniciarSesion } = require("../controllers/post/postInicio");
@@ -19,8 +20,9 @@ router.get("/usuarios/:idusuarios", apiUsuarios); // Obtener usuarios http://loc
 
 // Router POST
 
+//router.post('/presupuestos/:idusuario', presu); // http://localhost:3000/api/presu/1
+router.post("/presupuestos/:idusuario/", crearPresupuesto);// Crear presupuesto http://localhost:3000/presupuestos/1
 
-router.post("/presupuestos/:idusuario", crearPresupuesto); // Crear presupuesto http://localhost:3000/presupuestos/1
 router.post("/movimientos/:idusuario/:idpresupuesto", crearMovimiento); // Crear movimiento http://localhost:3000/movimientos/1/1
 router.post("/registro", nuevosUser); // Registrar nuevo usuario http://localhost:3000/registro
 router.post("/productos/:idusuario", productos); //  http://localhost:3000/productos/1

@@ -5,7 +5,7 @@ import './Sidebar.css';
 import { Link } from 'react-bootstrap-icons';
 
 const Sidebar = () => {
-    const [isMinimized, setIsMinimized] = useState(false);
+    const [isMinimized, setIsMinimized] = useState(true);
 
     const toggleSidebar = () => {
         setIsMinimized(!isMinimized);
