@@ -9,6 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'boxicons/css/boxicons.min.css';
 
 const PresupuestosPrueba = () => {
+  const [showTypeSelectionModal, setShowTypeSelectionModal] = useState(false);
   const [showDateModal, setShowDateModal] = useState(false);
   const [showTypeModal, setShowTypeModal] = useState(false);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
@@ -17,18 +18,18 @@ const PresupuestosPrueba = () => {
   const [budgetType, setBudgetType] = useState(null);
   const [balance, setBalance] = useState('');
   const [description, setDescription] = useState('');
-  const [canSelectDate, setCanSelectDate] = useState(true);
-  const [dateError, setDateError] = useState(false); // Estado para validar la fecha
-  const [typeError, setTypeError] = useState(false); // Estado para mostrar error de tipo de presupuesto
+  const [dateError, setDateError] = useState(false);
+  const [typeError, setTypeError] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(null);
 
   const handleDateSelection = (event) => {
     setSelectedDate(event.target.value);
-    setDateError(false); // Limpiar el error de la fecha al seleccionarla
+    setDateError(false);
   };
 
   const handleDateContinue = () => {
     if (!selectedDate) {
-      setDateError(true); // Mostrar error si no se ha seleccionado una fecha
+      setDateError(true);
     } else {
       setShowDateModal(false);
       setShowTypeModal(true);
@@ -37,12 +38,12 @@ const PresupuestosPrueba = () => {
 
   const handleTypeSelection = (type) => {
     setBudgetType(type);
-    setTypeError(false); // Limpiar el error cuando se selecciona un tipo
+    setTypeError(false);
   };
 
   const handleTypeContinue = () => {
     if (!budgetType) {
-      setTypeError(true); // Mostrar error si no se ha seleccionado un tipo
+      setTypeError(true);
     } else {
       setShowTypeModal(false);
       setShowDetailsModal(true);
@@ -56,16 +57,13 @@ const PresupuestosPrueba = () => {
   };
 
   const handleNewBudget = () => {
-    setBudgetType(null);
-    setBalance('');
-    setDescription('');
+    resetForm();
     setShowFinalModal(false);
-    setShowTypeModal(true);
+    setShowTypeSelectionModal(true);
   };
 
   const handleFinalize = () => {
     setShowFinalModal(false);
-    setCanSelectDate(true);
     resetForm();
   };
 
@@ -74,11 +72,12 @@ const PresupuestosPrueba = () => {
     setBudgetType(null);
     setBalance('');
     setDescription('');
-    setCanSelectDate(true);
+    setSelectedOption(null);
   };
 
   const handleCancel = () => {
     resetForm();
+    setShowTypeSelectionModal(false);
     setShowDateModal(false);
     setShowTypeModal(false);
     setShowDetailsModal(false);
@@ -86,10 +85,16 @@ const PresupuestosPrueba = () => {
   };
 
   const startNewBudget = () => {
-    if (canSelectDate) {
+    setShowTypeSelectionModal(true);
+  };
+
+  const handleOptionSelection = (option) => {
+    setSelectedOption(option);
+    setShowTypeSelectionModal(false);
+    if (option === 'movimiento') {
+      setShowDetailsModal(true);
+    } else {
       setShowDateModal(true);
-    } else if (selectedDate) {
-      setShowTypeModal(true);
     }
   };
 
@@ -103,74 +108,101 @@ const PresupuestosPrueba = () => {
         <Sidebar />
       </div>
 
-      <div className="flex justify-center items-center h-full">
-        <div className="flex flex-col w-9/12 h-full  justify-between gap-y-4 p-20">
-          <div className='bg-griscard h-full text-blanquito rounded'>
-            <div className='flex items-center justify-around rounded h-2/6'>
-              <img src={imgP} alt="Presupuesto Personal" className='h-20 rounded flex justify-center text-center' />
-              <button
-                onClick={startNewBudget}
-                className="bg-blue-500 text-white px-4 py-2 rounded underline"
+     
+<div className="flex justify-center items-center h-full">
+<div className="flex flex-col w-9/12 h-full  justify-between gap-y-4 p-20">
+  <div className='bg-griscard h-full text-blanquito rounded'>
+    <div className='flex items-center justify-around rounded h-2/6'>
+      <img src={imgP} alt="Presupuesto Personal" className='h-20 rounded flex justify-center text-center' />
+      <button
+        onClick={startNewBudget}
+        className="bg-blue-500 text-white px-4 py-2 rounded underline"
+      >
+        Presupuesto personal
+      </button>
+      <h2 className=''>Fecha: {selectedDate || 'No seleccionada'}</h2>
+      <Link to="/">
+        <button className='cursor-pointer underline'>
+          <i className='bx bx-download' style={{ color: '#ffffff' }}></i>
+        </button>
+      </Link>
+    </div>
+  </div>
+
+  <div className='bg-griscard h-full text-blanquito rounded'>
+    <div className='flex items-center justify-around rounded h-2/6'>
+      <img src={imgF} alt="Presupuesto Personal" className='h-20 rounded flex justify-center text-center' />
+      <button
+        onClick={startNewBudget}
+        className="bg-blue-500 text-white px-4 py-2 rounded underline"
+      >
+        Presupuesto familiar
+      </button>
+      <h2 className=''>Fecha: {selectedDate || 'No seleccionada'}</h2>
+      <Link to="/">
+        <button className='cursor-pointer underline'>
+          <i className='bx bx-download' style={{ color: '#ffffff' }}></i>
+        </button>
+      </Link>
+    </div>
+  </div>
+
+  <div className='bg-griscard h-full text-blanquito rounded'>
+    <div className='flex items-center justify-around rounded h-2/6'>
+      <img src={imgE} alt="Presupuesto Personal" className='h-20 rounded flex justify-center text-center' />
+      <button
+        onClick={startNewBudget}
+        className="bg-blue-500 text-white px-4 py-2 rounded underline"
+      >
+        Presupuesto empresarial
+      </button>
+      <Link to="/Productos">
+                            <button className='curson-pointer underline'>
+                                <box-icon name='edit' color='#ffffff'></box-icon>
+                            </button>
+                        </Link>
+
+      <h2 className=''>Fecha: {selectedDate || 'No seleccionada'}</h2>
+      <Link to="/">
+        <button className='cursor-pointer underline'>
+          <i className='bx bx-download' style={{ color: '#ffffff' }}></i>
+        </button>
+      </Link>
+
+    
+
+    </div>
+  </div>
+
+
+</div>
+</div>
+
+      {/* New Modal for Type Selection */}
+      {showTypeSelectionModal && (
+        <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
+          <div className="bg-white p-5 rounded-lg shadow-lg w-1/3">
+            <h5 className="modal-title">Nuevo</h5>
+            <div className="flex justify-around my-4">
+              <button 
+                className="btn btn-primary" 
+                onClick={() => handleOptionSelection('presupuesto')}
               >
-                Presupuesto personal
+                Presupuesto
               </button>
-              <h2 className=''>Fecha: {selectedDate || 'No seleccionada'}</h2>
-              <Link to="/">
-                <button className='cursor-pointer underline'>
-                  <i className='bx bx-download' style={{ color: '#ffffff' }}></i>
-                </button>
-              </Link>
+              <button 
+                className="btn btn-secondary" 
+                onClick={() => handleOptionSelection('movimiento')}
+              >
+                Movimiento
+              </button>
+            </div>
+            <div className="flex justify-end">
+              <button className="btn btn-secondary" onClick={handleCancel}>Cerrar</button>
             </div>
           </div>
-
-          <div className='bg-griscard h-full text-blanquito rounded'>
-            <div className='flex items-center justify-around rounded h-2/6'>
-              <img src={imgF} alt="Presupuesto Personal" className='h-20 rounded flex justify-center text-center' />
-              <button
-                onClick={startNewBudget}
-                className="bg-blue-500 text-white px-4 py-2 rounded underline"
-              >
-                Presupuesto familiar
-              </button>
-              <h2 className=''>Fecha: {selectedDate || 'No seleccionada'}</h2>
-              <Link to="/">
-                <button className='cursor-pointer underline'>
-                  <i className='bx bx-download' style={{ color: '#ffffff' }}></i>
-                </button>
-              </Link>
-            </div>
-          </div>
-
-          <div className='bg-griscard h-full text-blanquito rounded'>
-            <div className='flex items-center justify-around rounded h-2/6'>
-              <img src={imgE} alt="Presupuesto Personal" className='h-20 rounded flex justify-center text-center' />
-              <button
-                onClick={startNewBudget}
-                className="bg-blue-500 text-white px-4 py-2 rounded underline"
-              >
-                Presupuesto empresarial
-              </button>
-              <Link to="/Productos">
-                                    <button className='curson-pointer underline'>
-                                        <box-icon name='edit' color='#ffffff'></box-icon>
-                                    </button>
-                                </Link>
-
-              <h2 className=''>Fecha: {selectedDate || 'No seleccionada'}</h2>
-              <Link to="/">
-                <button className='cursor-pointer underline'>
-                  <i className='bx bx-download' style={{ color: '#ffffff' }}></i>
-                </button>
-              </Link>
-
-             
-
-            </div>
-          </div>
-
-
         </div>
-      </div>
+      )}
 
       {/* Modal de selección de fecha */}
       {showDateModal && (
@@ -214,12 +246,25 @@ const PresupuestosPrueba = () => {
         </div>
       )}
 
-      {/* Modal de detalles del presupuesto */}
+      {/* Modal de detalles del presupuesto/movimiento */}
       {showDetailsModal && (
         <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
           <div className="bg-white p-5 rounded-lg shadow-lg w-1/3">
-            <h5 className="modal-title">Detalles del movimiento</h5>
+            <h5 className="modal-title">Detalles del {selectedOption}</h5>
             <form onSubmit={handleDetailsSubmit} className="my-4">
+              {selectedOption === 'movimiento' && (
+                <div className="form-group mb-4">
+                  <label htmlFor="date">Fecha:</label>
+                  <input
+                    type="date"
+                    className="form-control"
+                    id="date"
+                    value={selectedDate || ''}
+                    onChange={handleDateSelection}
+                    required
+                  />
+                </div>
+              )}
               <div className="form-group mb-4">
                 <label htmlFor="balance">Saldo:</label>
                 <input
@@ -239,6 +284,7 @@ const PresupuestosPrueba = () => {
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   required
+                  maxLength={100}
                 ></textarea>
               </div>
               <div className="flex justify-end">
@@ -254,10 +300,10 @@ const PresupuestosPrueba = () => {
       {showFinalModal && (
         <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
           <div className="bg-white p-5 rounded-lg shadow-lg w-1/3">
-            <h5 className="modal-title">¿Deseas crear un nuevo presupuesto?</h5>
+            <h5 className="modal-title">¿Deseas crear un nuevo presupuesto o movimiento?</h5>
             <div className="flex justify-end my-4">
               <button className="btn btn-primary mr-2" onClick={handleNewBudget}>
-                <i className='bx bx-plus-circle'></i> Nuevo presupuesto
+                <i className='bx bx-plus-circle'></i> Nuevo presupuesto/movimiento
               </button>
               <button className="btn btn-secondary" onClick={handleFinalize}>
                 <i className='bx bx-check-circle'></i> Finalizar

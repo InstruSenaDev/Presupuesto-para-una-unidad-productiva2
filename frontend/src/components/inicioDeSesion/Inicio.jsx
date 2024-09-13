@@ -86,11 +86,11 @@ const LoginForm = () => {
             {/* Modal de éxito */}
             {showModal && (
                 <div id="modalExito" className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-                    <div className="bg-white p-5 rounded-md shadow-md">
+                    <div className="bg-blueUwu p-5 rounded-md shadow-md">
                         <h2 className="text-xl font-bold mb-4">¡Inicio Exitoso!</h2>
                         <button
                             id="aceptarModalInicio"
-                            className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                            className="bg-blueUwu-500 text-white px-4 py-2 rounded-md border-negro"
                             onClick={() => window.location.href = '/Inicio'}
                         >
                             Aceptar
