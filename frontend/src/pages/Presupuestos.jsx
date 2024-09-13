@@ -182,7 +182,7 @@ const PresupuestosPrueba = () => {
       {showTypeSelectionModal && (
         <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
           <div className="bg-white p-5 rounded-lg shadow-lg w-1/3">
-            <h5 className="modal-title">Nuevo</h5>
+            <h2 className="modal-title">Nuevo</h2>
             <div className="flex justify-around my-4">
               <button 
                 className="btn btn-primary" 
@@ -208,7 +208,7 @@ const PresupuestosPrueba = () => {
       {showDateModal && (
         <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
           <div className="bg-white p-5 rounded-lg shadow-lg w-1/3">
-            <h5 className="modal-title">Selecciona una fecha</h5>
+            <h2 className="modal-title">Selecciona una fecha</h2>
             <input 
               type="date" 
               className="form-control my-4" 
@@ -228,9 +228,9 @@ const PresupuestosPrueba = () => {
       {showTypeModal && (
         <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
           <div className="bg-white p-5 rounded-lg shadow-lg w-1/3">
-            <h5 className="modal-title">Tipo de presupuesto</h5>
+            <h2 className="modal-title">Tipo de presupuesto</h2>
             <div className="form-check my-4">
-              <input className="form-check-input" type="radio" name="budgetType" id="egreso" onChange={() => handleTypeSelection('egreso')} />
+              <input className="form-check-input " type="radio" name="budgetType" id="egreso" onChange={() => handleTypeSelection('egreso')} />
               <label className="form-check-label" htmlFor="egreso">Egreso</label>
             </div>
             <div className="form-check mb-4">
@@ -250,7 +250,7 @@ const PresupuestosPrueba = () => {
       {showDetailsModal && (
         <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
           <div className="bg-white p-5 rounded-lg shadow-lg w-1/3">
-            <h5 className="modal-title">Detalles del {selectedOption}</h5>
+            <h2 className="modal-title">Detalles del {selectedOption}</h2>
             <form onSubmit={handleDetailsSubmit} className="my-4">
               {selectedOption === 'movimiento' && (
                 <div className="form-group mb-4">
@@ -274,6 +274,8 @@ const PresupuestosPrueba = () => {
                   value={balance}
                   onChange={(e) => setBalance(e.target.value)}
                   required
+                  min={0}
+                  max={999999999999}
                 />
               </div>
               <div className="form-group mb-4">
@@ -300,7 +302,7 @@ const PresupuestosPrueba = () => {
       {showFinalModal && (
         <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
           <div className="bg-white p-5 rounded-lg shadow-lg w-1/3">
-            <h5 className="modal-title">¿Deseas crear un nuevo presupuesto o movimiento?</h5>
+            <h2 className="modal-title">¿Deseas crear un nuevo presupuesto o movimiento?</h2>
             <div className="flex justify-end my-4">
               <button className="btn btn-primary mr-2" onClick={handleNewBudget}>
                 <i className='bx bx-plus-circle'></i> Nuevo presupuesto/movimiento
