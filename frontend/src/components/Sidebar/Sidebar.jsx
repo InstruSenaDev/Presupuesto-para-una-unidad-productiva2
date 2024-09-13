@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import imagenlogo from "../../../public/Logopup.png";
+import { NavLink, useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
     const [isMinimized, setIsMinimized] = useState(false);
@@ -21,34 +23,45 @@ const Sidebar = () => {
             <div className="flex justify-end">
                 <button onClick={toggleSidebar} className="text-blanquito text-2xl cursor-pointer">☰</button>
             </div>
-            <img src="/img/LOGO PUP(1).png" alt="Logo" className="mt-4" />
+            <img 
+            src={imagenlogo} 
+            alt="" 
+            className="imagenlogo" />
 
             <ul className="sidebar-menu list-none p-0">
+
+                <NavLink to={'/PrincipalAdmin'}>
                 <li className="p-3.5" data-tooltip={isMinimized ? 'Inicio' : ''}>
                     <div className="hover:bg-rosadito font-bold w-full flex items-center">
-                        <a href="/home" className="hover:bg-rosadito w-full text-blanquito no-underline">Inicio</a>
+                    <i class="bi bi-house"></i>
+                        <a href="/PrincipalAdmin" className="hover:bg-rosadito w-full text-blanquito no-underline">Inicio</a>
                     </div>
                 </li>
-                <li className="p-3.5" data-tooltip={isMinimized ? 'Presupuesto' : ''}>
-                    <div className="hover:bg-rosadito font-bold w-full flex items-center">
-                        <a href="/PagPresupuestosPrincipal" className="hover:bg-rosadito w-full text-blanquito no-underline">Presupuesto</a>
-                    </div>
-                </li>
+                </NavLink>
+
+                <NavLink to={'/TablaPersonal'}>
                 <li className="p-3.5" data-tooltip={isMinimized ? 'Personal' : ''}>
                     <div className="hover:bg-rosadito font-bold w-full flex items-center">
-                        <a href="/pagPresupuestoPersonal" className="hover:bg-rosadito w-full text-blanquito no-underline">Personal</a>
+                        <a href="/TablaPersonal" className="hover:bg-rosadito w-full text-blanquito no-underline">Personal</a>
                     </div>
                 </li>
+                </NavLink>
+
                 <li className="p-3.5" data-tooltip={isMinimized ? 'Familiar' : ''}>
                     <div className="hover:bg-rosadito font-bold w-full flex items-center">
-                        <a href="/pagPresupuestoFamiliar" className="hover:bg-rosadito w-full text-blanquito no-underline">Familiar</a>
+                        <a href="/TablaFamiliar" className="hover:bg-rosadito w-full text-blanquito no-underline">Familiar</a>
                     </div>
                 </li>
+
+                <NavLink to={'/TablaEmpresarial'}>
                 <li className="p-3.5" data-tooltip={isMinimized ? 'Empresarial' : ''}>
                     <div className="hover:bg-rosadito font-bold w-full flex items-center">
-                        <a href="/pagPresupuestoEmpresarial" className="hover:bg-rosadito w-full text-blanquito no-underline">Empresarial</a>
+                        <a href="/TablaEmpresarial" className="hover:bg-rosadito w-full text-blanquito no-underline">Empresarial</a>
                     </div>
                 </li>
+                </NavLink>
+
+
                 <li className="p-3.5" data-tooltip={isMinimized ? 'Salir' : ''}>
                     <div className="hover:bg-rosadito font-bold w-full flex items-center">
                         <a onClick={handleLogout} className="hover:bg-rosadito w-full text-blanquito no-underline cursor-pointer">Salir</a>

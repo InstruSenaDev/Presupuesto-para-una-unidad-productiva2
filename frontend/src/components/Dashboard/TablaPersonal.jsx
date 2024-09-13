@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import LayoutN from '../../components/Layout/NabvarSisebar'
 
 const Dashboard = () => {
   const [usuarios, setUsuarios] = useState([]);
@@ -16,6 +17,10 @@ const Dashboard = () => {
   }, []);
 
   return (
+    <>
+    <LayoutN>
+
+    
     <div className="ml-[250px] p-[20px]">
       <div className="bg-[#f5f5f5] p-[20px] rounded-[10px] mb-[20px]">
         <div className="bg-white p-[20px] rounded-[10px] mb-[20px]">
@@ -68,6 +73,8 @@ const Dashboard = () => {
         </div>
       </div>
     </div>
+    </LayoutN>
+    </>
   );
 };
 

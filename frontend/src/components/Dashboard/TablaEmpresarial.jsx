@@ -1,64 +1,86 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import LayoutN from '../../components/Layout/NabvarSisebar'
 
-const UserTable = () => {
+const TablaEmpresarial = () => {
+  const [usuarios, setUsuarios] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+
+  useEffect(() => {
+    const fetchUsuarios = async () => {
+      const response = await fetch('http://localhost:3000/user');
+      const data = await response.json();
+      setUsuarios(data);
+    };
+
+    fetchUsuarios();
+  }, []);
+
   return (
+    <>
+    <LayoutN>
     <div className="ml-[250px] p-[20px]">
+      <div className="bg-[#f5f5f5] p-[10px] rounded-[10px] mb-[20px]">  
+
+      <div className="ml-[250px] p-[20px]">
       <div className="bg-[#f5f5f5] p-[20px] rounded-[10px] mb-[20px]">
-
-
-        
         <div className="bg-white p-[20px] rounded-[10px] mb-[20px]">
-          <h3 className="mb-[20px]"></h3>
+          <h3 className="mb-[20px]">Lista de Movimientos</h3>
+
           <div>
             <input
               type="text"
               className="w-[300px] p-[8px] rounded-[5px] border border-[#0e0d0d]"
               placeholder="Search"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
             <table className="w-full border-collapse">
               <thead>
                 <tr>
-                  <th className="p-[10px] text-left border-b border-[#c93838]">Nombre usuario</th>
+                  <th className="p-[10px] text-left border-b border-[#ccc]">Nombre usuario</th>
                   <th className="p-[10px] text-left border-b border-[#ccc]">Correo electronico</th>
                   <th className="p-[10px] text-left border-b border-[#ccc]">Tipo documento</th>
                   <th className="p-[10px] text-left border-b border-[#ccc]">Estado</th>
-                  <th className="p-[10px] text-left border-b border-[#ccc]"></th>
+                  <th className="p-[10px] text-left border-b border-[#ccc]">Acciones</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td className="p-[10px] border-b border-[#ccc]">Damian felipe</td>
-                  <td className="p-[10px] border-b border-[#d31010]">Damian@gmaeil.com</td>
-                  <td className="p-[10px] border-b border-[#ccc]">C.C</td>
-                  <td className="p-[10px] border-b border-[#ccc]">Activo</td>
-                  <td className="p-[10px] border-b border-[#ccc]">
-                    <i className="bi bi-pencil-square"></i>
-                  </td>
-                  <td className="p-[10px] border-b border-[#ccc]">
-                    <i className="bi bi-trash"></i>
-                  </td>
-                </tr>
-                <tr>
-                  <td className="p-[10px] border-b border-[#ccc]">Jairo varela</td>
-                  <td className="p-[10px] border-b border-[#ccc]">Jairo@gmaeil.com</td>
-                  <td className="p-[10px] border-b border-[#ccc]">C.C</td>
-                  <td className="p-[10px] border-b border-[#ccc]">Inactivo</td>
-                  <td className="p-[10px] border-b border-[#aa1616]">
-                    <i className="bi bi-pencil-square"></i>
-                  </td>
-                  <td className="p-[10px] border-b border-[#ccc]">
-                    <i className="bi bi-trash"></i>
-                  </td>
-                </tr>
-                {/* Añadir el resto de las filas de la tabla aquí */}
+              <tbody id="data-body">
+                {usuarios.map((usuario) => (
+                  <tr key={usuario.id} className="border-t">
+                    <td className="p-[10px] border-b border-[#ccc]">{usuario.nombre}</td>
+                    <td className="p-[10px] border-b border-[#ccc]">{usuario.correo}</td>
+                    <td className="p-[10px] border-b border-[#ccc]">{usuario.tipodocumento}</td>
+                    <td className="p-[10px] border-b border-[#ccc]">{usuario.estado}</td>
+                    <td className="p-[8px] border-b border-[#ccc]">
+                      <button className="text-center font-bold">
+                        <i className="bi bi-pencil-square" />
+                      </button>
+                      <button className="text-center font-bold">
+                        <i className="bi bi-trash" />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
+
+            <div id="data-container"></div>
+            <div id="paginator">
+              <button id="prev-btn">Anterior</button>
+              <button id="next-btn">Siguiente</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
+        
+       
+      </div>
+    </div>
+    </LayoutN>
+    </>
   );
 };
 
-export default UserTable;
+export default TablaEmpresarial;
