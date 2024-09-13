@@ -11,10 +11,10 @@ const generarNumeroFactura = () => {
 const postPago = async (req, res) => {
     const { idusuario, seleccionados, total } = req.body; // Datos enviados desde el frontend
 
-    // Variables constantes de impuesto y descuento (siempre serán 0 en este caso)
+
     const impuesto = 0;
     const descuento = 0;
-    const estado = '1'; // Estado por defecto para las compras procesadas
+    const estado = '1'; 
 
     // Generar número de factura
     const numerofactura = generarNumeroFactura();
@@ -71,11 +71,12 @@ const postPago = async (req, res) => {
             idMaestro,
         });
     } catch (error) {
-        // En caso de error, revertir la transacción
+        //revertir la transacción cuando no se pudo subir
         await client.query('ROLLBACK');
         console.error('Error al realizar el pago:', error);
         res.status(500).json({ message: 'Error al procesar el pago' });
     } finally {
+        await client.query('UPTADE ');
         client.release(); // Liberar conexión
     }
 };

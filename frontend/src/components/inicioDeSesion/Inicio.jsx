@@ -90,7 +90,7 @@ const LoginForm = () => {
                         <h2 className="text-xl font-bold mb-4">¡Inicio Exitoso!</h2>
                         <button
                             id="aceptarModalInicio"
-                            className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                            className= "flex items-center bg-negro bg-blue-500 text-white px-4 py-2 rounded-md"
                             onClick={() => window.location.href = '/Inicio'}
                         >
                             Aceptar

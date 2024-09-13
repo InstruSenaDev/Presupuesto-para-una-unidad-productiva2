@@ -1,321 +1,332 @@
-import React, { useEffect, useState } from 'react';
-import usePresupuesto from '../hooks/usePresupuesto';
-import imgP from '../components/Img/imgP.png';
-import imgF from '../components/Img/imgF.png';
-import imgE from '../components/Img/imgE.png';
-import { Link } from 'react-router-dom';
+    import React, { useState } from "react";
+    import Navbar from "../components/Navbar/Navbar";
+    import Sidebar from "../components/sidebar/sidebar";
+    import imgP from "../components/Img/imgP.png";
+    import imgF from "../components/Img/imgF.png";
+    import imgE from "../components/Img/imgE.png";
+    import { Link } from "react-router-dom";
+    import "bootstrap/dist/css/bootstrap.min.css";
+    import "boxicons/css/boxicons.min.css";
 
-const PresupuestoPage = () => {
-    const [mostrarModal, setMostrarModal] = useState('');
-    const [paso, setPaso] = useState(1);
-    const [presupuestoData, setPresupuestoData] = useState({
-        tipo: null,
-        idtipopresupuesto: null,
-        fecha: '',
-    });
-    const [movimientoData, setMovimientoData] = useState({
-        descripcion: '',
-        valor: 0,
-        idtipomovimiento: 1,
-    });
-    const { presupuestos, crearPresupuesto, crearMovimiento, obtenerPresupuestos, error } = usePresupuesto();
+    const PresupuestosPrueba = () => {
+    const [showDateModal, setShowDateModal] = useState(false);
+    const [showTypeModal, setShowTypeModal] = useState(false);
+    const [showDetailsModal, setShowDetailsModal] = useState(false);
+    const [showFinalModal, setShowFinalModal] = useState(false);
+    const [selectedDate, setSelectedDate] = useState(null);
+    const [budgetType, setBudgetType] = useState(null);
+    const [balance, setBalance] = useState("");
+    const [description, setDescription] = useState("");
+    const [canSelectDate, setCanSelectDate] = useState(true);
+    const [dateError, setDateError] = useState(false); // Estado para validar la fecha
+    const [typeError, setTypeError] = useState(false); // Estado para mostrar error de tipo de presupuesto
 
-    useEffect(() => {
-        obtenerPresupuestos();
-    }, [obtenerPresupuestos]);
-
-    const handleModalClose = () => {
-        setMostrarModal(''); // Cierra el modal
-        setPaso(1); // Reinicia el paso al inicial
+    const handleDateSelection = (event) => {
+        setSelectedDate(event.target.value);
+        setDateError(false); // Limpiar el error de la fecha al seleccionarla
     };
 
-    const handleOtroMovimiento = () => {
-        setMostrarModal('tipoMovimiento'); // Abre nuevamente el modal de tipo de movimiento
-        setPaso(2); // Permanece en el paso 2
-    };
-
-    const handleFinalizar = () => {
-        window.location = "/Presupuestos"; // Cierra todos los modales y finaliza
-    };
-
-    const handleMovimientoSubmit = async () => {
-        const idpresupuesto = localStorage.getItem('ultimoPresupuesto');
-        if (idpresupuesto) {
-            await crearMovimiento(movimientoData, idpresupuesto);
-            setMostrarModal('confirmarOtroMovimiento'); // Después de crear movimiento, abre el modal de confirmación
+    const handleDateContinue = () => {
+        if (!selectedDate) {
+        setDateError(true); // Mostrar error si no se ha seleccionado una fecha
         } else {
-            alert('No se ha seleccionado ningún presupuesto.');
+        setShowDateModal(false);
+        setShowTypeModal(true);
         }
     };
 
-    const handlePresupuestoSubmit = async () => {
-        await crearPresupuesto(presupuestoData);
-        setMostrarModal('tipoMovimiento');
+    const handleTypeSelection = (type) => {
+        setBudgetType(type);
+        setTypeError(false); // Limpiar el error cuando se selecciona un tipo
     };
 
-    // Ajusta el idtipopresupuesto de acuerdo con el tipo de presupuesto seleccionado
-    const handleTipoPresupuesto = (tipo) => {
-        let idtipopresupuesto;
-
-        if (tipo === 'seleccion') {
-            idtipopresupuesto = 1; // Presupuesto Personal
-        } else if (tipo === 'seleccionFamiliar') {
-            idtipopresupuesto = 2; // Presupuesto Familiar
-        } else if (tipo === 'seleccionEmpresarial') {
-            idtipopresupuesto = 3; // Presupuesto Empresarial
+    const handleTypeContinue = () => {
+        if (!budgetType) {
+        setTypeError(true); // Mostrar error si no se ha seleccionado un tipo
+        } else {
+        setShowTypeModal(false);
+        setShowDetailsModal(true);
         }
-
-        // Actualiza el estado con el idtipopresupuesto seleccionado
-        setPresupuestoData({ ...presupuestoData, idtipopresupuesto });
-
-        // Abre el modal correspondiente
-        setMostrarModal(tipo);
     };
 
-    const handleSeleccionPresupuesto = (id) => {
-        localStorage.setItem('ultimoPresupuesto', id);
-        setMostrarModal('tipoMovimiento'); // Abre el modal de tipo de movimiento
-        setPaso(2); // Cambia al paso del movimiento
+    const handleDetailsSubmit = (event) => {
+        event.preventDefault();
+        setShowDetailsModal(false);
+        setShowFinalModal(true);
     };
 
-    if (error) {
-        return <div>Error: {error}</div>;
-    }
+    const handleNewBudget = () => {
+        setBudgetType(null);
+        setBalance("");
+        setDescription("");
+        setShowFinalModal(false);
+        setShowTypeModal(true);
+    };
+
+    const handleFinalize = () => {
+        setShowFinalModal(false);
+        setCanSelectDate(true);
+        resetForm();
+    };
+
+    const resetForm = () => {
+        setSelectedDate(null);
+        setBudgetType(null);
+        setBalance("");
+        setDescription("");
+        setCanSelectDate(true);
+    };
+
+    const handleCancel = () => {
+        resetForm();
+        setShowDateModal(false);
+        setShowTypeModal(false);
+        setShowDetailsModal(false);
+        setShowFinalModal(false);
+    };
+
+    const startNewBudget = () => {
+        if (canSelectDate) {
+        setShowDateModal(true);
+        } else if (selectedDate) {
+        setShowTypeModal(true);
+        }
+    };
 
     return (
-        <div>
-            {/* Vista principal de los presupuestos */}
-            {paso === 1 && !mostrarModal && (
-                <div className="flex justify-center items-center h-full">
-                    <div className="flex flex-col w-full h-full justify-between gap-y-4">
-                        {/* Presupuesto Personal */}
-                        <div className='bg-griscard h-full text-blanquito rounded'>
-                            <div className='flex items-center justify-around rounded h-2/6'>
-                                <img src={imgP} alt="Presupuesto Personal" className='h-20 rounded flex justify-center text-center' />
-                                <button
-                                    onClick={() => handleTipoPresupuesto('seleccion')}
-                                    className="bg-blue-500 text-white px-4 py-2 rounded underline"
-                                >
-                                    Presupuesto personal
-                                </button>
-                                <h2 className=''>Fecha:</h2>
-                                <Link to="/PersonalPag">
-                                    <button className='curson-pointer underline'>
-                                        <box-icon name='download' color='#ffffff'></box-icon>
-                                    </button>
-                                </Link>
-                            </div>
-                        </div>
-                        {/* Presupuesto Familiar */}
-                        <div className='bg-griscard h-full text-blanquito rounded'>
-                            <div className='flex items-center justify-around rounded h-2/6'>
-                                <img src={imgF} alt="Presupuesto Familiar" className='h-20 rounded' />
-                                <button
-                                    onClick={() => handleTipoPresupuesto('seleccionFamiliar')}
-                                    className="bg-green-500 text-white px-4 py-2 rounded underline"
-                                >
-                                    Presupuesto familiar
-                                </button>
-                                <h2>Fecha:</h2>
-                                <Link to="/FamiliarPag">
-                                    <button className='curson-pointer underline'>
-                                        <box-icon name='download' color='#ffffff'></box-icon>
-                                    </button>
-                                </Link>
-                            </div>
-                        </div>
-                        {/* Presupuesto Empresarial */}
-                        <div className='bg-griscard h-full text-blanquito rounded'>
-                            <div className='flex items-center justify-around rounded h-2/6'>
-                                <img src={imgE} alt="Presupuesto Empresarial" className='h-20 rounded flex justify-center text-center' />
-                                <button
-                                    onClick={() => handleTipoPresupuesto('seleccionEmpresarial')}
-                                    className="bg-blue-500 text-white px-4 py-2 rounded underline"
-                                >
-                                    Presupuesto empresarial
-                                </button>
-                                <Link to="/Productos">
-                                    <button className='curson-pointer underline'>
-                                        <box-icon name='edit' color='#ffffff'></box-icon>
-                                    </button>
-                                </Link>
-                                <h2 className=''>Fecha:</h2>
-                                <Link to="/PersonalPag">
-                                    <button className='curson-pointer underline'>
-                                        <box-icon name='download' color='#ffffff'></box-icon>
-                                    </button>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            {/* Modal de Selección de Presupuesto */}
-            {paso === 1 && mostrarModal === 'seleccion' && (
-                <div className="modal">
-                    <h2 className="text-xl font-bold">Nuevo</h2>
-                    <select
-                        value={presupuestoData.idtipopresupuesto}
-                        onChange={(e) => setPresupuestoData({ ...presupuestoData, idtipopresupuesto: parseInt(e.target.value, 10) })}
-                        className="block w-full p-2 border border-gray-300 rounded mt-4"
-                    >
-                        <option value={1}>Presupuesto</option>
-                        <option value={2}>Movimiento</option>
-                    </select>
-                    <button
-                        onClick={() => {
-                            if (presupuestoData.idtipopresupuesto === 1) {
-                                setMostrarModal('fecha');
-                            } else {
-                                setMostrarModal('tipoMovimiento');
-                            }
-                        }}
-                        className="bg-blue-500 text-white px-4 py-2 mt-4"
-                    >
-                        Aceptar
-                    </button>
-                </div>
-            )}
-         {/* Modal de Selección de Presupuesto */}
-         {paso === 1 && mostrarModal === 'seleccionFamiliar' && (
-                <div className="modal">
-                    <h2 className="text-xl font-bold">Nuevo</h2>
-                    <select
-                        value={presupuestoData.idtipopresupuesto}
-                        onChange={(e) => setPresupuestoData({ ...presupuestoData, idtipopresupuesto: parseInt(e.target.value, 10) })}
-                        className="block w-full p-2 border border-gray-300 rounded mt-4"
-                    >
-                        <option value={1}>Presupuesto</option>
-                        <option value={2}>Movimiento</option>
-                    </select>
-                    <button
-                        onClick={() => {
-                            if (presupuestoData.idtipopresupuesto === 1) {
-                                setMostrarModal('fechaFamiliar');
-                            } else {
-                                setMostrarModal('tipoMovimiento');
-                            }
-                        }}
-                        className="bg-blue-500 text-white px-4 py-2 mt-4"
-                    >
-                        Aceptar
-                    </button>
-                </div>
-            )}
-{/* Modal de Selección de Presupuesto */}
-{paso === 1 && mostrarModal === 'seleccionEmpresarial' && (
-                <div className="modal">
-                    <h2 className="text-xl font-bold">Nuevo </h2>
-                    <select
-                        value={presupuestoData.idtipopresupuesto}
-                        onChange={(e) => setPresupuestoData({ ...presupuestoData, idtipopresupuesto: parseInt(e.target.value, 10) })}
-                        className="block w-full p-2 border border-gray-300 rounded mt-4"
-                    >
-                        <option value={1}>Presupuesto</option>
-                        <option value={2}>Movimiento</option>
-                    </select>
-                    <button
-                        onClick={() => {
-                            if (presupuestoData.idtipopresupuesto === 1) {
-                                setMostrarModal('fechaEmpresarial');
-                            } else {
-                                setMostrarModal('tipoMovimiento');
-                            }
-                        }}
-                        className="bg-blue-500 text-white px-4 py-2 mt-4"
-                    >
-                        Aceptar
-                    </button>
-                </div>
-            )}
-            {/* Modal de Fecha */}
-            {paso === 1 && mostrarModal === 'fecha' && (
-                <div className="modal">
-                    <h2 className="text-xl font-bold">Fecha</h2>
-                    <input
-                        type="date"
-                        value={presupuestoData.fecha}
-                        onChange={(e) => setPresupuestoData({ ...presupuestoData, fecha: e.target.value })}
-                        className="block w-full p-2 border border-gray-300 rounded mt-4"
-                    />
-                    <button onClick={handlePresupuestoSubmit} className="bg-blue-500 text-white px-4 py-2 mt-4">Aceptar</button>
-                </div>
-            )}
-                       {paso === 1 && mostrarModal === 'fechaFamiliar' && (
-                <div className="modal">
-                    <h2 className="text-xl font-bold">Fecha</h2>
-                    <input
-                        type="date"
-                        value={presupuestoData.fecha}
-                        onChange={(e) => setPresupuestoData({ ...presupuestoData, fecha: e.target.value })}
-                        className="block w-full p-2 border border-gray-300 rounded mt-4"
-                    />
-                    <button onClick={handlePresupuestoSubmit} className="bg-blue-500 text-white px-4 py-2 mt-4">Aceptar</button>
-                </div>
-            )}
-                       {paso === 1 && mostrarModal === 'fechaEmpresarial' && (
-                <div className="modal">
-                    <h2 className="text-xl font-bold">Fecha</h2>
-                    <input
-                        type="date"
-                        value={presupuestoData.fecha}
-                        onChange={(e) => setPresupuestoData({ ...presupuestoData, fecha: e.target.value })}
-                        className="block w-full p-2 border border-gray-300 rounded mt-4"
-                    />
-                    <button onClick={handlePresupuestoSubmit} className="bg-blue-500 text-white px-4 py-2 mt-4">Aceptar</button>
-                </div>
-            )}
-
-            {/* Modal Tipo de Movimiento */}
-            {paso === 2 && mostrarModal === 'tipoMovimiento' && (
-                <div className="modal">
-                    <h2 className="text-xl font-bold">Tipo de Movimiento</h2>
-                    <select
-                        value={movimientoData.idtipomovimiento}
-                        onChange={(e) => setMovimientoData({ ...movimientoData, idtipomovimiento: parseInt(e.target.value, 10) })}
-                        className="block w-full p-2 border border-gray-300 rounded mt-4"
-                    >
-                        <option value={1}>Ingreso</option>
-                        <option value={2}>Egreso</option>
-                    </select>
-                    <button onClick={() => setMostrarModal('movimiento')} className="bg-blue-500 text-white px-4 py-2 mt-4">Aceptar</button>
-                </div>
-            )}
-
-            {/* Modal Movimientos */}
-            {paso === 2 && mostrarModal === 'movimiento' && (
-                <div className="modal">
-                    <h2 className="text-xl font-bold">Movimientos</h2>
-                    <input
-                        type="number"
-                        placeholder="Saldo"
-                        value={movimientoData.valor}
-                        onChange={(e) => setMovimientoData({ ...movimientoData, valor: e.target.value })}
-                        className="block w-full p-2 border border-gray-300 rounded mt-4"
-                    />
-                    <input
-                        type="text"
-                        placeholder="Descripción"
-                        value={movimientoData.descripcion}
-                        onChange={(e) => setMovimientoData({ ...movimientoData, descripcion: e.target.value })}
-                        className="block w-full p-2 border border-gray-300 rounded mt-4"
-                    />
-                    <button onClick={handleMovimientoSubmit} className="bg-blue-500 text-white px-4 py-2 mt-4">Aceptar</button>
-                </div>
-            )}
-
-            {/* Modal Confirmación */}
-            {paso === 2 && mostrarModal === 'confirmarOtroMovimiento' && (
-                <div className="modal">
-                    <h2 className="text-xl font-bold">Confirmación</h2>
-                    <p>¿Desea agregar otro movimiento?</p>
-                    <button onClick={handleOtroMovimiento} className="bg-green-500 text-white px-4 py-2 mt-4">Sí</button>
-                    <button onClick={handleFinalizar} className="bg-red-500 text-white px-4 py-2 mt-4">No</button>
-                </div>
-            )}
+        <>
+        <div className="">
+            <Navbar titulo={"PresupuestoPrueba"} />
         </div>
-    );
-};
 
-export default PresupuestoPage;
+        <div className="fixed top-0 left-0 h-full">
+            <Sidebar />
+        </div>
+
+        <div className="flex justify-center items-center h-full">
+            <div className="flex flex-col w-9/12 h-full  justify-between gap-y-4 p-20">
+            <div className="bg-griscard h-full text-blanquito rounded">
+                <div className="flex items-center justify-around rounded h-2/6">
+                <img
+                    src={imgP}
+                    alt="Presupuesto Personal"
+                    className="h-20 rounded flex justify-center text-center"
+                />
+                <button
+                    onClick={startNewBudget}
+                    className="bg-blue-500 text-white px-4 py-2 rounded underline"
+                >
+                    Presupuesto personal
+                </button>
+                <h2 className="">Fecha: {selectedDate || "No seleccionada"}</h2>
+                <Link to="/">
+                    <button className="cursor-pointer underline">
+                    <i
+                        className="bx bx-download"
+                        style={{ color: "#ffffff" }}
+                    ></i>
+                    </button>
+                </Link>
+                </div>
+            </div>
+
+            <div className="bg-griscard h-full text-blanquito rounded">
+                <div className="flex items-center justify-around rounded h-2/6">
+                <img
+                    src={imgF}
+                    alt="Presupuesto Personal"
+                    className="h-20 rounded flex justify-center text-center"
+                />
+                <button
+                    onClick={startNewBudget}
+                    className="bg-blue-500 text-white px-4 py-2 rounded underline"
+                >
+                    Presupuesto familiar
+                </button>
+                <h2 className="">Fecha: {selectedDate || "No seleccionada"}</h2>
+                <Link to="/">
+                    <button className="cursor-pointer underline">
+                    <i
+                        className="bx bx-download"
+                        style={{ color: "#ffffff" }}
+                    ></i>
+                    </button>
+                </Link>
+                </div>
+            </div>
+
+            <div className="bg-griscard h-full text-blanquito rounded">
+                <div className="flex items-center justify-around rounded h-2/6">
+                <img
+                    src={imgE}
+                    alt="Presupuesto Personal"
+                    className="h-20 rounded flex justify-center text-center"
+                />
+                <button
+                    onClick={startNewBudget}
+                    className="bg-blue-500 text-white px-4 py-2 rounded underline"
+                >
+                    Presupuesto empresarial
+                </button>
+                <Link to="/Productos">
+                    <button className="curson-pointer underline">
+                    <box-icon name="edit" color="#ffffff"></box-icon>
+                    </button>
+                </Link>
+
+                <h2 className="">Fecha: {selectedDate || "No seleccionada"}</h2>
+                <Link to="/">
+                    <button className="cursor-pointer underline">
+                    <i
+                        className="bx bx-download"
+                        style={{ color: "#ffffff" }}
+                    ></i>
+                    </button>
+                </Link>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        {/* Modal de selección de fecha */}
+        {showDateModal && (
+            <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
+            <div className="bg-white p-5 rounded-lg shadow-lg w-1/3">
+                <h5 className="modal-title">Selecciona una fecha</h5>
+                <input
+                type="date"
+                className="form-control my-4"
+                onChange={handleDateSelection}
+                required
+                />
+                {dateError && (
+                <p className="text-color7">
+                    Debes seleccionar una fecha antes de continuar.
+                </p>
+                )}
+                <div className="flex justify-end">
+                <button className="btn btn-secondary mr-2" onClick={handleCancel}>
+                    Cerrar
+                </button>
+                <button className="btn btn-primary" onClick={handleDateContinue}>
+                    Continuar
+                </button>
+                </div>
+            </div>
+            </div>
+        )}
+
+        {/* Modal de tipo de presupuesto */}
+        {showTypeModal && (
+            <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
+            <div className="bg-white p-5 rounded-lg shadow-lg w-1/3">
+                <h5 className="modal-title">Tipo de presupuesto</h5>
+                <div className="form-check my-4">
+                <input
+                    className="form-check-input"
+                    type="radio"
+                    name="budgetType"
+                    id="egreso"
+                    onChange={() => handleTypeSelection("egreso")}
+                />
+                <label className="form-check-label" htmlFor="egreso">
+                    Egreso
+                </label>
+                </div>
+                <div className="form-check mb-4">
+                <input
+                    className="form-check-input"
+                    type="radio"
+                    name="budgetType"
+                    id="ingreso"
+                    onChange={() => handleTypeSelection("ingreso")}
+                />
+                <label className="form-check-label" htmlFor="ingreso">
+                    Ingreso
+                </label>
+                </div>
+                {typeError && (
+                <p className="text-color7">
+                    Debes seleccionar un tipo de presupuesto antes de continuar.
+                </p>
+                )}
+                <div className="flex justify-end">
+                <button className="btn btn-secondary mr-2" onClick={handleCancel}>
+                    Cerrar
+                </button>
+                <button className="btn btn-primary" onClick={handleTypeContinue}>
+                    Continuar
+                </button>
+                </div>
+            </div>
+            </div>
+        )}
+
+        {/* Modal de detalles del presupuesto */}
+        {showDetailsModal && (
+            <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
+            <div className="bg-white p-5 rounded-lg shadow-lg w-1/3">
+                <h5 className="modal-title">Detalles del movimiento</h5>
+                <form onSubmit={handleDetailsSubmit} className="my-4">
+                <div className="form-group mb-4">
+                    <label htmlFor="balance">Saldo:</label>
+                    <input
+                    type="number"
+                    className="form-control"
+                    id="balance"
+                    value={balance}
+                    onChange={(e) => setBalance(e.target.value)}
+                    required
+                    />
+                </div>
+                <div className="form-group mb-4">
+                    <label htmlFor="description">Descripción:</label>
+                    <textarea
+                    className="form-control"
+                    id="description"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    required
+                    ></textarea>
+                </div>
+                <div className="flex justify-end">
+                    <button
+                    type="button"
+                    className="btn btn-secondary mr-2"
+                    onClick={handleCancel}
+                    >
+                    Cerrar
+                    </button>
+                    <button type="submit" className="btn btn-primary">
+                    Continuar
+                    </button>
+                </div>
+                </form>
+            </div>
+            </div>
+        )}
+
+        {/* Modal final */}
+        {showFinalModal && (
+            <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
+            <div className="bg-white p-5 rounded-lg shadow-lg w-1/3">
+                <h5 className="modal-title">¿Deseas crear un nuevo presupuesto?</h5>
+                <div className="flex justify-end my-4">
+                <button
+                    className="btn btn-primary mr-2"
+                    onClick={handleNewBudget}
+                >
+                    <i className="bx bx-plus-circle"></i> Nuevo presupuesto
+                </button>
+                <button className="btn btn-secondary" onClick={handleFinalize}>
+                    <i className="bx bx-check-circle"></i> Finalizar
+                </button>
+                </div>
+            </div>
+            </div>
+        )}
+        </>
+    );
+    };
+
+    export default PresupuestosPrueba;

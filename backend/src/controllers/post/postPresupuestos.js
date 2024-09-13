@@ -46,8 +46,8 @@ const crearMovimiento = async (req, res) => {
 
         // Insertar el movimiento
         await pool.query(
-            'INSERT INTO movimientos (descripcion, valor, estado, idpresupuesto, idtipomovimiento, fecha) VALUES ($1, $2, true, $3, $4, NOW())',
-            [descripcion, Number(valor), idpresupuesto, idtipomovimiento]
+            'INSERT INTO movimientos (descripcion, valor, estado, idpresupuesto, idtipomovimiento, fecha) VALUES ($1, $2, $3, $4, $5, NOW())',
+            [descripcion, Number(valor), idpresupuesto,"1", idtipomovimiento]
         );
 
         // Actualizar el saldo del presupuesto
