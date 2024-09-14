@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import LayoutN from '../../components/Layout/NabvarSisebar'
+import Pagination from '../../components/pagination/Paginator';
 
 const Dashboard = () => {
   const [usuarios, setUsuarios] = useState([]);
@@ -77,5 +78,8 @@ const Dashboard = () => {
     </>
   );
 };
-
+<Pagination 
+       
+        paginate={Pagination} 
+      />
 export default Dashboard;
