@@ -1,6 +1,8 @@
 import { useState } from 'react';
-import imagenlogo from "../../../public/Logopup.png";
-import { NavLink, useNavigate } from 'react-router-dom';
+import { FaHome, FaMoneyBill, FaUser, FaUsers, FaBuilding, FaSignOutAlt } from 'react-icons/fa';
+import imgL from '../img/LogoS.png';
+import './Sidebar.css';
+
 
 const Sidebar = () => {
     const [isMinimized, setIsMinimized] = useState(false);
@@ -15,57 +17,42 @@ const Sidebar = () => {
         localStorage.removeItem('correo');
         localStorage.removeItem('tipoDc');
         localStorage.removeItem('numeroDc');
-        window.location.href = '/inicioSesion';
+        localStorage.removeItem('ultimoPresupuesto');
+        window.location.href = '/';
     };
 
     return (
-        <div className={`h-screen bg-blueUwu text-white transition-all duration-300 fixed ${isMinimized ? 'w-16' : 'w-64'}`}>
+        <div className={`h-full bg-blueUwu text-white transition-all duration-300 fixed ${isMinimized ? 'w-16' : 'w-64'}`}>
             <div className="flex justify-end">
                 <button onClick={toggleSidebar} className="text-blanquito text-2xl cursor-pointer">☰</button>
             </div>
-            <img 
-            src={imagenlogo} 
-            alt="" 
-            className="imagenlogo" />
+            <img src={imgL} alt="Logo" className={`mt-4 transition-all duration-300`} />
 
             <ul className="sidebar-menu list-none p-0">
-
-                <NavLink to={'/PrincipalAdmin'}>
-                <li className="p-3.5" data-tooltip={isMinimized ? 'Inicio' : ''}>
-                    <div className="hover:bg-rosadito font-bold w-full flex items-center">
-                    <i class="bi bi-house"></i>
-                        <a href="/PrincipalAdmin" className="hover:bg-rosadito w-full text-blanquito no-underline">Inicio</a>
-                    </div>
+                <li className="p-3.5 flex items-center sidebar-item">
+                    <FaHome className="text-2xl icon-white" />
+                    {!isMinimized && <a href="/home" className="ml-4">Inicio</a>}
                 </li>
-                </NavLink>
-
-                <NavLink to={'/TablaPersonal'}>
-                <li className="p-3.5" data-tooltip={isMinimized ? 'Personal' : ''}>
-                    <div className="hover:bg-rosadito font-bold w-full flex items-center">
-                        <a href="/TablaPersonal" className="hover:bg-rosadito w-full text-blanquito no-underline">Personal</a>
-                    </div>
+                <li className="p-3.5 flex items-center sidebar-item">
+                    <FaMoneyBill className="text-2xl icon-white" />
+                    
+                    {!isMinimized &&  <a href="/Presupuestos" className="ml-4">Presupuesto</a> }
                 </li>
-                </NavLink>
-
-                <li className="p-3.5" data-tooltip={isMinimized ? 'Familiar' : ''}>
-                    <div className="hover:bg-rosadito font-bold w-full flex items-center">
-                        <a href="/TablaFamiliar" className="hover:bg-rosadito w-full text-blanquito no-underline">Familiar</a>
-                    </div>
+                <li className="p-3.5 flex items-center sidebar-item">
+                    <FaUser className="text-2xl icon-white" />
+                    {!isMinimized && <a href="/PersonalPag" className="ml-4">Personal</a>}
                 </li>
-
-                <NavLink to={'/TablaEmpresarial'}>
-                <li className="p-3.5" data-tooltip={isMinimized ? 'Empresarial' : ''}>
-                    <div className="hover:bg-rosadito font-bold w-full flex items-center">
-                        <a href="/TablaEmpresarial" className="hover:bg-rosadito w-full text-blanquito no-underline">Empresarial</a>
-                    </div>
+                <li className="p-3.5 flex items-center sidebar-item">
+                    <FaUsers className="text-2xl icon-white" />
+                    {!isMinimized && <a href="/FamiliarPag" className="ml-4">Familiar</a>}
                 </li>
-                </NavLink>
-
-
-                <li className="p-3.5" data-tooltip={isMinimized ? 'Salir' : ''}>
-                    <div className="hover:bg-rosadito font-bold w-full flex items-center">
-                        <a onClick={handleLogout} className="hover:bg-rosadito w-full text-blanquito no-underline cursor-pointer">Salir</a>
-                    </div>
+                <li className="p-3.5 flex items-center sidebar-item">
+                    <FaBuilding className="text-2xl icon-white" />
+                    {!isMinimized && <a href="/EmpresarialPag" className="ml-4">Empresarial</a>}
+                </li>
+                <li className="p-3.5 flex items-center sidebar-item">
+                    <FaSignOutAlt className="text-2xl icon-white" />
+                    {!isMinimized && <a onClick={handleLogout} className="ml-4 cursor-pointer">Salir</a>}
                 </li>
             </ul>
         </div>
