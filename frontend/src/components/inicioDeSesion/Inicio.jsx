@@ -52,7 +52,7 @@ const LoginForm = () => {
             {success && (
                 <div id="modalExito">
                     <p>¡Inicio exitoso!</p>
-                    <button onClick={() => window.location.href = '/home'}>Aceptar</button>
+                    <button onClick={() => window.location.href = '/PrincipalAdmin'}>Aceptar</button>
                 </div>
             )}
         </form>

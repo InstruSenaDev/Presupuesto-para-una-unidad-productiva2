@@ -88,7 +88,7 @@ const FormularioInicio = () => {
             <button
               id="aceptarModalInicio"
               className="bg-blue-500 text-white px-4 py-2 rounded-md"
-              onClick={() => window.location.href = '/Inicio'}
+              onClick={() => window.location.href = '/PrincipalAdmin'}
             >
               Aceptar
             </button>
