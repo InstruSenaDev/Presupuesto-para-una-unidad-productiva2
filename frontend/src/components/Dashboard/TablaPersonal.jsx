@@ -106,9 +106,6 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-
-      {/* Componente de paginación (aún no implementado) */}
-      <Pagination paginate={Pagination} />
     </>
   );
 };

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import Pagination from '../../components/pagination/Paginator'; // Ajusta la ruta según la ubicación de tu archivo
+//import React, { useEffect, useState } from 'react';
+//import Pagination from '../../components/pagination/Paginator'; // Ajusta la ruta según la ubicación de tu archivo
 
 const limit = 4; // Mostrar solo 4 registros por página
 
