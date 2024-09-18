@@ -30,19 +30,29 @@ const LoginForm = () => {
                 {validationErrors.correo && <p>{validationErrors.correo}</p>}
             </div>
 
-            {/* Modal de éxito */}
-            {showModal && (
-                <div id="modalExito" className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-                    <div className="bg-white p-5 rounded-md shadow-md">
-                        <h2 className="text-xl font-bold mb-4">¡Inicio Exitoso!</h2>
-                        <button
-                            id="aceptarModalInicio"
-                            className= "flex items-center bg-negro bg-blue-500 text-white px-4 py-2 rounded-md"
-                            onClick={() => window.location.href = '/Inicio'}
-                        >
-                            Aceptar
-                        </button>
-                    </div>
+        
+
+            <div>
+                <label htmlFor="contraseñaInicio">Contraseña:</label>
+                <input
+                    id="contraseñaInicio"
+                    type="password"
+                    value={contrasena}
+                    onChange={(e) => setContrasena(e.target.value)}
+                />
+                {validationErrors.contrasena && <p>{validationErrors.contrasena}</p>}
+            </div>
+
+            {loginErrors.general && <p>{loginErrors.general}</p>}
+            {loading && <p>Cargando...</p>}
+
+            <button type="submit">Iniciar sesión</button>
+
+            {/* Mostrar modal si el inicio de sesión fue exitoso */}
+            {success && (
+                <div id="modalExito">
+                    <p>¡Inicio exitoso!</p>
+                    <button onClick={() => window.location.href = '/PrincipalAdmin'}>Aceptar</button>
                 </div>
             )}
         </form>
