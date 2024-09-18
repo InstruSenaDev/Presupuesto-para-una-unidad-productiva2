@@ -1,0 +1,55 @@
+/* Estilos generales para el sidebar */
+.sidebar-menu a {
+    text-decoration: none;
+    color: white;
+    transition: opacity 0.3s ease;
+}
+
+/* Ocultar el texto cuando el sidebar esté minimizado */
+.sidebar-menu li {
+    display: flex;
+    align-items: center;
+    
+}
+
+/* Añadir un tooltip para iconos cuando el sidebar está minimizado */
+.sidebar-menu li[data-tooltip]::before {
+    content: attr(data-tooltip);
+    display: none;
+    position: absolute;
+    left: 70px;
+    background-color: #333;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+/* Mostrar el tooltip cuando el sidebar esté minimizado */
+.sidebar-menu li:hover[data-tooltip]::before {
+    display: block;
+}
+
+/* Cambiar el sidebar a minimizado en pantallas pequeñas */
+@media (max-width: 768px) {
+    .fixed {
+        width: 16px !important;
+    }
+}
+
+/* Color blanco para los íconos */
+.icon-white {
+    color: white;
+}
+
+/* Hover en los elementos <li> */
+.sidebar-item:hover {
+    background-color: #9c27b0; /* Hover morado */
+    border-radius: 8px; /* Redondear los bordes */
+    transition: background-color 0.3s ease; /* Suavizar la transición */
+}
+
+/* Opcional: ajustar el padding en el hover */
+.sidebar-item:hover a {
+    padding-left: 8px;
+}

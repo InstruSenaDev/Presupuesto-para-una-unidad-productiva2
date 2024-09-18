@@ -1,7 +1,8 @@
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const { Pool } = require('pg');
-const { CONFIG_BD } = require('../../config/db');
+const { Pool } = require("pg");
+const bcrypt = require('bcrypt')
+// const { CONFIG_BD } = require("../../config/db");
+const { CONFIG_BD } = require("../../config/db");
+
 const pool = new Pool(CONFIG_BD);
 
 const nuevosUser = async (req, res) => {
@@ -15,10 +16,27 @@ const nuevosUser = async (req, res) => {
   }
 
   try {
-    // Verificar si el usuario ya existe
-    const buscarUsuario = await pool.query(
-      "SELECT * FROM usuarios WHERE correo = $1 OR documento = $2", 
-      [correo, documento]
+    const buscarUsuario = await pool.query("SELECT * FROM usuarios WHERE correo = $1 OR documento = $2"
+      ,[correo, documento]
+
+    )
+
+    console.log(buscarUsuario.rowCount);
+
+    if (buscarUsuario.rowCount >= 1) {
+      return res.status(400).json({"message" : "El correo o documento ya existe"})
+     
+    }
+
+    if (buscarUsuario.rowCount >= 1) {
+      return res.status(400).json({ message: "El correo o documento ya existe" });
+    }
+
+    // Encriptar la contraseña
+    const hashedPassword = await bcrypt.hash(contrasena, 10);
+    const resultMovimiento = await pool.query(
+      "INSERT INTO usuarios (nombre, correo, contrasena, estado, tipodocumento,documento, idrol) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING * ",
+      [ nombre, correo, hashedPassword, true, tipodocumento, documento, "1" ]
     );
 
     if (buscarUsuario.rowCount >= 1) {
