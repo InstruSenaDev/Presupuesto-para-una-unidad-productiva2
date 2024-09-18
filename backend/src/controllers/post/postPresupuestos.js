@@ -9,7 +9,6 @@ const crearPresupuesto = async (req, res) => {
     const { idusuario } = req.params;
 
     try {
-        // Iniciar transacción
         const client = await pool.connect();
         await client.query('BEGIN');
 
@@ -29,15 +28,18 @@ const crearPresupuesto = async (req, res) => {
 
         // Actualizar los movimientos del presupuesto anterior a inactivos
         await client.query(
-            'UPDATE movimientos SET estados = $1 WHERE idpresupuesto IN (SELECT id FROM presupuesto WHERE idusuario = $2 AND idtipopresupuesto = $3 AND estados = $4)',
+            'UPDATE movimientos SET estados = $1 WHERE idpresupuesto IN (SELECT id FROM presupuesto WHERE idusuario = $2 AND idtipopresupuesto = $3 AND estado = $4)',
             ['2', idusuario, idtipopresupuesto, '2']
         );
 
         await client.query('COMMIT');
         res.status(201).json({ message: 'Presupuesto creado con éxito', nuevoPresupuestoId });
     } catch (error) {
+        await client.query('ROLLBACK');
         console.error('Error al crear presupuesto:', error);
         res.status(500).json({ message: 'Error interno al procesar la solicitud', error });
+    } finally {
+        client.release();
     }
 };
 
@@ -47,7 +49,6 @@ const crearMovimiento = async (req, res) => {
     const { idusuario, idpresupuesto } = req.params;
 
     try {
-        // Obtener el saldo actual del presupuesto
         const presupuestoResult = await pool.query(
             'SELECT saldo FROM presupuesto WHERE id = $1',
             [idpresupuesto]
@@ -58,15 +59,15 @@ const crearMovimiento = async (req, res) => {
         }
 
         const saldoActual = presupuestoResult.rows[0].saldo;
-        const nuevoSaldo = idtipomovimiento === 1 ? saldoActual + Number(valor) : saldoActual - Number(valor);
+        const nuevoSaldo = idtipomovimiento === 1 
+            ? saldoActual + Number(valor) 
+            : saldoActual - Number(valor);
 
-        // Insertar el movimiento
         await pool.query(
             'INSERT INTO movimientos (descripcion, valor, estados, idpresupuesto, idtipomovimiento, fecha) VALUES ($1, $2, $3, $4, $5, NOW())',
             [descripcion, Number(valor), '1', idpresupuesto, idtipomovimiento]
         );
 
-        // Actualizar el saldo del presupuesto
         await pool.query(
             'UPDATE presupuesto SET saldo = $1 WHERE id = $2',
             [nuevoSaldo, idpresupuesto]
@@ -79,24 +80,55 @@ const crearMovimiento = async (req, res) => {
     }
 };
 
-// Obtener presupuestos
-const obtenerPresupuestos = async (req, res) => {
-    const { idusuario } = req.params;
+// Actualizar el estado de movimientos anteriores
+const actualizarEstadoMovimientos = async (idpresupuesto) => {
+    try {
+        await pool.query(
+            'UPDATE movimientos SET estados = $1 WHERE idpresupuesto = $2 AND estados = $3',
+            ['2', idpresupuesto, '1']
+        );
+    } catch (error) {
+        console.error('Error al actualizar movimientos:', error);
+    }
+};
+
+// Obtener informe de ingresos y egresos
+const obtenerInformeMovimientos = async (req, res) => {
+    const { idpresupuesto } = req.params;
 
     try {
-        const result = await pool.query(
-            'SELECT id, idtipopresupuesto, presupuesto, saldo, fecha FROM presupuesto WHERE idusuario = $1 AND estado = 1',
-            [idusuario]
+        // Obtener los ingresos del presupuesto
+        const ingresos = await pool.query(
+            'SELECT SUM(valor) as total_ingresos FROM movimientos WHERE idpresupuesto = $1 AND idtipomovimiento = 1 AND estados = 1',
+            [idpresupuesto]
         );
-        res.status(200).json(result.rows);
+
+        // Obtener los egresos del presupuesto
+        const egresos = await pool.query(
+            'SELECT SUM(valor) as total_egresos FROM movimientos WHERE idpresupuesto = $1 AND idtipomovimiento = 2 AND estados = 1',
+            [idpresupuesto]
+        );
+
+        // Cálculos para el informe
+        const totalIngresos = ingresos.rows[0].total_ingresos || 0;
+        const totalEgresos = egresos.rows[0].total_egresos || 0;
+        const totalPresupuesto = totalIngresos - totalEgresos;
+
+        // Respuesta con el informe
+        res.status(200).json({
+            ingresos: totalIngresos,
+            egresos: totalEgresos,
+            total: totalPresupuesto
+        });
     } catch (error) {
-        console.error('Error al obtener presupuestos:', error);
-        res.status(500).json({ message: 'Error interno al procesar la solicitud', error });
+        console.error('Error al generar el informe:', error);
+        res.status(500).json({ message: 'Error interno al generar el informe', error });
     }
 };
 
 module.exports = {
     crearPresupuesto,
     crearMovimiento,
-    obtenerPresupuestos
+    actualizarEstadoMovimientos,
+    obtenerInformeMovimientos
 };

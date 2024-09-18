@@ -20,11 +20,11 @@ const iniciarSesion = async (req, res) => {
             if (isMatch) {
                 // Obtener el último presupuesto activo de cada tipo
                 const presupuestos = await pool.query(`
-                    SELECT id, idtipopresupuesto 
+                    SELECT id, idtipopresupuesto, fecha
                     FROM presupuesto 
-                    WHERE idusuario = $1 AND estado = 1 
+                    WHERE idusuario = $1 AND estado = 1
                     ORDER BY fecha DESC
-                `, [user.id]);
+                `, [user.idusuario]);
 
                 const presupuestosPorTipo = {
                     personal: presupuestos.rows.find(p => p.idtipopresupuesto === '1') || null, //Presupuesto Personal
@@ -32,10 +32,11 @@ const iniciarSesion = async (req, res) => {
                     empresarial: presupuestos.rows.find(p => p.idtipopresupuesto === '3') || null //Presupuesto Empresarial
                 };
 
+                // Almacenar los presupuestos activos en el localStorage
                 res.status(200).json({
                     message: "Inicio de sesión exitoso",
                     user: {
-                        id: user.id,
+                        id: user.idusuario,
                         nombre: user.nombre,
                         correo: user.correo,
                         documento: user.documento,

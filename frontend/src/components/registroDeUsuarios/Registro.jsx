@@ -106,7 +106,7 @@ const Registro = () => {
                     <span id="errorDocumento" className="text-color7 text-xs">{errores.errorDocumento}</span>
                   </div>
                   <div className="flex-col">
-                    <Boton Text="Registrarse" />
+                    <Boton type="submit" Text="Registrarse" />
                     <p className="text-color6 text-sm text-center text-negro">
                       Copyright 2024 - 2025 Sena
                     </p>
