@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "../Navbar/Navbar";
-import Sidebar from "../sidebar/sidebar";
+import Sidebar from "../Sidebar/SidebarAdmin";
 
 
 const LayoutN= ({titulo, children})=>{

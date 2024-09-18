@@ -4,6 +4,7 @@ import Boton from '../IcoReutilizables/Boton';
 import useLoginForm from '../../hooks/useInicioForm';
 import useFormValidation from '../../hooks/useFormInicio';
 import ImgI from '../Img/Logo.png';
+import { Link } from 'react-router-dom';
 
 const FormularioInicio = () => {
   const [correo, setCorreo] = useState('');
@@ -70,7 +71,8 @@ const FormularioInicio = () => {
 
               <div className="flex-col">
                 <Boton type="submit" Text="Iniciar sesión" />
-                <a href="/registro" className="underline text-negro">Registrarse</a>
+                <Link to="/Registro" className="underline text-negro" >Registrarse</Link>
+                
               </div>
               <p className="text-color6 text-sm text-center">Copyright 2024 - 2025 Sena</p>
             </div>

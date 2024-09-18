@@ -1,5 +1,6 @@
 import React from "react";
-import LayoutN from "../components/Layout/NabvarSisebar";
+import Navbar from "../components/Navbar/Navbar";
+import SidebarAdmin from "../components/Sidebar/SidebarAdmin";
 import imagenpersonal from "../../public/pup-personal.png";
 import imagenempresarial from "../../public/pup-empresarial.png";
 import imagenfamiliar from "../../public/pup-familiar.png";
@@ -7,8 +8,14 @@ import imagenfamiliar from "../../public/pup-familiar.png";
 const PrincipalAdmin = () => {
   return (
     <>
-      <LayoutN>
-        <div className="bg-gray-100 flex items-center justify-center min-h-screen">
+     <div className="">
+  <Navbar titulo={"Home Administrador"} />
+</div>             
+
+<div className="Si fixed top-0 left-0 h-full">
+  <SidebarAdmin />
+</div> 
+        <div className="bg-gray-100 flex items-center justify-center min-h-screen mr-40">
           <div className="flex-1 space-y-4 p-20 ml-64">
             {/* Bloque Superior */}
             <div className="flex flex-row items-center bg-white p-8 shadow-lg rounded-lg max-w-3xl mx-auto">
@@ -59,7 +66,7 @@ const PrincipalAdmin = () => {
             </div>
           </div>
         </div>
-      </LayoutN>
+      
     </>
   );
 };
