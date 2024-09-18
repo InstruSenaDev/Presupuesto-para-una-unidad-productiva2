@@ -4,8 +4,7 @@ import imgL from '../img/LogoS.png';
 import './Sidebar.css';
 import { Link } from 'react-bootstrap-icons';
 
-
-const Sidebar = () => {
+const SidebarAdmin = () => {
     const [isMinimized, setIsMinimized] = useState(false);
 
     const toggleSidebar = () => {
@@ -32,14 +31,9 @@ const Sidebar = () => {
             <ul className="sidebar-menu list-none p-0">
                 <li className="p-3.5 flex items-center sidebar-item">
                     <FaHome className="text-2xl icon-white" />
-                    {!isMinimized && <a href="/home" className="ml-4">Inicio</a>}
+                    {!isMinimized && <a href="/home" className="ml-4">Home</a>}
                 </li>
-                <li className="p-3.5 flex items-center sidebar-item">
-                    <FaMoneyBill className="text-2xl icon-white" />
-                    
-                    {!isMinimized &&  <a href="/Presupuestos" className="ml-4">Presupuesto</a> }
-                </li>
-               
+                
                 <li className="p-3.5 flex items-center sidebar-item">
                     <FaUser className="text-2xl icon-white" />
                     {!isMinimized && <a href="/PersonalPag" className="ml-4">Personal</a>}
@@ -61,4 +55,4 @@ const Sidebar = () => {
     );
 };
 
-export default Sidebar;
+export default SidebarAdmin;

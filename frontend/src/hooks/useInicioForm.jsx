@@ -26,15 +26,34 @@ const useLoginForm = () => {
             if (response.ok) {
                 const data = await response.json();
 
-                console.log("Inicio de sesión exitoso");
+                // Verificar y almacenar los datos en localStorage
+                if (data.user && data.user.id) {
+                    localStorage.setItem("id", data.user.id);
+                    localStorage.setItem("nombre", data.user.nombre || "");
+                    localStorage.setItem("correo", data.user.correo || "");
+                    localStorage.setItem("numeroDc", data.user.documento || "");
+                    localStorage.setItem("tipoDc", data.user.tipodocumento || "");
 
-                // Almacenar el token JWT y la información del usuario en localStorage
-                localStorage.setItem("id", data.user.id);
-                localStorage.setItem("nombre", data.user.nombre);
-                localStorage.setItem("correo", data.user.correo);
-                localStorage.setItem("numeroDc", data.user.documento);
-                localStorage.setItem("tipoDc", data.user.tipodedocumento);
-                // Almacena otros datos del usuario según sea necesario
+                    // Almacenar el último presupuesto activo, si existe
+                    if (data.user.ultimoPresupuesto) {
+                        localStorage.setItem("idpresupuesto", data.user.ultimoPresupuesto);
+                        console.log("Último presupuesto activo guardado:", data.user.ultimoPresupuesto);
+                    } else {
+                        console.log("No hay un presupuesto activo");
+                        localStorage.removeItem("idpresupuesto"); // Limpia si no hay presupuesto activo
+                    }
+
+                    console.log("Datos del usuario guardados en localStorage:", {
+                        id: data.user.id,
+                        nombre: data.user.nombre,
+                        correo: data.user.correo,
+                        numeroDc: data.user.documento,
+                        tipoDc: data.user.tipodocumento,
+                        ultimoPresupuesto: data.user.ultimoPresupuesto,
+                    });
+                } else {
+                    console.error("No se recibió un ID de usuario válido.");
+                }
 
                 setSuccess(true); // Indicar éxito para mostrar el modal
             } else {
