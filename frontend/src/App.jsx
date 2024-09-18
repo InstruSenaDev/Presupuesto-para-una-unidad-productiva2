@@ -6,6 +6,9 @@ import TablaEmpresarial from './components/Dashboard/TablaEmpresarial'; // Impor
 import TablaFamiliar from './components/Dashboard/TablaFamiliar';
 import InicioSesionAdmin from './pages/inisio';
 import RegistrodeUsuarios from './components/registroDeUsuarios/Registro';
+import InicioHome from './components/Home/inicioHome';
+
+
 
 const App = () => {
   return (
@@ -18,6 +21,9 @@ const App = () => {
       
         {/* Inicio admin */}
         <Route path="/" element={<InicioSesionAdmin/>} />
+      
+        {/* Inicio admin */}
+        <Route path="/InicioHome" element={<InicioHome/>} />
       
         {/* Ruta para HomePrincipalAdmin */}
         <Route path="/PrincipalAdmin" element={<PrincipalAdmin/>} />

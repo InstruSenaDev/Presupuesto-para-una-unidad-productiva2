@@ -1,16 +1,24 @@
-import LayoutN from '../Layout/NabvarSisebar';
+import Navbar from '../Navbar/Navbar';
+import Sidebar from '../Sidebar/sidebar';
 import ImgH1 from '../Img/imgH.png';
 import ImgH2 from '../Img/imgP.png';
 import ImgH3 from '../Img/imgf.png';
 import ImgH4 from '../Img/imgE.png';
+
 import  './home.css';
 
 
 const Home = () => {
     return (
-        <LayoutN titulo="Home">
-                
+       
+                <>
+                <div className="">
+  <Navbar titulo={"Home Administrador"} />
+</div>             
 
+<div className="Si fixed top-0 left-0 h-full">
+  <Sidebar />
+</div> 
             <div className="flex rounded bg-blanquito justify-center mr-36 ">
                 
                 <div className="flex flex-wrap shadow-md shadow-blueUwu rounded-lg bg-blanquito ">
@@ -76,7 +84,8 @@ const Home = () => {
                     </div>
                 </div>
             </div>
-        </LayoutN>
+            </>
+       
     );
 };
 
