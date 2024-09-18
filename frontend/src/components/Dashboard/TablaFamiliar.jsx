@@ -25,6 +25,29 @@ const TablaFamiliar = () => {
     fetchUsuarios();
   }, []);
 
+
+  // Función para eliminar usuario
+  const handleDeleteUser = async (id) => {
+    const confirmacion = window.confirm("¿Estás seguro de que deseas eliminar este usuario?");
+    if (confirmacion) {
+      try {
+        // Llamada al backend para eliminar al usuario
+        const response = await fetch(`http://localhost:3000/user/${id}`, {
+          method: 'DELETE',
+        });
+
+        if (response.ok) {
+          // Actualizamos el estado eliminando al usuario del arreglo
+          setUsuarios((prevUsuarios) => prevUsuarios.filter(usuario => usuario.id !== id));
+        } else {
+          console.error('Error al eliminar el usuario');
+        }
+      } catch (error) {
+        console.error('Error al eliminar el usuario:', error);
+      }
+    }
+  };
+
   const filteredUsuarios = usuarios.filter((usuario) =>
     usuario.nombre?.toLowerCase().includes(searchTerm.toLowerCase()) ||
     usuario.correo?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -74,17 +97,23 @@ const TablaFamiliar = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        {filteredUsuarios.map((usuario) => (
+                      {filteredUsuarios.map((usuario) => (
                           <tr key={usuario.id} className="border-t">
-                            <td className="p-[10px] border-b border-[#ccc]">{usuario.nombre}</td>
-                            <td className="p-[10px] border-b border-[#ccc]">{usuario.correo}</td>
-                            <td className="p-[10px] border-b border-[#ccc]">{usuario.tipodocumento}</td>
-                            <td className="p-[10px] border-b border-[#ccc]">{usuario.estado}</td>
-                            <td className="p-[8px] border-b border-[#ccc]">
-                              <button className="text-blue-600 hover:text-blue-800 text-center font-bold">
+                            <td className="p-3 border-b">{usuario.nombre}</td>
+                            <td className="p-3 border-b">{usuario.correo}</td>
+                            <td className="p-3 border-b">{usuario.tipodocumento}</td>
+                            <td className="p-3 border-b">{usuario.estado}</td>
+                            <td className="p-3 border-b">
+                              {/* Botón de editar */}
+                              <button className="mr-2 text-blue-500">
                                 <i className="bi bi-pencil-square" />
                               </button>
-                              <button className="text-red-600 hover:text-red-800 text-center font-bold ml-4">
+
+                              {/* Botón de eliminar */}
+                              <button 
+                                className="text-red-500"
+                                onClick={() => handleDeleteUser(usuario.id)} // Aquí llamamos a la función de eliminar
+                              >
                                 <i className="bi bi-trash" />
                               </button>
                             </td>
