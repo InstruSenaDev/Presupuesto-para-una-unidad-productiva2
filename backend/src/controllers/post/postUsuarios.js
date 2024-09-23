@@ -1,6 +1,5 @@
 const { Pool } = require("pg");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 const { CONFIG_BD } = require("../../config/db");
 
 const pool = new Pool(CONFIG_BD);
@@ -42,14 +41,8 @@ const nuevosUser = async (req, res) => {
             ($1, '3', 0, 0, '1', NOW())  -- Presupuesto empresarial
         `, [user.id]);
 
-        // Crear token JWT
-        const token = jwt.sign(
-            { id: user.idusuario, nombre: user.nombre, correo: user.correo },
-            process.env.SECRET_KEY,  // Se usa la clave secreta desde el archivo .env
-            { expiresIn: '1h' }  // El token expira en 1 hora
-        );
-
-        res.status(201).json({ user, token });
+        // Devolver el usuario registrado sin generar token
+        res.status(201).json({ user });
     } catch (error) {
         console.log("Error al registrar usuario: ", error);
         res.status(500).json({ message: "Error interno al registrar usuario", error: error.message });

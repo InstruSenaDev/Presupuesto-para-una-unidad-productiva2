@@ -8,8 +8,10 @@ const crearPresupuesto = async (req, res) => {
     const { idtipopresupuesto, presupuesto, saldo, fecha } = req.body;
     const { idusuario } = req.params;
 
+    let client; // Inicializar fuera del bloque try
+
     try {
-        const client = await pool.connect();
+        client = await pool.connect();
         await client.query('BEGIN');
 
         // Actualizar presupuestos anteriores a inactivos
@@ -35,11 +37,15 @@ const crearPresupuesto = async (req, res) => {
         await client.query('COMMIT');
         res.status(201).json({ message: 'Presupuesto creado con éxito', nuevoPresupuestoId });
     } catch (error) {
-        await client.query('ROLLBACK');
+        if (client) {
+            await client.query('ROLLBACK');
+        }
         console.error('Error al crear presupuesto:', error);
         res.status(500).json({ message: 'Error interno al procesar la solicitud', error });
     } finally {
-        client.release();
+        if (client) {
+            client.release();
+        }
     }
 };
 

@@ -4,7 +4,7 @@ import Sidebar from "../components/sidebar/sidebar";
 import imgP from '../components/Img/imgP.png';
 import imgF from '../components/Img/imgF.png';
 import imgE from '../components/Img/imgE.png';
-import { Link, useNavigate } from 'react-router-dom'; // useNavigate para redirigir
+import { Link, useNavigate } from 'react-router-dom'; 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'boxicons/css/boxicons.min.css';
 import usePresupuesto from '../hooks/usePresupuesto'; // Importamos el hook
@@ -23,7 +23,7 @@ const PresupuestosPrueba = () => {
   const [dateError, setDateError] = useState(false);
   const [typeError, setTypeError] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
-  const navigate = useNavigate(); // Usamos useNavigate para la redirección
+  const navigate = useNavigate();
 
   // Función para seleccionar la fecha
   const handleDateSelection = (event) => {
@@ -73,8 +73,7 @@ const PresupuestosPrueba = () => {
     if (selectedOption === 'presupuesto') {
       await crearPresupuesto(presupuestoData);
     } else if (selectedOption === 'movimiento') {
-      // Aquí deberías obtener el idpresupuesto activo, para pasarlo como argumento
-      const idPresupuesto = 1; // Cambia esto según tu lógica
+      const idPresupuesto = JSON.parse(localStorage.getItem('idpresupuesto')); // Obtén el idpresupuesto activo
       await crearMovimiento(presupuestoData, idPresupuesto);
     }
   };
@@ -225,11 +224,11 @@ const PresupuestosPrueba = () => {
       {showTypeModal && (
         <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
           <div className="bg-white p-5 rounded-lg shadow-lg w-1/3">
-            <h2 className="modal-title">Seleccionar tipo</h2>
-            <div className="my-3">
-              <button className="btn btn-primary mr-2" onClick={() => handleTypeSelection('personal')}>Personal</button>
-              <button className="btn btn-secondary mr-2" onClick={() => handleTypeSelection('familiar')}>Familiar</button>
-              <button className="btn btn-success" onClick={() => handleTypeSelection('empresarial')}>Empresarial</button>
+            <h2 className="modal-title">Seleccionar tipo de presupuesto</h2>
+            <div className="flex justify-around my-4">
+              <button className="btn btn-primary" onClick={() => handleTypeSelection('personal')}>Personal</button>
+              <button className="btn btn-primary" onClick={() => handleTypeSelection('familiar')}>Familiar</button>
+              <button className="btn btn-primary" onClick={() => handleTypeSelection('empresarial')}>Empresarial</button>
             </div>
             {typeError && <p className="text-danger">Por favor, selecciona un tipo de presupuesto.</p>}
             <div className="flex justify-end">
@@ -240,32 +239,27 @@ const PresupuestosPrueba = () => {
         </div>
       )}
 
-      {/* Modal para ingresar detalles */}
+      {/* Modal de detalles */}
       {showDetailsModal && (
         <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
           <div className="bg-white p-5 rounded-lg shadow-lg w-1/3">
-            <h2 className="modal-title">Detalles del presupuesto o movimiento</h2>
+            <h2 className="modal-title">Detalles</h2>
             <form onSubmit={handleDetailsSubmit}>
-              <div className="form-group">
-                <label>Saldo:</label>
-                <input
-                  type="number"
-                  className="form-control"
-                  value={balance}
-                  onChange={(e) => setBalance(e.target.value)}
-                />
-              </div>
-              <div className="form-group">
-                <label>Descripción:</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                />
-              </div>
+              <input
+                type="number"
+                placeholder="Saldo"
+                className="form-control my-3"
+                value={balance}
+                onChange={(e) => setBalance(e.target.value)}
+              />
+              <textarea
+                placeholder="Descripción"
+                className="form-control my-3"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
               <div className="flex justify-end">
-                <button type="submit" className="btn btn-primary">Enviar</button>
+                <button type='submit' className="btn btn-primary">Guardar</button>
                 <button type="button" className="btn btn-secondary" onClick={handleCancel}>Cancelar</button>
               </div>
             </form>
@@ -273,15 +267,15 @@ const PresupuestosPrueba = () => {
         </div>
       )}
 
-      {/* Modal final de confirmación */}
+      {/* Modal final */}
       {showFinalModal && (
         <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
           <div className="bg-white p-5 rounded-lg shadow-lg w-1/3">
-            <h2 className="modal-title">Confirmación</h2>
-            <p>El proceso ha sido completado con éxito.</p>
+            <h2 className="modal-title">¡Completado!</h2>
+            <p>El presupuesto o movimiento ha sido guardado exitosamente.</p>
             <div className="flex justify-end">
-              <button className="btn btn-primary" onClick={handleNewBudget}>Nuevo Presupuesto</button>
-              <button className="btn btn-secondary" onClick={handleFinalize}>Finalizar</button>
+              <button type='submit' className="btn btn-primary" onClick={handleNewBudget}>Crear Nuevo</button>
+              <button type='submit' className="btn btn-secondary" onClick={handleFinalize}>Finalizar</button>
             </div>
           </div>
         </div>
