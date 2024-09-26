@@ -6,45 +6,36 @@ export const RutaProtegida = () => {
     const { rol, isLogin } = useAuth();
     const location = useLocation();
 
-    // Lógica para determinar las rutas accesibles según el rol
-    let rutasAccesibles = [];
-    switch (rol) {
-        case 'notLogin':
-            rutasAccesibles = ['/', '/InicioSesion', 'Registro', ];
-            break;
-        case 'loginUser':
-            rutasAccesibles = ['/', '/InicioHome', '/Presupuestos', '/Ventas', '/Productos', ];
-            break;
-        case 'loginAdmin':
-            rutasAccesibles = [ '/InicioSesion', 'Registro', '/PrincipalAdmin', '/TablaEmpresarial', '/TablaPersonal', '/TablaFamiliar', ];
-            break;
-        default:
-            break;
-    }
+    // Rutas públicas que siempre son accesibles
+    const rutasPublicas = ['/', '/Registro'];
+
+    // Rutas accesibles según el rol
+    const rutasPorRol = {
+        loginUser: ['/InicioHome', '/Presupuestos', '/Ventas', '/Productos'],
+        loginAdmin: ['/PrincipalAdmin', '/TablaEmpresarial', '/TablaPersonal', '/TablaFamiliar']
+    };
 
     const rutaActual = location.pathname;
 
-    // Verificar si esa ruta es accesible para dicho rol
-    const esRutaAccesible = rutasAccesibles.some(ruta => {
-        // Manejo especial para rutas con parámetros
-        if (ruta.includes(':')) {
-            const rutaRegex = new RegExp('^' + ruta.replace(/:[\w-]+/g, '[\\w-]+') + '$');
-            return rutaRegex.test(rutaActual);
-        }
-        return ruta === rutaActual;
-    });
-
-    if (!isLogin && !rutasAccesibles.includes(rutaActual)) {
-        // Si no está logueado y la ruta no es accesible, redirige al login
-        return <Navigate to="/InicioSesion" state={{ from: location }} replace />;
+    // Verifica si la ruta actual es pública
+    if (rutasPublicas.includes(rutaActual)) {
+        return <Outlet />;
     }
 
-    if (isLogin && !esRutaAccesible) {
-        // Si está logueado pero la ruta no es accesible para su rol, redirige a la página principal correspondiente
-        return rol === 'loginUser' ? <Navigate to="/InicioHome" replace /> : <Navigate to="/PrincipalAdmin" replace />;
+    // Si no está logueado, redirige al login
+    if (!isLogin) {
+        return <Navigate to="/" state={{ from: location }} replace />;
+    }
+
+    // Verifica si la ruta es accesible para el rol actual
+    const esRutaAccesible = rutasPorRol[rol]?.includes(rutaActual);
+
+    if (!esRutaAccesible) {
+        // Redirige a la página principal correspondiente al rol
+        const paginaPrincipal = rol === 'loginAdmin' ? '/PrincipalAdmin' : '/InicioHome';
+        return <Navigate to={paginaPrincipal} replace />;
     }
 
     // Si la ruta es accesible, permite el acceso
     return <Outlet />;
-    
-}
+};
