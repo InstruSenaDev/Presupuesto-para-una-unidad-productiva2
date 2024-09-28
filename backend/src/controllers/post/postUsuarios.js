@@ -34,11 +34,11 @@ const nuevosUser = async (req, res) => {
 
         // Crear presupuestos automáticos para el usuario
         await pool.query(`
-            INSERT INTO presupuesto (idusuario, idtipopresupuesto, presupuesto, saldo, estado, fecha)
+            INSERT INTO presupuesto (idusuario, idtipopresupuesto, presupuesto, saldo, estado)
             VALUES 
-            ($1, '1', 0, 0, '1', NOW()), -- Presupuesto personal
-            ($1, '2', 0, 0, '1', NOW()), -- Presupuesto familiar
-            ($1, '3', 0, 0, '1', NOW())  -- Presupuesto empresarial
+            ($1, '1', 0, 0, '1', -- Presupuesto personal
+            ($1, '2', 0, 0, '1', -- Presupuesto familiar
+            ($1, '3', 0, 0, '1'  -- Presupuesto empresarial
         `, [user.id]);
 
         // Devolver el usuario registrado sin generar token

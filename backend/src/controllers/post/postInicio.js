@@ -1,6 +1,9 @@
+// controllers/post/postInicio.js
 const { Pool } = require("pg");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const { CONFIG_BD } = require("../../config/db");
+const { claveSecreta } = require('../middleware/crypto'); // Importar la clave secreta
 
 const pool = new Pool(CONFIG_BD);
 
@@ -27,16 +30,24 @@ const iniciarSesion = async (req, res) => {
                 `, [user.idusuario]);
 
                 const presupuestosPorTipo = {
-                    personal: presupuestos.rows.find(p => p.idtipopresupuesto === '1') || null, //Presupuesto Personal
-                    familiar: presupuestos.rows.find(p => p.idtipopresupuesto === '2') || null, //Presupuesto Familiar
-                    empresarial: presupuestos.rows.find(p => p.idtipopresupuesto === '3') || null //Presupuesto Empresarial
+                    personal: presupuestos.rows.find(p => p.idtipopresupuesto === '1') || null,
+                    familiar: presupuestos.rows.find(p => p.idtipopresupuesto === '2') || null,
+                    empresarial: presupuestos.rows.find(p => p.idtipopresupuesto === '3') || null
                 };
 
-                // Almacenar los presupuestos activos en el localStorage
+                // Generar el token JWT
+                const token = jwt.sign(
+                    { idusuario: user.idusuario, correo: user.correo },
+                    claveSecreta, // Usar la clave secreta importada
+                    { expiresIn: '1h' }
+                );
+
+                // Enviar el token y los datos del usuario al cliente
                 res.status(200).json({
                     message: "Inicio de sesión exitoso",
+                    token,
                     user: {
-                        id: user.idusuario,
+                        idusuario: user.idusuario,
                         nombre: user.nombre,
                         correo: user.correo,
                         documento: user.documento,

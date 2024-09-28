@@ -4,10 +4,12 @@ const useLoginForm = () => {
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
+    const [codigoEnviado, setCodigoEnviado] = useState(false);
 
     const handleSubmit = async (correo, contrasena) => {
         setLoading(true);
         setErrors({});
+        setSuccess(false);
 
         const userData = {
             correo,
@@ -21,8 +23,6 @@ const useLoginForm = () => {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(userData),
-
-                
             });
 
             if (response.ok) {
@@ -69,7 +69,66 @@ const useLoginForm = () => {
         }
     };
 
-    return { handleSubmit, errors, loading, success };
+    // Función para enviar el código de recuperación
+    const enviarCodigoRecuperacion = async (correo) => {
+        setLoading(true);
+        setErrors({});
+        setSuccess(false);
+
+        try {
+            const response = await fetch("http://localhost:3000/recuperar-contrasena", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ correo }),
+            });
+
+            if (response.ok) {
+                setCodigoEnviado(true);
+                setSuccess(true);
+            } else {
+                const data = await response.json();
+                setErrors({ general: data.message || "Error al enviar el código" });
+            }
+        } catch (error) {
+            console.error("Error al enviar el código:", error);
+            setErrors({ general: "Ocurrió un error en la solicitud" });
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    // Función para validar el código y restablecer la contraseña
+    const validarCodigoYRestablecer = async (correo, codigo, nuevaContrasena) => {
+        setLoading(true);
+        setErrors({});
+        setSuccess(false);
+
+        try {
+            const response = await fetch("http://localhost:3000/validar-codigo", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ correo, codigo, nuevaContrasena }),
+            });
+
+            if (response.ok) {
+                setSuccess(true); // Indicar éxito
+            } else {
+                const data = await response.json();
+                setErrors({ general: data.message || "Error al restablecer la contraseña" });
+            }
+        } catch (error) {
+            console.error("Error al restablecer la contraseña:", error);
+            setErrors({ general: "Ocurrió un error en la solicitud" });
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return { handleSubmit, enviarCodigoRecuperacion, validarCodigoYRestablecer, errors, loading, success, codigoEnviado };
 };
 
 export default useLoginForm;
