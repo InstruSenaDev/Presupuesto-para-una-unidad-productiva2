@@ -4,6 +4,7 @@ import SidebarAdmin from "../components/Sidebar/SidebarAdmin";
 import imagenpersonal from "../../public/pup-personal.png";
 import imagenempresarial from "../../public/pup-empresarial.png";
 import imagenfamiliar from "../../public/pup-familiar.png";
+import { Link } from "react-router-dom";
 
 const PrincipalAdmin = () => {
   return (
@@ -18,6 +19,7 @@ const PrincipalAdmin = () => {
         <div className="bg-gray-100 flex items-center justify-center min-h-screen mr-40">
           <div className="flex-1 space-y-4 p-20 ml-64">
             {/* Bloque Superior */}
+          <Link to="/TablaFamiliar">
             <div className="flex flex-row items-center bg-white p-8 shadow-lg rounded-lg max-w-3xl mx-auto">
               <div className="flex flex-col flex-grow">
                 <h2 className="text-2xl font-bold mb-2">FAMILIAR</h2>
@@ -35,11 +37,14 @@ const PrincipalAdmin = () => {
                 />
               </div>
             </div>
+            </Link>
 
             {/* Contenedor de Bloques Inferiores */}
             <div className="flex justify-center space-x-4 max-w-3xl mx-auto">
               {/* Bloque Izquierdo Inferior */}
+              <Link to="/TablaPersonal">
               <div className="bg-white shadow-lg rounded-lg p-6 w-3/4">
+              
                 <h2 className="text-2xl font-bold mb-4">PERSONAL</h2>
                 <p className="text-gray-700 mb-4">
                   Administra tus ingresos, egresos, movimientos financieros y
@@ -48,8 +53,10 @@ const PrincipalAdmin = () => {
                 </p>
                 <img className="imagenpersonal" src={imagenpersonal} alt="" />
               </div>
+              </Link>
 
               {/* Bloque Derecho Inferior */}
+              <Link to="/TablaEmpresarial">
               <div className="bg-white shadow-lg rounded-lg p-6 w-3/4">
                 <h2 className="text-2xl font-bold mb-4">EMPRESARIAL</h2>
                 <p className="text-gray-700 mb-4">
@@ -63,6 +70,7 @@ const PrincipalAdmin = () => {
                   alt=""
                 />
               </div>
+              </Link>
             </div>
           </div>
         </div>
