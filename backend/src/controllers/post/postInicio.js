@@ -47,7 +47,7 @@ const iniciarSesion = async (req, res) => {
                     message: "Inicio de sesión exitoso",
                     token,
                     user: {
-                        idusuario: user.idusuario,
+                        id: user.id,
                         nombre: user.nombre,
                         correo: user.correo,
                         documento: user.documento,

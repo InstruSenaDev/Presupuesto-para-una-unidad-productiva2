@@ -9,7 +9,7 @@ const pool = new Pool(CONFIG_BD);
 
 // Configuración de nodemailer
 const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    service: 'gmail, hotmail',
     auth: {
         user: 'tuemail@gmail.com', // Cambia por tu correo
         pass: 'tucontraseña' // Cambia por tu contraseña
@@ -22,7 +22,8 @@ const enviarCodigoRecuperacion = async (req, res) => {
     
     try {
         // Verificar si el correo existe
-        const result = await pool.query('SELECT * FROM usuarios WHERE correo = $1', [correo]);
+        const result = await pool.query('SELECT * FROM usuarios WHERE correo = $1', 
+            [correo]);
         
         if (result.rows.length === 0) {
             return res.status(404).json({ message: "Correo no registrado" });
@@ -34,7 +35,8 @@ const enviarCodigoRecuperacion = async (req, res) => {
         const codigoRecuperacion = crypto.randomInt(100000, 999999).toString();
 
         // Guardar el código en la base de datos temporalmente
-        await pool.query('UPDATE usuarios SET codigo_recuperacion = $1 WHERE id = $2', [codigoRecuperacion, usuario.id]);
+        await pool.query('UPDATE usuarios SET codigo_recuperacion = $1 WHERE id = $2', 
+            [codigoRecuperacion, usuario.id]);
 
         // Enviar correo con el código
         const mailOptions = {

@@ -12,12 +12,20 @@ const LoginForm = () => {
     const [nuevaContrasena, setNuevaContrasena] = useState('');
     const [confirmarContrasena, setConfirmarContrasena] = useState('');
     const [step, setStep] = useState(0); // Paso del modal
+    const [showModal, setShowModal] = useState(false);
     const { handleSubmit, enviarCodigoRecuperacion, validarCodigoYRestablecer, errors, loading, success, codigoEnviado } = useLoginForm();
     const { validateForm, errors: validationErrors } = useFormValidation();
 
-    const handleLoginSubmit = (e) => {
+    const handleLoginSubmit = async (e) => {
         e.preventDefault();
-        handleSubmit(correo, contrasena);
+        // Validar el formulario antes de enviar
+        if (validateForm(correo, contrasena)) {
+            await handleSubmit(correo, contrasena);
+            // Si el inicio de sesión es exitoso, mostramos el modal
+            if (success) {
+                setShowModal(true); 
+            }
+        }
     };
 
     const handleEnviarCodigo = async () => {
@@ -42,6 +50,7 @@ const LoginForm = () => {
         setCodigoRecuperacion('');
         setNuevaContrasena('');
         setConfirmarContrasena('');
+        setShowModal(false); // Ocultar el modal
     };
 
     return (
@@ -95,6 +104,25 @@ const LoginForm = () => {
                             </p>
                         </div>
                     </form>
+
+                    {/* Modal de éxito */}
+                    {showModal && success && (
+                        <div id="modalExito" className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                            <div className="bg-white p-5 rounded-md shadow-md">
+                                <h2 className="text-xl font-bold mb-4">¡Inicio Exitoso!</h2>
+                                <button
+                                    id="aceptarModalInicio"
+                                    className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                                    onClick={() => {
+                                        closeModal(); 
+                                        window.location.href = '/Inicio';
+                                    }}
+                                >
+                                    Aceptar
+                                </button>
+                            </div>
+                        </div>
+                    )}
 
                     {/* Modal de Recuperación */}
                     {(step > 0) && (
