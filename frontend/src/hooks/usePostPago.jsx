@@ -11,11 +11,13 @@ const usePago = (idusuario, seleccionados, total, setSeleccionados, setTotal) =>
         }
 
         try {
+            const token = localStorage.getItem('token');
             setLoading(true);
             const response = await fetch("http://localhost:3000/postPago", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify({
                     idusuario, // El ID del usuario guardado en localStorage

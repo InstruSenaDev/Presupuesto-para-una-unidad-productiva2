@@ -3,10 +3,10 @@ const jwt = require('jsonwebtoken');
 const { claveSecreta } = require('./crypto'); 
 
 const verificarToken = (req, res, next) => {
-    const authHeader = req.header('Authorization');
+    const authHeader = req.header('Autho    rization');
 
     if (!authHeader) {
-        return res.status(401).json({ message: 'Acceso denegado. No hay token proporcionado.' });
+            
     }
 
     const token = authHeader.split(' ')[1]; // Asumiendo formato "Bearer token"

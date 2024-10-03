@@ -22,23 +22,24 @@ const iniciarSesion = async (req, res) => {
 
             if (isMatch) {
                 // Obtener el último presupuesto activo de cada tipo
-                const presupuestos = await pool.query(`
-                    SELECT id, idtipopresupuesto, fecha
-                    FROM presupuesto 
-                    WHERE idusuario = $1 AND estado = 1
-                    ORDER BY fecha DESC
-                `, [user.idusuario]);
+                // const presupuestos = await pool.query(`
+                //     SELECT id, idtipopresupuesto, fecha
+                //     FROM presupuesto 
+                //     WHERE idusuario = $1 AND estado = 1
+                //     ORDER BY fecha DESC
+                // `, [user.idusuario]);
 
-                const presupuestosPorTipo = {
-                    personal: presupuestos.rows.find(p => p.idtipopresupuesto === '1') || null,
-                    familiar: presupuestos.rows.find(p => p.idtipopresupuesto === '2') || null,
-                    empresarial: presupuestos.rows.find(p => p.idtipopresupuesto === '3') || null
-                };
+                // const presupuestosPorTipo = {
+                //     personal: presupuestos.rows.find(p => p.idtipopresupuesto === '1') || null,
+                //     familiar: presupuestos.rows.find(p => p.idtipopresupuesto === '2') || null,
+                //     empresarial: presupuestos.rows.find(p => p.idtipopresupuesto === '3') || null
+                // };
 
                 // Generar el token JWT
                 const token = jwt.sign(
-                    { idusuario: user.idusuario, correo: user.correo },
-                    claveSecreta, // Usar la clave secreta importada
+                    { id: user.id, correo: user.correo },
+                    claveSecreta
+                    , // Usar la clave secreta importada
                     { expiresIn: '1h' }
                 );
 
@@ -52,7 +53,7 @@ const iniciarSesion = async (req, res) => {
                         correo: user.correo,
                         documento: user.documento,
                         tipodocumento: user.tipodocumento,
-                        presupuestos: presupuestosPorTipo
+                        // presupuestos: presupuestosPorTipo
                     },
                 });
             } else {

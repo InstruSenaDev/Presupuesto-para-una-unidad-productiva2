@@ -32,6 +32,9 @@ const useLoginForm = () => {
                 if (data.user && data.user.id) {
                     localStorage.setItem("id", data.user.id);
                     localStorage.setItem("nombre", data.user.nombre || "");
+                    localStorage.setItem("correo", data.user.correo || "");
+                    localStorage.setItem("numeroDc", data.user.documento || "");
+                    localStorage.setItem("tipoDc", data.user.tipodocumento || "");
                     localStorage.setItem("idpresupuesto", data.idpresupuesto);
                     setSuccess(true);
                 }
