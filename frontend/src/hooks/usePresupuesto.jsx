@@ -16,7 +16,7 @@ const usePresupuesto = () => {
         return JSON.parse(localStorage.getItem('idpresupuesto'));
     };
 
-    const token = localStorage.getItem('token');
+
 
     // Función para crear un nuevo presupuesto
     const crearPresupuesto = async (presupuestoData) => {
@@ -26,8 +26,8 @@ const usePresupuesto = () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`, // Añadir token
                 },
+                credentials: 'include',// Añadir token
                 body: JSON.stringify(presupuestoData),
             });
 
@@ -48,8 +48,8 @@ const usePresupuesto = () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`, // Añadir token
                 },
+                credentials: 'include', // Añadir token
                 body: JSON.stringify(movimientoData),
             });
 
@@ -68,11 +68,11 @@ const usePresupuesto = () => {
         try {
             const response = await fetch(`http://localhost:3000/presupuestos/${idusuario}`, {
                 headers: {
-                    'Authorization': `Bearer ${token}`, // Añadir token
-                }
+                },
+                credentials: 'include', // Añadir token
             });
             if (!response.ok) throw new Error('Error al obtener los presupuestos');
-            const data = await response.json();
+            const data = await response.json(); 
             
             // Verifica que `data` sea un arreglo
             if (!Array.isArray(data)) {
@@ -98,8 +98,8 @@ const usePresupuesto = () => {
         try {
             const response = await fetch(`http://localhost:3000/presupuestos/${idusuario}`, {
                 headers: {
-                    'Authorization': `Bearer ${token}`, // Añadir token
-                }
+                },
+                credentials: 'include', 
             });
             if (!response.ok) throw new Error('Error al obtener los presupuestos');
             const data = await response.json();
@@ -121,8 +121,8 @@ const usePresupuesto = () => {
         try {
             const response = await fetch(`http://localhost:3000/informe/${idpresupuesto}`, {
                 headers: {
-                    'Authorization': `Bearer ${token}`, // Añadir token
-                }
+                },
+                credentials: 'include',
             });
             if (!response.ok) throw new Error('Error al obtener el informe');
             const data = await response.json();

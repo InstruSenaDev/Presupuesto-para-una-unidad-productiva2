@@ -34,7 +34,16 @@ function Productos() {
     // Función para obtener productos si el ID es válido
     const fetchProductos = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/traerProductos/${id}`);
+
+        const response = await fetch(`http://localhost:3000/traerProductos/${id}`, {
+          method:
+            "GET"
+          ,
+          headers:{
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+        } );
         if (!response.ok) {
           throw new Error(`Error HTTP! status: ${response.status}`);
         }

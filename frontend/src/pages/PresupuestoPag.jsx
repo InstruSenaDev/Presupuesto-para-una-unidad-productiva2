@@ -128,7 +128,7 @@ const PresupuestosPrueba = () => {
 
   // Si es presupuesto empresarial, redirigir a ventas después de seleccionar la fecha
   const handleEnterpriseBudget = () => {
-    navigate("/ventas");
+    navigate("/ProductosL");
   };
 
   return (

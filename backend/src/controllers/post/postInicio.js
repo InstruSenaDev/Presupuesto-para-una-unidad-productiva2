@@ -1,11 +1,15 @@
-// controllers/post/postInicio.js
 const { Pool } = require("pg");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+const crypto = require("crypto"); // Importar módulo crypto
+const session = require('express-session'); // Asegúrate de configurar las sesiones en tu aplicación
 const { CONFIG_BD } = require("../../config/db");
-const { claveSecreta } = require('../middleware/crypto'); // Importar la clave secreta
 
 const pool = new Pool(CONFIG_BD);
+
+// Función para generar una clave secreta única
+const generarClaveSecreta = () => {
+    return crypto.randomBytes(32).toString('hex');
+};
 
 const iniciarSesion = async (req, res) => {
     const { correo, contrasena } = req.body;
@@ -21,40 +25,25 @@ const iniciarSesion = async (req, res) => {
             const isMatch = await bcrypt.compare(contrasena, user.contrasena);
 
             if (isMatch) {
-                // Obtener el último presupuesto activo de cada tipo
-                // const presupuestos = await pool.query(`
-                //     SELECT id, idtipopresupuesto, fecha
-                //     FROM presupuesto 
-                //     WHERE idusuario = $1 AND estado = 1
-                //     ORDER BY fecha DESC
-                // `, [user.idusuario]);
+                // Generar clave secreta única para la sesión del usuario
+                const claveSecretaUsuario = generarClaveSecreta();
 
-                // const presupuestosPorTipo = {
-                //     personal: presupuestos.rows.find(p => p.idtipopresupuesto === '1') || null,
-                //     familiar: presupuestos.rows.find(p => p.idtipopresupuesto === '2') || null,
-                //     empresarial: presupuestos.rows.find(p => p.idtipopresupuesto === '3') || null
-                // };
-
-                // Generar el token JWT
-                const token = jwt.sign(
-                    { id: user.id, correo: user.correo },
-                    claveSecreta
-                    , // Usar la clave secreta importada
-                    { expiresIn: '1h' }
-                );
-
-                // Enviar el token y los datos del usuario al cliente
+                // Almacenar la clave secreta en la sesión
+                req.session.id = user.id; // Guardar el ID del usuario en la sesión
+                req.session.claveSecreta = claveSecretaUsuario; // Guardar la clave secreta en la sesión
+                console.log("Sesión activa:", req.session);
+                // Enviar respuesta exitosa con datos del usuario
                 res.status(200).json({
+                    
                     message: "Inicio de sesión exitoso",
-                    token,
                     user: {
                         id: user.id,
                         nombre: user.nombre,
                         correo: user.correo,
                         documento: user.documento,
                         tipodocumento: user.tipodocumento,
-                        // presupuestos: presupuestosPorTipo
                     },
+                    claveSecreta: claveSecretaUsuario // Enviar la clave secreta al cliente solo para referencia
                 });
             } else {
                 res.status(400).json({ message: "Contraseña incorrecta" });
