@@ -15,5 +15,5 @@ router.post("/productos", productos);// http://localhost:3000/productos
 router.post("/presupuesto", Presupuesto);// http://localhost:3000/presupuesto
 router.post("/inicio", iniciarSesion);// http://localhost:3000/inicio
 // router.post("/postPago", postPago); // http://localhost:3000/postPago
-
+router.put("/")
 module.exports = router;
