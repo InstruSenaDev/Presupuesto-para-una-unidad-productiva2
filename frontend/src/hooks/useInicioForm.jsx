@@ -35,7 +35,7 @@ const useLoginForm = () => {
                     localStorage.setItem("correo", data.user.correo || "");
                     localStorage.setItem("numeroDc", data.user.documento || "");
                     localStorage.setItem("tipoDc", data.user.tipodocumento || "");
-                    localStorage.setItem("idpresupuesto", data.idpresupuesto);
+                    localStorage.setItem("presupuestos", data.presupuestos);
                     setSuccess(true);
                 }
             } else {

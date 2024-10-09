@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
 
 const usePresupuesto = () => {
     const [presupuestos, setPresupuestos] = useState([]);
+    const [budgetTypes, setBudgetTypes] = useState([]); // Estado para los tipos de presupuestos
     const [error, setError] = useState(null);
     const [informe, setInforme] = useState(null); // Estado para el informe
 
@@ -11,12 +13,10 @@ const usePresupuesto = () => {
         return idusuario;
     };
 
-    // Función para obtener el idpresupuesto activo desde el localStorage
-    const getIdPresupuesto = () => {
-        return JSON.parse(localStorage.getItem('idpresupuesto'));
-    };
-
-
+    const getIdPresupuesto = () =>{
+        const idpresupuesto = JSON.parse(localStorage.getItem('presupuestos'))
+        return idpresupuesto;
+    }; 
 
     // Función para crear un nuevo presupuesto
     const crearPresupuesto = async (presupuestoData) => {
@@ -27,7 +27,7 @@ const usePresupuesto = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                credentials: 'include',// Añadir token
+                credentials: 'include', // Añadir token
                 body: JSON.stringify(presupuestoData),
             });
 
@@ -67,8 +67,7 @@ const usePresupuesto = () => {
         const idusuario = getIdUsuario();
         try {
             const response = await fetch(`http://localhost:3000/presupuestos/${idusuario}`, {
-                headers: {
-                },
+                headers: {},
                 credentials: 'include', // Añadir token
             });
             if (!response.ok) throw new Error('Error al obtener los presupuestos');
@@ -97,8 +96,7 @@ const usePresupuesto = () => {
         const idusuario = getIdUsuario();
         try {
             const response = await fetch(`http://localhost:3000/presupuestos/${idusuario}`, {
-                headers: {
-                },
+                headers: {},
                 credentials: 'include', 
             });
             if (!response.ok) throw new Error('Error al obtener los presupuestos');
@@ -120,8 +118,7 @@ const usePresupuesto = () => {
         const idpresupuesto = getIdPresupuesto();
         try {
             const response = await fetch(`http://localhost:3000/informe/${idpresupuesto}`, {
-                headers: {
-                },
+                headers: {},
                 credentials: 'include',
             });
             if (!response.ok) throw new Error('Error al obtener el informe');
@@ -132,13 +129,54 @@ const usePresupuesto = () => {
         }
     };
 
+    // Función para obtener los tipos de presupuestos
+    const obtenerTiposPresupuesto = async () => {
+        const idusuario = getIdUsuario();
+        try {
+            const response = await fetch(`http://localhost:3000/presupuestos/tipos/${idusuario}`, {
+                headers: {},
+                credentials: 'include',
+            });
+            if (!response.ok) throw new Error('Error al obtener los tipos de presupuesto');
+            const data = await response.json();
+            setBudgetTypes(data);
+        } catch (err) {
+            setError(err.message);
+        }
+    };
+
+    // Función para obtener el presupuesto activo para un tipo
+    const getActivePresupuestoByTipo = async (idtipopresupuesto) => {
+        const idusuario = getIdUsuario();
+        try {
+            const response = await fetch(`http://localhost:3000/presupuestos/activos/${idusuario}/${idtipopresupuesto}`, {
+                headers: {},
+                credentials: 'include',
+            });
+            if (!response.ok) throw new Error('Error al obtener el presupuesto activo');
+            const data = await response.json();
+            return data; // Asume que retorna un objeto de presupuesto
+        } catch (err) {
+            setError(err.message);
+            return null;
+        }
+    };
+
+    // Obtener tipos de presupuesto al montar el hook
+    useEffect(() => {
+        obtenerTiposPresupuesto();
+    }, []);
+
     return {
         presupuestos,
+        budgetTypes, // Retornamos los tipos de presupuestos
         informe, // Retornamos el informe
         crearPresupuesto,
         crearMovimiento,
         obtenerPresupuestos,
         obtenerInformeMovimientos,
+        obtenerTiposPresupuesto,
+        getActivePresupuestoByTipo, // Retornamos la nueva función
         error
     };
 };

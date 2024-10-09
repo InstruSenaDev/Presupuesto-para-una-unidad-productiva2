@@ -33,13 +33,13 @@ const nuevosUser = async (req, res) => {
         const user = resultMovimiento.rows[0];
 
         // Crear presupuestos automáticos para el usuario
-        await pool.query(`
-            INSERT INTO presupuesto (idusuario, idtipopresupuesto, presupuesto, saldo, estado)
-            VALUES 
-            ($1, '1', 0, 0, '1', -- Presupuesto personal
-            ($1, '2', 0, 0, '1', -- Presupuesto familiar
-            ($1, '3', 0, 0, '1'  -- Presupuesto empresarial
-        `, [user.id]);
+        await pool.query(
+            `INSERT INTO presupuesto (idusuario, idtipopresupuesto, presupuesto, saldo, estado) VALUES 
+            ($1, '1', 0, 0, '1'),
+            ($1, '2', 0, 0, '1'),
+            ($1, '3', 0, 0, '1')`,
+            [user.id]
+        );
 
         // Devolver el usuario registrado sin generar token
         res.status(201).json({ user });

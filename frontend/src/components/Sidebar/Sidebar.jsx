@@ -18,6 +18,7 @@ const Sidebar = () => {
         localStorage.removeItem('tipoDc');
         localStorage.removeItem('numeroDc');
         localStorage.removeItem('ultimoPresupuesto');
+        localStorage.removeItem('presupuestos');
         window.location.href = '/';
     };
 
@@ -36,7 +37,7 @@ const Sidebar = () => {
                 <li className="p-3.5 flex items-center sidebar-item">
                     <FaMoneyBill className="text-2xl icon-white" />
                     
-                    {!isMinimized &&  <a href="/Presupuestos" className="ml-4">Presupuesto</a> }
+                    {!isMinimized &&  <a href="/PresupuestosSi" className="ml-4">Presupuesto</a> }
                 </li>
                 <li className="p-3.5 flex items-center sidebar-item">
                     <FaUser className="text-2xl icon-white" />

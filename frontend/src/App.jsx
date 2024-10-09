@@ -34,6 +34,7 @@ import FamiliarPag from './pages/FamiliarPag'
  //rutas admin
 
  import Dash from './pages/DashHome';
+import PresupuestosPrueba2 from './pages/Presupuestos';
  
   
 
@@ -53,6 +54,7 @@ function App() {
         <Route path="/PersonalPa" element={<PersonalPa />} />
         <Route path="/PersonalPag" element={<PersonalPag />} />
         <Route path="/Presupuestos" element={<PresupuestoPag />} />
+        <Route path="/PresupuestosSi" element={<PresupuestosPrueba2 />} />
         <Route path="/EmpresarialPag" element={<EmpresarialPag />} />
         <Route path="/PersonalPa" element={<PersonalPa />} />
          {/* <ruta del componente si y la ruta dinamica */}
