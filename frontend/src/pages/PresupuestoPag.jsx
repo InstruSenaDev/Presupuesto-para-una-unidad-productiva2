@@ -134,7 +134,7 @@ const PresupuestosPrueba = () => {
   return (
     <>
       <div className="">
-        <Navbar titulo={"PresupuestoPrueba"} />
+        <Navbar titulo={"Presupuesto"} />
       </div>
 
       <div className="fixed top-0 left-0 h-full">
@@ -148,7 +148,7 @@ const PresupuestosPrueba = () => {
               <img src={imgP} alt="Presupuesto Personal" className='h-20 rounded flex justify-center text-center' />
               <button onClick={startNewBudget} className="bg-blue-500 text-white px-4 py-2 rounded underline">Presupuesto personal</button>
               <h2 className=''>Fecha: {selectedDate || 'No seleccionada'}</h2>
-              <Link to="/">
+              <Link to="/PersonalPag">
                 <button className='cursor-pointer underline'>
                   <i className='bx bx-download' style={{ color: '#ffffff' }}></i>
                 </button>
@@ -161,7 +161,7 @@ const PresupuestosPrueba = () => {
               <img src={imgF} alt="Presupuesto Familiar" className='h-20 rounded flex justify-center text-center' />
               <button onClick={startNewBudget} className="bg-blue-500 text-white px-4 py-2 rounded underline">Presupuesto familiar</button>
               <h2 className=''>Fecha: {selectedDate || 'No seleccionada'}</h2>
-              <Link to="/">
+              <Link to="/FamiliarPag">
                 <button className='cursor-pointer underline'>
                   <i className='bx bx-download' style={{ color: '#ffffff' }}></i>
                 </button>
@@ -172,9 +172,9 @@ const PresupuestosPrueba = () => {
           <div className='bg-griscard h-full text-blanquito rounded'>
             <div className='flex items-center justify-around rounded h-2/6'>
               <img src={imgE} alt="Presupuesto Empresarial" className='h-20 rounded flex justify-center text-center' />
-              <button onClick={handleEnterpriseBudget} className="bg-blue-500 text-white px-4 py-2 rounded underline">Presupuesto empresarial</button>
+              <button onClick={handleEnterpriseBudget} className="bg-blue-500 text-white px-4 py-2 rounded underline"> Empresarial</button>
               <h2 className=''>Fecha: {selectedDate || 'No seleccionada'}</h2>
-              <Link to="/">
+              <Link to="/EmpresarialPag">
                 <button className='cursor-pointer underline'>
                   <i className='bx bx-download' style={{ color: '#ffffff' }}></i>
                 </button>
