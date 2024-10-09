@@ -3,12 +3,12 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import SidebarAdmin from '../Sidebar/SidebarAdmin';
 import Navbar from '../Navbar/Navbar';
 
-const Dashboard = () => {
+const TablaPersonal = () => {
   const [usuarios, setUsuarios] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
-  const [usuarioAEliminar, setUsuarioAEliminar] = useState(null);
+  const [usuarioADesactivar, setUsuarioADesactivar] = useState(null);
 
   useEffect(() => {
     const fetchUsuarios = async () => {
@@ -30,35 +30,45 @@ const Dashboard = () => {
     usuario.nombre?.toLowerCase().includes(searchTerm.toLowerCase()) ||
     usuario.correo?.toLowerCase().includes(searchTerm.toLowerCase()) ||
     usuario.tipodocumento?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    usuario.id?.toLowerCase().includes(searchTerm.toLowerCase()) ||
     usuario.estado?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const openModal = (usuario) => {
-    setUsuarioAEliminar(usuario);
+    setUsuarioADesactivar(usuario);
     setShowModal(true);
   };
 
   const closeModal = () => {
     setShowModal(false);
-    setUsuarioAEliminar(null);
+    setUsuarioADesactivar(null);
   };
 
-  const eliminarUsuario = async () => {
+  const desactivarUsuario = async () => {
     try {
-      // Realiza la solicitud DELETE al endpoint correspondiente
-      await fetch(`http://localhost:3000/user/delete/${usuarioAEliminar.id}`, {
-        method: 'DELETE', // Cambiamos a DELETE
+      // Realiza la solicitud PUT al endpoint correspondiente
+      const response = await fetch(`http://localhost:3000/user/deactivate/${usuarioADesactivar.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ estado: 2 }),
       });
-  
+
+      if (!response.ok) {
+        throw new Error('Error al desactivar el usuario');
+      }
+
       // Actualiza la lista de usuarios en el estado
-      setUsuarios(usuarios.filter(user => user.id !== usuarioAEliminar.id || user.estado !== 2));
+      setUsuarios(usuarios.map(user => 
+        user.id === usuarioADesactivar.id ? { ...user, estado: 2 } : user
+      ));
       
-      closeModal(); // Cierra el modal después de la eliminación
+      closeModal(); // Cierra el modal después de la desactivación
     } catch (error) {
-      console.error('Error al eliminar el usuario:', error);
+      console.error('Error al desactivar el usuario:', error);
     }
   };
-  
 
   return (
     <>
@@ -73,7 +83,7 @@ const Dashboard = () => {
       <div className="ml-64 md:ml-72 lg:ml-80 p-4 md:p-6 lg:p-8">
         <div className="bg-[#f5f5f5] p-4 md:p-6 lg:p-8 rounded-lg mb-6">
           <div className="bg-white p-4 md:p-6 lg:p-8 rounded-lg mb-6">
-            <h3 className="mb-4 text-lg md:text-xl lg:text-2xl font-semibold">Lista de Movimientos</h3>
+            <h3 className="mb-4 text-lg md:text-xl lg:text-2xl font-semibold">Lista de Usuarios</h3>
 
             <div className="mb-4">
               <input
@@ -94,20 +104,20 @@ const Dashboard = () => {
                     <table className="w-full table-auto border-collapse">
                       <thead>
                         <tr className="bg-gray-200">
-                          <th className="p-3 text-left border-b">Nombre usuario</th>
-                          <th className="p-3 text-left border-b">Correo electrónico</th>
-                          <th className="p-3 text-left border-b">Tipo documento</th>
-                          <th className="p-3 text-left border-b">Estado</th>
-                          <th className="p-3 text-left border-b">Acciones</th>
+                        <th className="p-2 text-left border-b border-gray-300">id</th>
+                        <th className="p-2 text-left border-b border-gray-300">Nombre usuario</th>
+                        <th className="p-2 text-left border-b border-gray-300">Correo electrónico</th>
+                        <th className="p-2 text-left border-b border-gray-300">tipodocumento</th>
+                        <th className="p-2 text-left border-b border-gray-300">Acciones</th>
                         </tr>
                       </thead>
                       <tbody>
                         {filteredUsuarios.map((usuario) => (
                           <tr key={usuario.id} className="border-t">
-                            <td className="p-3 border-b">{usuario.nombre}</td>
-                            <td className="p-3 border-b">{usuario.correo}</td>
-                            <td className="p-3 border-b">{usuario.tipodocumento}</td>
-                            <td className="p-3 border-b">{usuario.estado}</td>
+                         <td className="p-2 border-b border-gray-300">{usuario.id}</td>
+                          <td className="p-2 border-b border-gray-300">{usuario.nombre}</td>
+                          <td className="p-2 border-b border-gray-300">{usuario.correo}</td>
+                          <td className="p-2 border-b border-gray-300">{usuario.tipodocumento}</td>
                             <td className="p-3 border-b">
                               <button className="mr-2 text-blue-500">
                                 <i className="bi bi-pencil-square" />
@@ -132,9 +142,9 @@ const Dashboard = () => {
 
       {showModal && (
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-6 rounded shadow-lg">
-            <h2 className="text-xl mb-4">Confirmar Eliminación</h2>
-            <p>¿Estás seguro de que deseas eliminar al usuario <strong>{usuarioAEliminar?.nombre}</strong>?</p>
+          <div className="bg-blanquito p-6 rounded shadow-lg">
+            <h2 className="text-xl mb-4">Confirmar Desactivación</h2>
+            <p>¿Estás seguro de que deseas desactivar al usuario <strong>{usuarioADesactivar?.nombre}</strong>?</p>
             <div className="mt-4 flex justify-end">
               <button
                 className=" text-white px-4 py-2 rounded mr-2"
@@ -143,10 +153,10 @@ const Dashboard = () => {
                 Cancelar
               </button>
               <button
-                className="bg-red-500 text-white px-4 py-2 rounded"
-                onClick={eliminarUsuario}
+                className="bg-blueUwu text-blanquito px-4 py-2 rounded"
+                onClick={desactivarUsuario}
               >
-                Eliminar
+                Desactivar
               </button>
             </div>
           </div>
@@ -156,4 +166,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default TablaPersonal;

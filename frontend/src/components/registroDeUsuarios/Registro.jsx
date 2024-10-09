@@ -111,7 +111,7 @@ const Registro = () => {
                       Copyright 2024 - 2025 Sena
                     </p>
                     <p className="text-color6 text-sm text-center text-negro">
-                      ¿Ya tienes cuenta? - <a className="underline" href="/Inisio">Inicia Sesión</a>
+                      ¿Ya tienes cuenta? - <a className="underline" href="/">Inicia Sesión</a>
                     </p>
                   </div>
                 </div>
