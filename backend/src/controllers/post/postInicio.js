@@ -31,10 +31,19 @@ const iniciarSesion = async (req, res) => {
                 // Almacenar la clave secreta en la sesión
                 req.session.id = user.id; // Guardar el ID del usuario en la sesión
                 req.session.claveSecreta = claveSecretaUsuario; // Guardar la clave secreta en la sesión
+
+                // Obtener los IDs de los presupuestos del usuario
+                const presupuestos = await pool.query(
+                    "SELECT id FROM presupuesto WHERE idusuario = $1",
+                    [user.id]
+                );
+
+                const id = presupuestos.rows.map(p => p.id);
+
                 console.log("Sesión activa:", req.session);
-                // Enviar respuesta exitosa con datos del usuario
+
+                // Enviar respuesta exitosa con datos del usuario y IDs de presupuestos
                 res.status(200).json({
-                    
                     message: "Inicio de sesión exitoso",
                     user: {
                         id: user.id,
@@ -43,7 +52,8 @@ const iniciarSesion = async (req, res) => {
                         documento: user.documento,
                         tipodocumento: user.tipodocumento,
                     },
-                    claveSecreta: claveSecretaUsuario // Enviar la clave secreta al cliente solo para referencia
+                    claveSecreta: claveSecretaUsuario, // Enviar la clave secreta al cliente solo para referencia
+                    presupuestos: id // Enviar los IDs de los presupuestos asociados al usuario
                 });
             } else {
                 res.status(400).json({ message: "Contraseña incorrecta" });
