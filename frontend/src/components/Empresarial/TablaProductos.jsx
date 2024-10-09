@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import usePago from '../../hooks/usePostPago'; // Hook personalizado
 import ModalProducto from '../../hooks/useNuevoProducto'; // Modal de nuevo producto
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 function Productos() {
   const [productos, setProductos] = useState([]);
