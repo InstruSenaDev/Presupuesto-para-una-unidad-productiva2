@@ -14,8 +14,17 @@ const Registro = () => {
   const { errores } = useValidaciones();
   const { registrarUsuario } = useRegistroFetch();
 
-  const manejarSubmit = (evento) => {
+  const [exitoModalVisible, setExitoModalVisible] = useState(false);
+  const [errorModal, setErrorModal] = useState({ isVisible: false, message: "" });
+
+  const manejarSubmit = async (evento) => {
     evento.preventDefault();
+    
+    // Comprobar si hay errores en los inputs
+    if (Object.values(errores).some(error => error !== "")) {
+      return; // No hacer nada si hay errores
+    }
+
     const datosUsuario = {
       nombre,
       correo,
@@ -23,7 +32,23 @@ const Registro = () => {
       tipodocumento: tipoDocumento,
       documento,
     };
-    registrarUsuario(datosUsuario);
+
+    const resultado = await registrarUsuario(datosUsuario);
+    
+    if (resultado.success) {
+      setExitoModalVisible(true);
+    } else {
+      setErrorModal({ isVisible: true, message: resultado.error });
+    }
+  };
+
+  const cerrarErrorModal = () => {
+    setErrorModal({ isVisible: false, message: "" });
+  };
+
+  const cerrarExitoModal = () => {
+    setExitoModalVisible(false);
+    window.location.href = '/';
   };
 
   return (
@@ -37,7 +62,7 @@ const Registro = () => {
           </div>
 
           <div className="cont2 px-8 grid justify-items-center w-auto text-color1 flex-col items-center rounded-e-xl h-auto">
-            <form id="formu" className="contform" method="post" action="/registro" onSubmit={manejarSubmit}>
+            <form id="formu" className="contform" method="post" onSubmit={manejarSubmit}>
               <div className="conthf m-4 grid grid-flow-row sm:grid-flow-row-col gap-3 text-center bg-color3">
                 <h1 className="text-2xl text-color2">Registro</h1>
 
@@ -106,7 +131,7 @@ const Registro = () => {
                     <span id="errorDocumento" className="text-color7 text-xs">{errores.errorDocumento}</span>
                   </div>
                   <div className="flex-col">
-                    <Boton Text="Registrarse" />
+                    <Boton type="submit" Text="Registrarse" />
                     <p className="text-color6 text-sm text-center text-negro">
                       Copyright 2024 - 2025 Sena
                     </p>
@@ -121,21 +146,36 @@ const Registro = () => {
         </div>
       </div>
 
-      {/* Modal */}
-      <div
-        id="exitoModal"
-        className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 hidden"
-      >
-        <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full text-center">
-          <h2 className="text-2xl font-bold mb-4">¡Inicio exitoso!</h2>
-          <button 
-          id="aceptarBtn" 
-          className="bg-blue-500 text-white px-4 py-2 rounded"
-          onClick={() => window.location.href = '/'}>
-            Aceptar
-          </button>
+      {/* Modal de éxito */}
+      {exitoModalVisible && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full text-center">
+            <h2 className="text-2xl font-bold mb-4">¡Registro exitoso!</h2>
+            <button 
+              className="bg-blue-500 text-white px-4 py-2 rounded"
+              onClick={cerrarExitoModal}
+            >
+              Aceptar
+            </button>
+          </div>
         </div>
-      </div>
+      )}
+
+      {/* Modal de error */}
+      {errorModal.isVisible && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full text-center">
+            <h2 className="text-xl font-bold mb-4">Error</h2>
+            <p className="text-sm">{errorModal.message}</p>
+            <button 
+              className="bg-red-500 text-white px-4 py-2 rounded"
+              onClick={cerrarErrorModal}
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 };

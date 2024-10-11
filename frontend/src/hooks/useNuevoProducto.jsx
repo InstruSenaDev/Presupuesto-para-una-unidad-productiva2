@@ -56,7 +56,9 @@ const ModalProducto = ({ isOpen, onClose }) => {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    
                 },
+                credentials: 'include',
                 body: JSON.stringify(nuevoProducto),
             });
 
@@ -112,13 +114,13 @@ const ModalProducto = ({ isOpen, onClose }) => {
                     <div className="flex justify-between mt-4">
                         <button
                             type="submit"
-                            className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                            className="bg-negro text-white px-4 py-2 rounded-md"
                         >
                             Agregar
                         </button>
                         <button
                             type="button"
-                            className="bg-red-500 text-white px-4 py-2 rounded-md"
+                            className="bg-negro text-white px-4 py-2 rounded-md"
                             onClick={onClose}
                         >
                             Cancelar

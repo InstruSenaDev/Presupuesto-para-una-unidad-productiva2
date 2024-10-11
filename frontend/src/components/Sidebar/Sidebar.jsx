@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { FaHome, FaMoneyBill, FaUser, FaUsers, FaBuilding, FaSignOutAlt } from 'react-icons/fa';
 import imgL from '../img/LogoS.png';
 import './Sidebar.css';
+import { Link } from 'react-bootstrap-icons';
 
 const Sidebar = () => {
     const [isMinimized, setIsMinimized] = useState(false);
@@ -16,11 +17,13 @@ const Sidebar = () => {
         localStorage.removeItem('correo');
         localStorage.removeItem('tipoDc');
         localStorage.removeItem('numeroDc');
+        localStorage.removeItem('ultimoPresupuesto');
+        localStorage.removeItem('presupuestos');
         window.location.href = '/';
     };
 
     return (
-        <div className={`h-screen bg-blueUwu text-white transition-all duration-300 fixed ${isMinimized ? 'w-16' : 'w-64'}`}>
+        <div className={`h-full bg-blueUwu text-white transition-all duration-300 fixed ${isMinimized ? 'w-16' : 'w-64'}`}>
             <div className="flex justify-end">
                 <button onClick={toggleSidebar} className="text-blanquito text-2xl cursor-pointer">☰</button>
             </div>
@@ -33,19 +36,20 @@ const Sidebar = () => {
                 </li>
                 <li className="p-3.5 flex items-center sidebar-item">
                     <FaMoneyBill className="text-2xl icon-white" />
-                    {!isMinimized && <a href="/PagPresupuestosPrincipal" className="ml-4">Presupuesto</a>}
+                    
+                    {!isMinimized &&  <a href="/PresupuestosSi" className="ml-4">Presupuesto</a> }
                 </li>
                 <li className="p-3.5 flex items-center sidebar-item">
                     <FaUser className="text-2xl icon-white" />
-                    {!isMinimized && <a href="/pagPresupuestoPersonal" className="ml-4">Personal</a>}
+                    {!isMinimized && <a href="/PersonalPag" className="ml-4">Personal</a>}
                 </li>
                 <li className="p-3.5 flex items-center sidebar-item">
                     <FaUsers className="text-2xl icon-white" />
-                    {!isMinimized && <a href="/pagPresupuestoFamiliar" className="ml-4">Familiar</a>}
+                    {!isMinimized && <a href="/FamiliarPag" className="ml-4">Familiar</a>}
                 </li>
                 <li className="p-3.5 flex items-center sidebar-item">
                     <FaBuilding className="text-2xl icon-white" />
-                    {!isMinimized && <a href="/pagPresupuestoEmpresarial" className="ml-4">Empresarial</a>}
+                    {!isMinimized && <a href="/EmpresarialPag" className="ml-4">Empresarial</a>}
                 </li>
                 <li className="p-3.5 flex items-center sidebar-item">
                     <FaSignOutAlt className="text-2xl icon-white" />

@@ -14,7 +14,6 @@ export const useValidaciones = () => {
         const correo = document.getElementById("CorreoRegistro");
         const contrasena = document.getElementById("ContraseñaRegistro");
         const documento = document.getElementById("documento");
-        const modal = document.getElementById("exitoModal");
 
         if (formulario) formulario.reset();
 
@@ -30,7 +29,6 @@ export const useValidaciones = () => {
         }
 
         const validarFormulario = (evento) => {
-            evento.preventDefault();
             let valido = true;
 
             setErrores({
@@ -41,6 +39,7 @@ export const useValidaciones = () => {
             });
 
             if (nombre) {
+                // Validar que el nombre sea valido
                 const valorNombre = nombre.value;
                 if (!valorNombre || !/^[A-Za-z\s]+$/.test(valorNombre)) {
                     valido = false;
@@ -49,6 +48,7 @@ export const useValidaciones = () => {
             }
 
             if (correo) {
+                // Validar que se ingrese un correo valido
                 const valorCorreo = correo.value;
                 if (!valorCorreo || !/\S+@\S+\.\S+/.test(valorCorreo)) {
                     valido = false;
@@ -60,6 +60,7 @@ export const useValidaciones = () => {
             }
 
             if (contrasena) {
+                // Validar que la contraseña tenga 8 caracteres
                 const valorContrasena = contrasena.value;
                 if (!valorContrasena || valorContrasena.length < 8) {
                     valido = false;
@@ -72,42 +73,27 @@ export const useValidaciones = () => {
 
             if (documento) {
                 const valorDocumento = documento.value.trim();
-                if (!valorDocumento || isNaN(parseInt(valorDocumento))) {
+                // Validar que el documento sea exactamente 10 números sin espacios
+                if (!/^\d{10}$/.test(valorDocumento)) {
                     valido = false;
                     setErrores((prev) => ({
                         ...prev,
-                        errorDocumento: "Ingrese un número de documento válido.",
+                        errorDocumento: "El documento debe tener exactamente 10 números sin espacios.",
                     }));
                 }
             }
 
-            if (valido) {
-                modal.classList.remove("hidden");
-            } else {
-                evento.preventDefault();
+            if (!valido) {
+                evento.preventDefault(); // Evitar el envío si no es válido
             }
         };
 
         if (formulario) formulario.addEventListener("submit", validarFormulario);
 
-        const botonAceptar = document.getElementById('aceptarBtn');
-        if (botonAceptar) {
-            botonAceptar.addEventListener('click', () => {
-                modal.classList.add("hidden");
-                window.location.href = '/inicioSesion';
-            });
-        }
-
-        const resetOnPageShow = (evento) => {
-            if (evento.persisted && formulario) {
-                formulario.reset();
-            }
-        };
-
-        window.addEventListener("pageshow", resetOnPageShow);
-
         return () => {
-            window.removeEventListener("pageshow", resetOnPageShow);
+            if (formulario) {
+                formulario.removeEventListener("submit", validarFormulario);
+            }
         };
     }, []);
 
